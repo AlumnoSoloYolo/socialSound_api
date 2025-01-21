@@ -1,0 +1,74 @@
+{% extends 'principal.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/fondo_estrella.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="container-star">
+    <div class="container mt-4">
+        <div class="stars"></div>
+    <div class="row mb-4">
+        <div class="col">
+            <h2 class="text-warning mt-5">Busca cualquier Álbum</h2>
+            <!-- Formulario de búsqueda -->
+            <form method="get" class="card p-3 bg-dark">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <label class="text-white">Título:</label>
+                        {{ form.titulo }}
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label class="text-white">Artista:</label>
+                        {{ form.artista }}
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label class="text-white">Desde:</label>
+                        {{ form.fecha_desde }}
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label class="text-white">Hasta:</label>
+                        {{ form.fecha_hasta }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button type="submit" class="btn btn-warning">Buscar</button>
+                        <a href="{% url 'busqueda_avanzada_albumes' %}" class="btn btn-secondary">Limpiar filtros</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Filtros aplicados -->
+    {% if filtros_aplicados %}
+    <div class="row mb-3">
+        <div class="col">
+            <div class="alert alert-info">
+                <strong>Filtros aplicados:</strong>
+                {% for filtro in filtros_aplicados %}
+                    <span class="badge bg-warning me-2">{{ filtro }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Lista de álbumes en formato columna -->
+    <div class="container" >
+        {% if albums %}
+            {% for album in albums %}
+           {% include 'usuario/album_usuario.html' %}
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-warning">
+                No se encontraron álbumes que coincidan con los criterios de búsqueda.
+            </div>
+        {% endif %}
+    </div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

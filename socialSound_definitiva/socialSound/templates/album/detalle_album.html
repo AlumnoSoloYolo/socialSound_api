@@ -1,0 +1,38 @@
+{% extends 'principal.html' %}
+{% load static %}
+
+{% block custom_css %}
+<link rel="stylesheet" href="{% static 'css/fondo_estrella.css' %}">
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+{% endblock %}
+
+{% block contenido %}
+<div class="container-index container-star">
+    <div class="stars"></div>
+   <div class="container py-5">
+       <div class="card border-0 shadow-lg bg-dark text-white mb-5">
+           <div class="card-body p-4">
+               <h1 class="mb-4">{{ album.titulo|default:"Título no disponible" }}</h1>
+               
+               <div class="row">
+                   <div class="col-md-6">
+                       <p><strong class="text-warning">Productor:</strong> {{ detalles_album.productor|default:"No especificado" }}</p>
+                       <p><strong class="text-warning">Número de pistas:</strong> {{ detalles_album.numero_pistas|default:"-" }}</p>
+                       <p><strong class="text-warning">Estudio de grabación:</strong> {{ detalles_album.estudio_grabacion|default:"Desconocido" }}</p>
+                       <p><strong class="text-warning">Sello discográfico:</strong> {{ detalles_album.sello_discografico|default:"Desconocido" }}</p>
+                   </div>
+                   
+                   <div class="col-md-6">
+                    <p>Reproducciones: {{ album.detalle_album.reproducciones }}</p>
+                    <p>Comentarios: {{ album.detalle_album.numero_comentarios }}</p>
+                    
+                    <p>Reposts: {{ album.detalle_album.numero_reposts }}</p>
+                    
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
+{% endblock %}

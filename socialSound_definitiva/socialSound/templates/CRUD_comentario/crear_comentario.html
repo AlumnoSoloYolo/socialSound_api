@@ -1,0 +1,36 @@
+{% extends 'principal.html' %}
+
+{% block contenido %}
+<div class="comentario-form mt-4">
+    <h3>Añadir un comentario</h3>
+    <form method="post" action="{% url 'crear_comentario' album.id %}">
+        {% csrf_token %}
+        
+        {% if messages %}
+            {% for message in messages %}
+                {% if 'publicado' in messages %}
+                <div class="alert alert-success" role="alert">
+                    {{ message }}
+                </div>
+                {%endif %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="form-group">
+            {{ form.contenido }}
+            {% if form.contenido.errors and form.contenido.data %}
+                {% for error in form.contenido.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+            {% endif %}
+        </div>
+        
+        <button type="submit" class="btn btn-primary mt-2">
+            Publicar comentario
+        </button>
+    </form>
+</div>
+{% endblock %}

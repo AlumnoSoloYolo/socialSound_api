@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensajes Privados</title>
+
+</head>
+
+{% extends 'principal.html' %}
+
+<body>
+
+    {% block contenido %}
+    <a href="{% url 'index' %}">volver al inicio</a>
+    <h1>Conversación entre {{ emisor.nombre_usuario }} y {{ receptor.nombre_usuario }}</h1>
+
+    <div class="conversacion">
+        {% for mensaje in mensajes %}
+        {% include 'usuario/mensaje.html' %}
+        {% empty %}
+        <p>No hay mensajes en esta conversación.</p>
+        {% endfor %}
+    </div>
+
+    <form method="post" class="form-envio-mensaje">
+        {% csrf_token %}
+        <textarea name="contenido" rows="3" placeholder="Escribe tu mensaje aquí..." required></textarea>
+        <button type="submit">Enviar</button>
+    </form>
+    {% endblock %}
+</body>
+
+</html>

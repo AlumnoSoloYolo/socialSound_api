@@ -1,0 +1,87 @@
+
+{% block custom_css %}
+<style>
+    .card-user {
+        transition: all 0.4s ease;
+        padding: 20px;
+        border: none;
+
+        border-radius: 16px;
+        background: rgba(33, 37, 41, 0.8) ;
+        backdrop-filter: blur(10px);
+        position: relative;
+        z-index: 2;
+     }
+     
+     .card-user:hover {
+        background-color: rgba(33, 37, 50);
+        transform: translateY(-4px);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
+     }
+     
+     .profile-image-container {
+        width: 110px;
+        height: 110px;
+        overflow: hidden;
+        border-radius: 50%;
+        border: 4px solid #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+     }
+     
+     .profile-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+     }
+     
+     .profile-image:hover {
+        transform: scale(1.05);
+     }
+     
+     .card-title {
+        font-weight: 600;
+        margin-bottom: 8px;
+  
+     }
+     
+     .card-text {
+        color: white;
+        font-size: 0.95rem;
+     }
+
+</style>
+{% endblock %}
+{% block extra_script %}
+<!--NOTA USO: Para que al pulsar botones de seguir y dejar de seguir no se refresque la página-->
+<script src="https://unpkg.com/htmx.org@1.7.0"></script>
+{% endblock %}
+
+<div class="col-12">
+    <div class="card card-user mb-3">
+        <div class="row g-0">
+            <a href="{% url 'perfil_usuario' usuario.nombre_usuario %}" class="text-decoration-none text-warning col-md-10">
+                <div class="row g-0">
+                    <div class="col-md-2 d-flex align-items-center justify-content-center">
+                        {% if usuario.foto_perfil %}
+                            <div class="profile-image-container">
+                                <img src="{{ usuario.foto_perfil.url }}" class="profile-image" alt="Foto de perfil de {{ usuario.nombre_usuario }}">
+                            </div>
+                        {% else %}
+                            <i class="bi bi-person-circle" style="font-size: 3rem;"></i>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-10">
+                        <div class="card-body">
+                            <h5 class="card-title text-warning">{{ usuario.nombre_usuario }}</h5>
+                            <p class="card-text">{{ usuario.bio }}</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <div class="col-md-2 d-flex align-items-center justify-content-end">
+                {% include 'parciales/boton_seguir.html' with usuario=usuario %}
+            </div>
+        </div>
+    </div>
+</div>

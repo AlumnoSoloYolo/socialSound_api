@@ -1,0 +1,17 @@
+{% if request.user.is_authenticated %}
+    {% if request.user != usuario %} 
+        {% if usuario in request.user.obtener_seguidos %}
+        <form hx-post="{% url 'dejar_de_seguir_usuario' usuario.id %}" 
+              hx-swap="outerHTML">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger btn-sm">Dejar de seguir</button>
+        </form>
+        {% else %}
+        <form hx-post="{% url 'seguir_usuario' usuario.id %}"
+              hx-swap="outerHTML">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-warning btn-sm">Seguir</button>
+        </form>
+        {% endif %}
+    {% endif %}
+{% endif %}

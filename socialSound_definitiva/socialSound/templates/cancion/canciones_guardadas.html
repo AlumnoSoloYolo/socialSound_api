@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canciones Guardadas</title>
+
+</head>
+
+{% extends 'principal.html' %}
+
+<body>
+    {% block contenido %}
+    <a href="{% url 'index' %}">Volver al inicio</a>
+    <h2>Canciones Guardadas</h2>
+    <ul>
+        {% for cancion_guardada in lista_canciones %}
+        {% include 'cancion/cancion-guardada.html' %}
+        {% endfor %}
+    </ul>
+    {% endblock %}
+</body>
+
+</html>

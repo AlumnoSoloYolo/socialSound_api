@@ -1,0 +1,43 @@
+{% extends 'principal.html' %}
+
+{% block contenido %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <a href="{% url 'comentarios_album' album.id %}" class="btn btn-secondary mb-3">
+                Volver a los comentarios
+            </a>
+
+            <h2>Editar comentario</h2>
+            <p class="text-muted">Álbum: {{ album.titulo }}</p>
+
+            <div class="card">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        
+                        <div class="form-group">
+                            {{ form.contenido }}
+                            {% if form.contenido.errors %}
+                                {% for error in form.contenido.errors %}
+                                    <small class="text-danger">{{ error }}</small>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-primary">
+                                Actualizar comentario
+                            </button>
+                            <a href="{% url 'comentarios_album' album.id %}" class="btn btn-secondary">
+                                Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

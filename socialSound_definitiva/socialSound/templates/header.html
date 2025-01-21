@@ -1,0 +1,125 @@
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/header.css' %}">
+{% endblock %}
+
+<nav class="navbar navbar-expand-lg">
+    
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="{% static 'images/Logo.png' %}" alt="Logo" class="logo">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'busqueda_avanzada_usuarios' %}">
+                            <i class="fa-brands fa-searchengin nav-icon"></i>
+                            <span class="nav-tooltip">Buscar usuarios</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'busqueda_avanzada_canciones' %}">
+                            <i class="fas fa-meteor"></i>
+                            <span class="nav-tooltip">Bucar canciones</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'busqueda_avanzada_albumes' %}">
+                            <i class="fa-solid fa-shuttle-space nav-icon"></i>
+                            <span class="nav-tooltip">Buscar Álbumes</span>
+                        </a>
+                    </li>
+
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'busqueda_avanzada_playlists' %}">
+                            <i class="fa-solid fa-newspaper nav-icon"></i>
+                            <span class="nav-tooltip">Buscar playlists</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'feed'  %}">
+                            <i class="fa-solid fa-satellite-dish nav-icon"></i>
+                            <span class="nav-tooltip">Feed</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'lista_chats' %}">
+                            <i class="fa-solid fa-satellite nav-icon"></i>
+                            <span class="nav-tooltip">Mensajes</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item user-dropdown dropdown ms-3">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fa-solid fa-user-astronaut nav-icon"></i>{{ user.nombre_usuario }}
+                        </a>
+
+                        
+
+
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li ><a class="dropdown-item" href="{% url 'perfil_usuario' request.user.nombre_usuario %}">
+                                <i class="fa-solid fa-user-astronaut nav-icon"></i>
+                                Mi perfil
+                            </a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">
+                                <i class="fa-solid fa-right-from-bracket nav-icon"></i>Cerrar sesión</a>
+                            </li>
+                            <li>
+                                <span class="dropdown-item">
+                                    <i class="fas fa-clock nav-icon"></i>
+                                    Última conexión: {{request.session.fecha_inicio}}
+                                </span>
+                            </li>
+                            <li>
+                                <span class="dropdown-item">
+                                    <i class="fas fa-users nav-icon"></i>
+                                    Seguidores: {{ request.session.total_seguidores }}
+                                </span>
+                            </li>
+                            <li>
+                                <span class="dropdown-item">
+                                    <i class="fas fa-user-friends nav-icon"></i>
+                                    Siguiendo: {{ request.session.total_seguidos }}
+                                </span>
+                            </li>
+                            <li>
+                                <span class="dropdown-item">
+                                    <i class="fas fa-heart nav-icon"></i>
+                                    Albumes: {{ request.session.total_albumes }}
+                                </span>
+                            </li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li class="nav-item dropdown no-user-dropdown ms-auto">
+                        <a class="nav-link dropdown-toggle" href="#" id="authDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-user-astronaut nav-icon"></i>Cuenta
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" style="z-index: 9999;">
+                            <li><a class="dropdown-item" href="{% url 'login_usuario' %}">
+                                <i class="fa-solid fa-right-to-bracket nav-icon"></i>Iniciar sesión
+                            </a></li>
+                            <li><a class="dropdown-item" href="{% url 'registro_usuario' %}">
+                                <i class="fa-solid fa-user-plus nav-icon"></i>Registrarse
+                            </a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,127 @@
+  /* Reset completo de márgenes y padding */
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.container-index {
+    position: absolute;
+    min-height: calc(100vh - 60px);
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: #0a0a0a;
+    position: relative;
+}
+
+
+
+    
+
+    .login-card {
+        margin-top: 40px;
+        margin-bottom: 200px;
+        width: 450px;
+        background: rgba(255, 255, 255, 0.9);
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+    }
+
+    .login-header {
+       
+        background: #ffc107;
+        padding: 2rem;
+        margin: -1px -1px 1.5rem -1px;
+    }
+
+    .login-header h2 {
+        color: #000;
+        font-weight: 600;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+        color: #333;
+    }
+
+    .form-control {
+        height: 48px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 0.8rem;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+        border-color: #ffc107;
+        box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+    }
+
+    /* Estilo especial para el campo de tipo file */
+    input[type="file"].form-control {
+        padding: 0.5rem;
+    }
+
+    /* Estilo especial para el campo de fecha */
+    input[type="date"].form-control {
+        padding: 0.5rem 0.8rem;
+    }
+
+    .btn-login {
+    
+        border: none;
+        height: 48px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-login:hover {
+        
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(47, 47, 47, 0.4);
+    }
+
+    .login-link {
+        color: #ffc107;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .login-link:hover {
+        color: #ffb300;
+        text-decoration: underline;
+    }
+
+    .help-text {
+        font-size: 0.8rem;
+        color: #666;
+        margin-top: 0.25rem;
+    }

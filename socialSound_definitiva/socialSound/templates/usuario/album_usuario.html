@@ -1,0 +1,244 @@
+{% load static %}
+
+<div class="container">
+    <div class="row">
+        {% for album in albums %}
+        <div class="col-12 mb-4">
+            <div class="screen-container">
+                <div class="chat-window">
+                    <div class="album-content">
+                        <div class="row g-0 flex-column flex-lg-row align-items-center">
+                            <!-- Imagen del álbum -->
+                            <div class="col-lg-3">
+                                <div class="album-image-container">
+                                    {% if album.portada %}
+                                        <img src="{{ album.portada.url }}" 
+                                             class="album-image"
+                                             alt="Portada de {{ album.titulo }}">
+                                    {% else %}
+                                        <img src="{% static 'cancion_portadas/image.png' %}" 
+                                             class="album-image"
+                                             alt="Portada por defecto">
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <!-- Contenido del álbum -->
+                            <div class="col-lg-9">
+                                <div class="card-body p-4">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h5 class="text-warning fw-bold mb-3">{{ album.titulo }}</h5>
+                                            <p class="text-white mb-2"><strong>Artista:</strong> {{ album.artista|upper }}</p>
+                                            {% if album.descripcion %}
+                                                <p class="text-white-50 small mb-3">{{ album.descripcion|truncatechars:200 }}</p>
+                                            {% endif %}
+                                            <p class="text-white-50 small mb-3">
+                                                <i class="bi bi-calendar"></i> {{ album.fecha_subida|date:"d/m/Y"}}
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="d-grid gap-2">
+                                                <a href="{% url 'detalle_album' album.id %}" class="btn btn-warning retro-btn w-100">
+                                                    <i class="bi bi-info-circle me-1"></i> Ver detalles
+                                                </a>
+                                                <div class="d-grid w-100">
+                                                    <a href="{% url 'canciones_album' album.id %}" class="btn btn-outline-light retro-btn w-100">
+                                                        <i class="bi bi-music-note-list me-1"></i> Canciones
+                                                    </a>
+                                                </div>
+                                                <div class="d-grid w-100">
+                                                    <a href="{% url 'comentarios_album' album.id %}" class="btn btn-outline-light retro-btn w-100">
+                                                        <i class="bi bi-chat me-1"></i> Comentarios
+                                                    </a>
+                                                </div>
+                                                
+                                                {% if request.user.is_authenticated and request.user == usuario or request.user.is_authenticated and request.user.rol == 2 %}
+                                                    <div class="d-grid w-100">
+                                                        <div class="dropdown w-100">
+                                                            <button class="btn btn-outline-light dropdown-toggle retro-btn w-100" 
+                                                                    type="button" 
+                                                                    data-bs-toggle="dropdown">
+                                                                <i class="fa-solid fa-gear me-1"></i> Opciones
+                                                            </button>
+                                                            <ul class="dropdown-menu dropdown-menu-dark w-100">
+                                                                <li>
+                                                                    <a class="dropdown-item" href="{% url 'editar_album' request.user.nombre_usuario album.id %}">
+                                                                        <i class="fa-solid fa-wrench me-2"></i> Editar Álbum
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="dropdown-item" href="{% url 'agregar_cancion_album' album_id=album.id %}">
+                                                                        <i class="fas fa-plus me-2"></i> Añadir canción
+                                                                    </a>
+                                                                </li>
+                                                                <li><hr class="dropdown-divider"></li>
+                                                                <li>
+                                                                    <form id="deleteForm-{{ album.id }}" 
+                                                                          action="{% url 'eliminar_album' album.id %}" 
+                                                                          method="post">
+                                                                        {% csrf_token %}
+                                                                        <button type="submit" 
+                                                                                class="dropdown-item text-danger"
+                                                                                onclick="return confirm('¿Estás seguro que deseas eliminar este álbum?');">
+                                                                            <i class="fa-solid fa-trash me-2"></i> Eliminar
+                                                                        </button>
+                                                                    </form>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+.screen-container {
+    position: relative;
+    border-radius: 15px;
+    padding: 3px;
+    background: linear-gradient(45deg, rgba(0,0,0,0.5), rgba(255,255,255,0.1));
+}
+
+.screen-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 15px;
+    padding: 2px;
+    background: linear-gradient(45deg, #0ff, #f0f, #ff0);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.chat-window {
+    background: rgba(10, 10, 10, 0.2);
+    border-radius: 15px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    overflow: hidden;
+    position: relative;
+}
+
+.album-image-container {
+    position: relative;
+    padding-bottom: 100%;
+    height: 0;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.album-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+/* Responsive image border radius */
+@media (min-width: 992px) {
+    .album-image {
+        border-radius: 12px 0 0 12px;
+    }
+    .album-image-container {
+        border-radius: 12px 0 0 12px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .album-image {
+        border-radius: 12px 12px 0 0;
+    }
+    .album-image-container {
+        border-radius: 12px 12px 0 0;
+        max-height: 300px;
+        padding-bottom: 60%;
+    }
+}
+
+.chat-window::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.1) 0px,
+        rgba(0, 0, 0, 0.1) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+
+.retro-btn {
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.retro-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
+}
+
+.btn-warning.retro-btn {
+    background: #ffc107;
+    color: #000;
+}
+
+.dropdown-menu {
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-item {
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.dropdown-divider {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+
+
+.album-content {
+    position: relative;
+    z-index: 1;
+}
+</style>

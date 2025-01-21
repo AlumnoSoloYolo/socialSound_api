@@ -1,0 +1,70 @@
+{% extends 'principal.html' %}
+
+{% load static %}
+{% block extra_css%}
+<link rel="stylesheet" href="{% static 'css/fondo_estrella.css' %}">
+
+{% endblock %}
+
+{% block contenido %}
+<div class="container-star">
+    <div class="stars"></div>
+    <div class="container py-5">
+        <h2 class='text-white'>{{ title }}</h2>
+        
+        <div class="card mb-4 bg-dark text-white shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="card-title text-warning text-center mb-4">Búsqueda Avanzada de Playlists</h5>
+                <form method="GET" class="row g-4">
+                    <div class="col-md-6">
+                        <label for="{{ form.nombre.id_for_label }}" class="form-label">Nombre de la Playlist</label>
+                        {{ form.nombre }}
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <label for="{{ form.usuario.id_for_label }}" class="form-label">Usuario</label>
+                        {{ form.usuario }}
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label for="{{ form.fecha_desde.id_for_label }}" class="form-label">Fecha desde</label>
+                        {{ form.fecha_desde }}
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label for="{{ form.fecha_hasta.id_for_label }}" class="form-label">Fecha hasta</label>
+                        {{ form.fecha_hasta }}
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label for="{{ form.publica.id_for_label }}" class="form-label">Visibilidad</label>
+                        {{ form.publica }}
+                    </div>
+        
+                    <div class="col-12 text-center">
+                        <button type="submit" class="btn btn-warning px-4 py-2 me-2">Buscar</button>
+                        <a href="{% url 'busqueda_avanzada_playlists' %}" class="btn btn-secondary px-4 py-2">Limpiar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                {{ form.errors }}
+            </div>
+        {% endif %}
+
+        <div class="row">
+            {% for playlist in playlists %}
+            {% include 'playlist/playlist.html' %} 
+            {% empty %}
+                <div class="col-12">
+                    <p class="text-center text-white">No se encontraron playlists con los criterios especificados.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

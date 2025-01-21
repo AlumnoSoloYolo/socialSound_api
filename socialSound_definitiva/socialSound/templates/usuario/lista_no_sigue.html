@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+{% extends 'principal.html' %}
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios que no sigues</title>
+
+</head>
+
+<body>
+    {% block contenido %}
+    <h1>Usuarios que no sigues</h1>
+    <a href="{% url 'index' %}">Volver al inicio</a><br>
+
+
+    <ul>
+        {% for usuario in usuarios_no_seguidos %}
+        {% include 'usuario/no-sigue.html' %}
+        {% empty %}
+        <li>No hay usuarios que no sigas.</li>
+        {% endfor %}
+    </ul>
+    {% endblock %}
+</body>
+
+</html>

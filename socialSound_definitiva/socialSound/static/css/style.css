@@ -1,0 +1,303 @@
+body, html{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+/*inicio futuro login*/
+.container-index {
+    background-image: url('/static/images/punk-png.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+}
+
+.container-index h1 {
+    color: #333;
+}
+
+
+
+
+/*album*/
+.album-comment h1 {
+    color: #333;
+}
+
+.album-comment h2 {
+    color: #666;
+    margin-top: 20px;
+}
+
+.album-comment ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.album-comment li {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.album-comment a {
+    text-decoration: none;
+    color: #007BFF;
+}
+
+.album-comment a:hover {
+    text-decoration: underline;
+}
+
+.album-comment img {
+    border-radius: 8px;
+    margin-right: 10px;
+}
+
+.album-comment .comment-user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.album-comment .comment-user img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.album-comment .comment-content {
+    margin-left: 10px;
+}
+
+.album-comment .profile-info {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.detalle-album h1 {
+    color: #333;
+    }
+
+    .detalle-album div {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #ffffff;
+    }
+
+    .detalle-album a {
+    text-decoration: none;
+    color: #007BFF;
+    margin-right: 10px;
+    }
+
+    .detalle-album a:hover {
+    text-decoration: underline;
+    }
+
+    .detalle-album p {
+    margin: 5px 0;
+    }
+
+    .detalle-album .statistics {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    }
+
+
+    /*canciones*/
+    
+        .canciones-fondo {
+            display: flex;
+            justify-content: center;
+            background-image: url('/static/images/punk-png.webp');
+            background-size: center;
+            background-repeat: no-repeat;
+            height: auto;
+        }
+
+        .canciones-album {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+            padding: 20px;
+            margin-top: 50px;
+            width: 1000px;
+            background-color: rgb(205, 205, 205, 0.5);
+            box-shadow: -10px 0 15px rgba(0, 0, 0, 0.3), 10px 0 15px rgba(0, 0, 0, 0.3);
+
+        }
+
+
+        .canciones-album h1 {
+            color: #333;
+        }
+
+        .canciones-album h2 {
+            color: #666;
+            margin-top: 20px;
+        }
+
+        .canciones-album img {
+            display: block;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            max-width: 460px;
+            max-height: 460px;
+            box-shadow: -10px 0 15px rgba(0, 0, 0, 0.3), 10px 0 15px rgba(0, 0, 0, 0.3);
+
+        }
+
+        .canciones-album ul {
+            display: flex;
+            flex-direction: column;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .canciones-album li {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 0;
+            width: 460px;
+        }
+
+        .canciones-album a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        .canciones-album a:hover {
+            text-decoration: underline;
+        }
+
+
+        .canciones-album .lista-canciones>li {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+    
+
+/*FEED*/
+.feed h1 {
+    color: #333;
+}
+
+.feed a {
+    text-decoration: none;
+    color: #007BFF;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.feed a:hover {
+    text-decoration: underline;
+}
+
+.feed ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.feed li {
+    background-color: #ffffff;
+    margin: 10px 0;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.feed img {
+    border-radius: 8px;
+    margin-bottom: 10px;
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.feed h3 {
+    color: #333;
+    margin: 10px 0;
+}
+
+.feed p {
+    margin: 5px 0;
+}
+
+
+/*usuario*/
+.perfil-usuario-container h1 {
+    color: #333;
+}
+
+.perfil-usuario-container a {
+    text-decoration: none;
+    color: #007BFF;
+}
+
+.perfil-usuario-container a:hover {
+    text-decoration: underline;
+}
+
+.perfil-usuario-container div {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.perfil-usuario-container h2 {
+    color: #555;
+}
+
+.perfil-usuario-container img {
+    border-radius: 8px;
+    margin-right: 10px;
+}
+
+.perfil-usuario-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.perfil-usuario-container li {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    display: flex;
+    align-items: center;
+}
+
+.perfil-usuario-container .album-info {
+    flex-grow: 1;
+}
+
+.perfil-usuario-container .album-info p {
+    margin: 5px 0;
+}
+
+.perfil-usuario-container img {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+}

@@ -1,0 +1,200 @@
+{% extends 'principal.html' %}
+{% load static %}
+
+{% block custom_css %}
+<link rel="stylesheet" href="{% static 'css/fondo_estrella.css' %}">
+<link rel="stylesheet" href="{% static 'css/registro.css' %}">
+{% endblock %}
+
+
+{% block contenido %}
+<div class="container-index container-star">
+    <div class="stars"></div>
+    <div class="text-center">
+        <div class="login-card">
+            <div class="login-header">
+                <h2 class="text-center">Crear cuenta</h2>
+            </div>
+            
+            <div class="card-body p-4">
+                <form method="POST" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors and request.method == 'POST' %}
+                    <div class="alert alert-danger alert-dismissible fade show mb-4">
+                        {% for error in form.non_field_errors %}
+                        <div><i class="fas fa-exclamation-circle me-1"></i>{{ error }}</div>
+                        {% endfor %}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endif %}
+
+                    {# Campos básicos #}
+                    {% for field in form %}
+                        {% if field.name not in 'genero_favorito,artista_favorito,acepta_terminos,experiencia_moderacion,area_especialidad,codigo_moderador' %}
+                        <div class="form-group mb-4">
+                            <label for="{{ field.id_for_label }}" class="form-label">
+                                {{ field.label }}
+                                {% if field.field.required %}
+                                <span class="text-danger">*</span>
+                                {% endif %}
+                            </label>
+                            {{ field }}
+                            
+                            {% if field.errors and request.method == 'POST' %}
+                            <div class="text-danger mt-2 small">
+                                {% for error in field.errors %}
+                                <div><i class="fas fa-exclamation-circle me-1"></i>{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            
+                            {% if field.help_text %}
+                            <div class="help-text">
+                                <i class="fas fa-info-circle me-1"></i>{{ field.help_text }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    {# Campos específicos para Cliente #}
+                    <div id="campos-cliente" style="display: none;">
+                        <div class="form-group mb-4">
+                            <label for="{{ form.genero_favorito.id_for_label }}" class="form-label">
+                                Género Musical Favorito
+                            </label>
+                            {{ form.genero_favorito }}
+                            {% if form.genero_favorito.errors and request.method == 'POST' %}
+                            <div class="text-danger mt-2 small">
+                                {% for error in form.genero_favorito.errors %}
+                                <div><i class="fas fa-exclamation-circle me-1"></i>{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="{{ form.artista_favorito.id_for_label }}" class="form-label">
+                                Artista Favorito
+                            </label>
+                            {{ form.artista_favorito }}
+                            {% if form.artista_favorito.errors and request.method == 'POST' %}
+                            <div class="text-danger mt-2 small">
+                                {% for error in form.artista_favorito.errors %}
+                                <div><i class="fas fa-exclamation-circle me-1"></i>{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <div class="form-check">
+                                {{ form.acepta_terminos }}
+                                <label class="form-check-label" for="{{ form.acepta_terminos.id_for_label }}">
+                                    Acepto los términos y condiciones
+                                </label>
+                            </div>
+                            {% if form.acepta_terminos.errors and request.method == 'POST' %}
+                            <div class="text-danger mt-2 small">
+                                {% for error in form.acepta_terminos.errors %}
+                                <div><i class="fas fa-exclamation-circle me-1"></i>{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    {# Campos específicos para Moderador #}
+                    <div id="campos-moderador" style="display: none;">
+                        <div class="form-group mb-4">
+                            <label for="{{ form.experiencia_moderacion.id_for_label }}" class="form-label">
+                                Años de Experiencia
+                            </label>
+                            {{ form.experiencia_moderacion }}
+                            {% if form.experiencia_moderacion.errors and request.method == 'POST' %}
+                            <div class="text-danger mt-2 small">
+                                {% for error in form.experiencia_moderacion.errors %}
+                                <div><i class="fas fa-exclamation-circle me-1"></i>{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="{{ form.area_especialidad.id_for_label }}" class="form-label">
+                                Área de Especialidad
+                            </label>
+                            {{ form.area_especialidad }}
+                            {% if form.area_especialidad.errors and request.method == 'POST' %}
+                            <div class="text-danger mt-2 small">
+                                {% for error in form.area_especialidad.errors %}
+                                <div><i class="fas fa-exclamation-circle me-1"></i>{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="{{ form.codigo_moderador.id_for_label }}" class="form-label">
+                                Código de Moderador
+                            </label>
+                            {{ form.codigo_moderador }}
+                            {% if form.codigo_moderador.errors and request.method == 'POST' %}
+                            <div class="text-danger mt-2 small">
+                                {% for error in form.codigo_moderador.errors %}
+                                <div><i class="fas fa-exclamation-circle me-1"></i>{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-login btn-warning w-100 mb-3">
+                        <i class="fas fa-user-plus me-2"></i>Crear cuenta
+                    </button>
+
+                    <div class="text-center mt-4">
+                        <p class="mb-0">¿Ya tienes cuenta? 
+                            <a href="{% url 'login_usuario' %}" class="login-link">
+                                Inicia sesión aquí
+                            </a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_script %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const rolSelect = document.getElementById('id_rol');
+    const camposCliente = document.getElementById('campos-cliente');
+    const camposModerador = document.getElementById('campos-moderador');
+
+    function mostrarCamposSegunRol() {
+        const rolSeleccionado = rolSelect.value;
+        if (rolSeleccionado === '1') {  // CLIENTE
+            camposCliente.style.display = 'block';
+            camposModerador.style.display = 'none';
+        } else if (rolSeleccionado === '2') {  // MODERADOR
+            camposCliente.style.display = 'none';
+            camposModerador.style.display = 'block';
+        } else {
+            camposCliente.style.display = 'none';
+            camposModerador.style.display = 'none';
+        }
+    }
+
+    rolSelect.addEventListener('change', mostrarCamposSegunRol);
+    mostrarCamposSegunRol();
+
+    if (document.querySelectorAll('.text-danger').length > 0) {
+        mostrarCamposSegunRol();
+    }
+});
+</script>
+{% endblock %}
+{% endblock %}

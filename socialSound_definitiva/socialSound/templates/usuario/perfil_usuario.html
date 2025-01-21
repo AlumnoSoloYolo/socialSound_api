@@ -1,0 +1,365 @@
+{% extends 'principal.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/fondo_estrella.css' %}">
+<style>
+
+    .container{
+        z-index: 2;
+        position:relative;
+    }
+
+    .container-busqueda {
+        min-height: calc(100vh - 60px);
+        background: #0a0a0a;
+        position: relative;
+        margin-top: -24px; /* Elimina el espacio blanco */
+        padding-top: 20px;
+      }
+   
+        .screen-container {
+            position: relative;
+            border-radius: 15px;
+            padding: 3px;
+            background: linear-gradient(45deg, rgba(0,0,0,0.5), rgba(255,255,255,0.1));
+        }
+        
+        .screen-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 15px;
+            padding: 2px;
+            background: linear-gradient(45deg, #0ff, #f0f, #ff0);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        
+        .chat-window {
+            background: rgba(10, 10, 10, 0.2);
+            border-radius: 15px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* Estilos específicos para la imagen de perfil */
+        .profile-image-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: auto;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        /* Estilos para las estadísticas */
+        .stat-card {
+            background: rgba(10, 10, 10, 0.4);
+            border: 1px solid rgba(255, 193, 7, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 193, 7, 0.5);
+            box-shadow: 0 0 15px rgba(255, 193, 7, 0.2);
+        }
+        
+        /* Estilos para los botones */
+        .btn {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-warning {
+            background: rgba(255, 193, 7, 0.9);
+            border: 1px solid rgba(255, 193, 7, 0.5);
+        }
+        
+        .btn-outline-warning {
+            border: 1px solid rgba(255, 193, 7, 0.5);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
+        }
+        
+        /* Estilos para el dropdown */
+        .dropdown-menu {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .dropdown-item {
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.2s ease;
+        }
+        
+        .dropdown-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+        
+        /* Efecto de líneas */
+        .chat-window::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.1) 0px,
+                rgba(0, 0, 0, 0.1) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            opacity: 0.3;
+        }
+        
+        .stat-card {
+            background: rgba(10, 10, 10, 0.4);
+            border: 1px solid rgba(255, 193, 7, 0.2);
+            border-radius: 15px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100px;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 193, 7, 0.5);
+            box-shadow: 0 0 15px rgba(255, 193, 7, 0.2);
+        }
+        
+        .stat-content {
+            text-align: center;
+        }
+        
+        .stat-number {
+            color: #ffffff;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+        
+        .stat-label {
+            color: #ffc107;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Estilos para los enlaces de estadísticas */
+        a .stat-card .stat-number,
+        a .stat-card .stat-content,
+        a .stat-card h3 {
+            color: #ffffff !important;
+        }
+        
+        a:hover .stat-card {
+            text-decoration: none;
+        }
+        
+        .no-albums-message {
+            padding: 3rem;
+            text-align: center;
+            width: 100%;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.5);
+            background: rgba(10, 10, 10, 0.2);
+            border-radius: 10px;
+            margin: 1rem;
+        }
+
+</style>
+{% endblock %}
+
+{% block contenido %}
+<div class="container-busqueda">
+    <div class="container py-5">
+        <div class="stars"></div>
+        
+        <!-- Tarjeta de Perfil -->
+        <div class="screen-container profile-card mb-5">
+            <div class="chat-window">
+                <div class="profile-content p-4">
+                    <div class="row align-items-center">
+                        <!-- Imagen de perfil -->
+                        <div class="col-lg-3">
+                            <div class="profile-image-container mx-auto">
+                                {% if usuario.foto_perfil %}
+                                    <img src="{{ usuario.foto_perfil.url }}" 
+                                         alt="Foto de perfil de {{ usuario.nombre_usuario }}"
+                                         class="profile-image">
+                                {% else %}
+                                    <img src="{% static 'default_profile_image.jpg' %}" 
+                                         alt="Foto por defecto"
+                                         class="profile-image">
+                                {% endif %}
+                            </div>
+                        </div>
+    
+                        <!-- Información del perfil -->
+                        <div class="col-lg-9">
+                            <!-- Mensajes de alerta -->
+                            {% if 'login' in message.tags %}
+                                <div class="alert alert-success alert-{{ message.tags }} success-message mb-4">
+                                    <i class="fas fa-check-circle me-2"></i>
+                                    {{ message }}
+                                </div>
+                            {% endif %}
+    
+                            <!-- Cabecera con nombre y opciones -->
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h2 class="text-warning mb-0">{{ usuario.nombre_usuario }}</h2>
+                                {% if request.user.is_authenticated and request.user == usuario or request.user.is_authenticated and request.user.rol == 2 %}
+                                    <div class="dropdown">
+                                        <button class="btn btn-outline-warning" type="button" id="profileDropdown" data-bs-toggle="dropdown">
+                                            <i class="fa-solid fa-gear"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li>
+                                                <a class="dropdown-item" href="{% url 'actualizar_perfil' usuario.nombre_usuario %}">
+                                                    <i class="fa-solid fa-wrench me-2"></i>Editar perfil
+                                                </a>
+                                            </li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li>
+                                                <form action="{% url 'eliminar_usuario' usuario.nombre_usuario %}" method="post" id="deleteForm">
+                                                    {% csrf_token %}
+                                                    <button class="dropdown-item text-danger" type="submit" onclick="return confirm('¿Estás seguro? Esta acción no se puede deshacer.');">
+                                                        <i class="fa-solid fa-trash me-2"></i>Eliminar cuenta
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                {% endif %}
+                            </div>
+    
+                            <!-- Estadísticas -->
+                            <div class="row g-3 mb-4">
+                                <div class="col-12 col-sm-4">
+                                    <div class="stat-card">
+                                        <div class="stat-content">
+                                            <h3 class="stat-number">{{ total_albumes }}</h3>
+                                            <span class="stat-label">Publicaciones</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-4">
+                                    <a href="{% url 'usuarios_seguidores' usuario.nombre_usuario %}" class="text-decoration-none">
+                                        <div class="stat-card">
+                                            <div class="stat-content">
+                                                <h3 class="stat-number">{{ total_seguidores }}</h3>
+                                                <span class="stat-label">Seguidores</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-12 col-sm-4">
+                                    <a href="{% url 'usuarios_seguidos' usuario.nombre_usuario %}" class="text-decoration-none">
+                                        <div class="stat-card">
+                                            <div class="stat-content">
+                                                <h3 class="stat-number">{{ total_seguidos }}</h3>
+                                                <span class="stat-label">Seguidos</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+    
+                            <!-- Bio y ubicación -->
+                            <div class="mb-4">
+                                {% if usuario.bio %}
+                                    <p class="mb-2 text-white-50">{{ usuario.bio }}</p>
+                                {% endif %}
+                                {% if usuario.ciudad %}
+                                    <p class="text-warning mb-0">
+                                        <i class="fa-solid fa-location-dot me-2"></i>{{ usuario.ciudad }}
+                                    </p>
+                                {% endif %}
+                            </div>
+    
+                            <!-- Botones de acción -->
+                            <div class="d-flex flex-wrap gap-2">
+                                <a href="{% url 'lista_playlist' usuario.nombre_usuario %}" class="btn btn-warning">
+                                    <i class="fa-solid fa-music me-2"></i>Playlists
+                                </a>
+                                <a href="{% url 'canciones_guardadas' usuario.nombre_usuario %}" class="btn btn-outline-warning">
+                                    <i class="fa-solid fa-bookmark me-2"></i>Guardados
+                                </a>
+                                {% if request.user.is_authenticated and usuario.id != request.user.id %}
+                                    <a href="{% url 'chat' usuario.id %}" class="btn btn-outline-warning">
+                                        <i class="fab fa-rocketchat me-2"></i>Enviar mensaje
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+          <!-- Sección de Álbumes con estructura mejorada -->
+          <div class="screen-container mb-4">
+            <div class="chat-window">
+                <!-- Encabezado de álbumes -->
+                <div class="d-flex justify-content-between align-items-center p-4">
+                    <h3 class="text-warning mb-0">Álbumes</h3>
+                    {% if request.user.is_authenticated and request.user == usuario %}
+                        <a href="{% url 'crear_album' usuario.nombre_usuario %}" class="btn btn-warning">
+                            <i class="fa-solid fa-plus me-2"></i>Nuevo álbum
+                        </a>
+                    {% endif %}
+                </div>
+
+                <!-- Contenedor de álbumes con estructura consistente -->
+                <div class="album-container p-4">
+                    {% if albumes %}
+                        <div class="row g-4">
+                            {% for album in albumes %}
+                                {% include 'usuario/album_usuario.html' with album=album albums=albumes %}
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="no-albums-message">
+                            <i class="fa-solid fa-music mb-3 d-block" style="font-size: 2rem;"></i>
+                            <p class="mb-0">No hay álbumes subidos.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}

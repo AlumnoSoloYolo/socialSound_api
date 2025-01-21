@@ -1,0 +1,6 @@
+<div class="mensaje {% if mensaje.emisor.id == emisor.id %}mensaje-emisor{% else %}mensaje-receptor{% endif %}">
+    <img src="{{ emisor.foto_perfil.url }}" alt="Foto de perfil de {{ emisor.nombre_usuario }}">
+    <strong>{{ mensaje.emisor.nombre_usuario }}:</strong>
+    <p>{{ mensaje.contenido }}</p>
+    <span class="fecha">{{ mensaje.fecha_envio|date:"D d M Y H:i" }}</span>
+</div>

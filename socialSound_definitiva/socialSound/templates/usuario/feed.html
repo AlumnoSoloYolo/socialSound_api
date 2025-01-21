@@ -1,0 +1,34 @@
+{% extends 'principal.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/fondo_estrella.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="container-star">
+    <div class="stars"></div>
+    <div class="container">
+      
+        
+        <h2 class="text-warning mt-5">Tu Feed</h2>
+           
+      
+        <!-- Lista de álbumes en formato columna -->
+        <div class="row">
+            {% if albums %}
+                {% for album in albums %}
+                {% include 'usuario/album_usuario.html' %}
+                {% endfor %}
+            {% else %}
+                <div class="col-md-12">
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle me-2"></i>
+                        No hay álbumes en tu feed. ¡Sigue a otros usuarios para ver sus publicaciones!
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

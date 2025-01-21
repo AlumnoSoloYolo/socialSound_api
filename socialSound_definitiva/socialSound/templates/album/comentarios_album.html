@@ -1,0 +1,295 @@
+{% extends 'principal.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/fondo_estrella.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="container-star">
+    <div class="stars"></div>
+    <div class="container py-4">
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'index' %}" class="text-white text-decoration-none">Inicio</a></li>
+                <li class="breadcrumb-item active text-warning" aria-current="page">Comentarios</li>
+            </ol>
+        </nav>
+
+        <div class="row">
+            <!-- Columna del álbum -->
+            <div class="col-md-4 mb-4">
+                <div class="screen-container">
+                    <div class="chat-window">
+                        <div class="album-content">
+                            {% if album.portada %}
+                                <img src="{{ album.portada.url }}" class="album-image" alt="{{ album.titulo }}">
+                            {% else %}
+                                <div class="no-image-container">
+                                    <i class="fas fa-music fa-3x text-white-50"></i>
+                                </div>
+                            {% endif %}
+                            <div class="card-body p-4">
+                                <h5 class="text-warning fw-bold mb-3">{{ album.titulo|default:"Título no disponible" }}</h5>
+                                {% if album.usuario and album.usuario.nombre_usuario %}
+                                    <h6 class="text-white-50 mb-3">
+                                        <a href="{% url 'perfil_usuario' album.usuario.nombre_usuario %}" class="text-decoration-none text-warning">
+                                            <i class="fas fa-user me-2"></i>{{ album.usuario.nombre_usuario }}
+                                        </a>
+                                    </h6>
+                                {% endif %}
+                                {% comment %} <p class="text-warning small">{{ album.descripcion|linebreaks|default:"No hay descripción disponible." }}</p> {% endcomment %}
+                                <p class="text-white-50 small mb-0">
+                                    <i class="far fa-calendar-alt me-2"></i>
+                                    {{ album.fecha_subida|date:"d/m/Y" }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna de comentarios -->
+            <div class="col-md-8">
+                <div class="screen-container">
+                    <div class="chat-window">
+                        <div class="card-header bg-transparent border-0">
+                            <h5 class="text-warning mb-0 p-3">Comentarios</h5>
+                        </div>
+                        
+                        {# Aquí incluimos el formulario de búsqueda #}
+                        <div class="p-3 border-bottom border-secondary">
+                            {% include "CRUD_comentario/busqueda_avanzada.html" %}
+                        </div>
+                        
+                        <div class="p-3">
+                            {# Aquí incluimos la lista de comentarios #}
+                            {% include "CRUD_comentario/lista_comentarios.html" %}
+
+                            <!-- Formulario de nuevo comentario -->
+                            <div class="mt-4">
+                                <h6 class="text-warning mb-3">Añadir un comentario</h6>
+                                <form method="post" action="{% url 'crear_comentario' album.id %}">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        {{ form.contenido }}
+                                    </div>
+                                    <button type="submit" class="btn btn-warning retro-btn mt-3">
+                                        <i class="fas fa-paper-plane me-2"></i>Publicar comentario
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.container-star {
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+    padding: 2rem 0;
+}
+
+.screen-container {
+    position: relative;
+    border-radius: 15px;
+    padding: 3px;
+    background: linear-gradient(45deg, rgba(0,0,0,0.5), rgba(255,255,255,0.1));
+}
+
+.screen-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 15px;
+    padding: 2px;
+    background: linear-gradient(45deg, #0ff, #f0f, #ff0);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.chat-window {
+    background: rgba(10, 10, 10, 0.2);
+    border-radius: 15px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    overflow: hidden;
+    position: relative;
+}
+
+.chat-window::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.1) 0px,
+        rgba(0, 0, 0, 0.1) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+
+
+.album-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.no-image-container {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.retro-btn {
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.retro-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
+}
+
+.text-white-50 {
+    color: rgba(255, 255, 255, 0.8) !important; /* Más opaco para mejor legibilidad */
+}
+
+.text-warning {
+    color: #ffc107 !important;
+    text-shadow: 0 0 10px rgba(255, 193, 7, 0.3); /* Añade un poco de glow */
+}
+
+/* Mejorar contraste en los formularios */
+.form-control {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+/* Mejorar contraste en los comentarios */
+.comment-card {
+    background: rgba(30, 30, 35, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.comment-card:hover {
+    background: rgba(40, 40, 45, 0.95);
+}
+
+/* Ajustar contraste en los enlaces */
+a {
+    color: #ffc107;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #ffcd39;
+    text-decoration: none;
+}
+
+/* Mejorar visibilidad de los breadcrumbs */
+.breadcrumb-item + .breadcrumb-item::before {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.breadcrumb-item.active {
+    color: #ffc107;
+}
+
+/* Mejorar contraste en los botones */
+.btn-warning.retro-btn {
+    background: #ffc107;
+    color: #000;
+    font-weight: 500;
+}
+
+.btn-outline-light {
+    border-color: rgba(255, 255, 255, 0.5);
+    color: #fff;
+}
+
+/* Contenedor para elementos de formulario */
+.form-group {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Labels más visibles */
+label {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+/* Mejorar visibilidad de los placeholders */
+::placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: white;
+    box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+}
+
+
+
+/* Ajustes para el scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 193, 7, 0.5);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 193, 7, 0.7);
+}
+</style>
+{% endblock %}

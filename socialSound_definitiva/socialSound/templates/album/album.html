@@ -1,0 +1,141 @@
+{% load static %}
+<div class="screen-container mb-4">
+    <div class="chat-window p-4">
+     
+        <div class="row">
+            <div class="col-md-4 text-center">
+                {% if album.portada and album.portada.url %}
+                    <img src="{{ album.portada.url }}" 
+                         alt="Portada de {{ album.titulo }}" 
+                         class="img-fluid rounded album-cover mb-3">
+                {% else %}
+                    <img src="{% static 'album_portadas/image.svg' %}" 
+                         alt="Portada por defecto"
+                         class="img-fluid rounded album-cover mb-3">
+                {% endif %}
+            </div>
+            
+            <div class="col-md-8">
+                <h2 class="text-warning fw-bold mb-4">{{ album.titulo }}</h2>
+                
+                <div class="album-info">
+                    <div class="info-section mb-4">
+                        <p class="text-white mb-2">
+                            <i class="fas fa-user me-2"></i>
+                            <strong>Artista:</strong> {{ album.usuario.nombre_usuario }}
+                        </p>
+                        <p class="text-white mb-2">
+                            <i class="fas fa-calendar me-2"></i>
+                            <strong>Fecha de Subida:</strong> {{ album.fecha_subida|date:"d/m/Y" }}
+                        </p>
+                    </div>
+
+                    {% if album.album.numero_pistas > 0 %}
+                    <div class="details-section p-3 rounded mb-4">
+                        <h4 class="text-warning mb-3">Detalles del Álbum</h4>
+                        <p class="text-white-50 mb-2">
+                            <i class="fas fa-user-tie me-2"></i>
+                            <strong>Productor:</strong> {{ album.album.productor|default:"No especificado" }}
+                        </p>
+                        <p class="text-white-50 mb-2">
+                            <i class="fas fa-building me-2"></i>
+                            <strong>Estudio:</strong> {{ album.album.estudio_grabacion|default:"Desconocido" }}
+                        </p>
+                        <p class="text-white-50 mb-2">
+                            <i class="fas fa-music me-2"></i>
+                            <strong>Número de Pistas:</strong> {{ album.album.numero_pistas }}
+                        </p>
+                        <p class="text-white-50 mb-2">
+                            <i class="fas fa-record-vinyl me-2"></i>
+                            <strong>Sello:</strong> {{ album.album.sello_discografico|default:"Independiente" }}
+                        </p>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Este álbum no tiene pistas disponibles.
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="songs-section mt-4">
+            <h3 class="text-warning mb-3">
+                <i class="fas fa-music me-2"></i>
+                Canciones
+            </h3>
+            <div class="songs-list">
+                {% for cancion in album.canciones.all %}
+                    {% include 'cancion/cancion.html' %}
+                {% empty %}
+                    <div class="text-white-50 text-center p-3">
+                        <i class="fas fa-info-circle me-2"></i>
+                        No hay canciones en este álbum.
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.screen-container {
+    position: relative;
+    border-radius: 15px;
+    padding: 3px;
+    background: linear-gradient(45deg, rgba(0,0,0,0.5), rgba(255,255,255,0.1));
+}
+
+.screen-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 15px;
+    padding: 2px;
+    background: linear-gradient(45deg, #0ff, #f0f, #ff0);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.chat-window {
+    background: rgba(10, 10, 10, 0.2);
+    border-radius: 15px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    overflow: hidden;
+    position: relative;
+}
+
+
+.album-cover {
+    max-width: 300px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.details-section {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.songs-section {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 2rem;
+}
+
+@keyframes scanline {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+</style>

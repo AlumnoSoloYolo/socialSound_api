@@ -1,0 +1,186 @@
+{% extends 'principal.html' %}
+
+{% load static %}
+{% block extra_css%}
+<link rel="stylesheet" href="{% static 'css/fondo_estrella.css' %}">
+<style>
+
+    audio::-webkit-media-controls-panel {
+        background-color: #212529;
+    }
+
+    .custom-audio-player {
+        background: #1a1a1a;
+        border: 1px solid white;
+        border-radius: 30px;
+        padding: 5px 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        max-width: 100%;
+    }
+    
+    /* Contenedor principal del audio */
+    audio::-webkit-media-controls-panel {
+        background: #1a1a1a !important;
+        border-radius: 20px;
+    }
+    
+    /* Botón de play */
+    audio::-webkit-media-controls-play-button {
+        background-color: #ffc107;
+        border-radius: 50%;
+        margin-right: 5px;
+    }
+    
+    /* Barra de progreso */
+    audio::-webkit-media-controls-timeline {
+        background-color: #333;
+        border-radius: 10px;
+        height: 3px;
+        margin: 0 10px;
+    }
+    
+    /* Tiempo actual y restante */
+    audio::-webkit-media-controls-current-time-display,
+    audio::-webkit-media-controls-time-remaining-display {
+        color: #ffc107;
+        font-family: monospace;
+        font-size: 12px;
+    }
+    
+    /* Botón de volumen */
+    audio::-webkit-media-controls-mute-button {
+        background-color: #ffc107;
+        border-radius: 50%;
+    }
+    
+    /* Barra de volumen */
+    audio::-webkit-media-controls-volume-slider {
+        background-color: #333;
+        border-radius: 10px;
+        height: 3px;
+    }
+    
+    /* Actualización del layout de la canción */
+    .song-item {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        align-items: center;
+        padding: 10px 15px;
+    }
+    
+    .song-info {
+        flex: 1;
+        min-width: 0;
+    }
+    
+    .audio-controls {
+        flex: 0 0 auto;
+    }
+    
+    .btn-details {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    @media (max-width: 576px) {
+        .song-item {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        
+        .song-info {
+          margin-bottom: 10px;
+        }
+        
+        .audio-controls {
+          width: 100%;
+        }
+        
+        .custom-audio-player {
+          margin-bottom: 10px;
+        }
+        .audio-controls {
+            display: flex;
+            align-items: center;
+          }
+          
+          .btn-details {
+            margin-right: 10px;
+          }
+      }
+    
+</style>
+{% endblock %}
+
+{% block contenido %}
+<div class="container-star">
+    <div class="stars"></div>
+    <div class="container py-5">
+    <h2 class='text-white'>{{ title }}</h2>
+    
+    <div class="card mb-4 bg-dark text-white shadow-sm border-0">
+        <div class="card-body">
+            <h5 class="card-title text-warning text-center mb-4">Búsqueda Avanzada de Canciones</h5>
+            <form method="GET" class="row g-4">
+                <div class="col-md-4">
+                    <label for="{{ form.titulo.id_for_label }}" class="form-label">Título</label>
+                    {{ form.titulo }}
+                </div>
+                
+                <div class="col-md-4">
+                    <label for="{{ form.artista.id_for_label }}" class="form-label">Artista</label>
+                    {{ form.artista }}
+                </div>
+                
+                <div class="col-md-4">
+                    <label for="{{ form.etiqueta.id_for_label }}" class="form-label">Categoría</label>
+                    {{ form.etiqueta }}
+                </div>
+                
+                <div class="col-md-4">
+                    <label for="{{ form.fecha_desde.id_for_label }}" class="form-label">Fecha desde</label>
+                    {{ form.fecha_desde }}
+                </div>
+                
+                <div class="col-md-4">
+                    <label for="{{ form.fecha_hasta.id_for_label }}" class="form-label">Fecha hasta</label>
+                    {{ form.fecha_hasta }}
+                </div>
+                
+                <div class="col-md-4">
+                    <label for="{{ form.album.id_for_label }}" class="form-label">Álbum</label>
+                    {{ form.album }}
+                </div>
+    
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-warning px-4 py-2 me-2">Buscar</button>
+                    <a href="{% url 'busqueda_avanzada_canciones' %}" class="btn btn-secondary px-4 py-2">Limpiar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            {{ form.errors }}
+        </div>
+    {% endif %}
+
+    <div class="row">
+        {% for cancion in canciones %}
+           {% include 'cancion/cancion.html' %}
+        {% empty %}
+            <div class="col-12">
+                <p class="text-center">No se encontraron canciones con los criterios especificados.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+</div>
+</div>
+{% endblock %}

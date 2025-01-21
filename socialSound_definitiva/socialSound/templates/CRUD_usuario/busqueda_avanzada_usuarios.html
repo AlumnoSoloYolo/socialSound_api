@@ -1,0 +1,109 @@
+{% extends 'principal.html' %}
+
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/fondo_estrella.css' %}">
+
+{% endblock %}
+
+{% block contenido %}
+<div class="container-star">
+<div class="container mt-4">
+    <div class="stars"></div>
+    <h2 class="mb-4 text-warning">Búsqueda Avanzada de Usuarios</h2>
+
+    <!-- Formulario de búsqueda -->
+    <div class="card bg-dark mb-4">
+        <div class="card-body">
+            <form method="GET" class="row g-3">
+                {% csrf_token %}
+                
+                <div class="col-md-6">
+                    <label for="{{ form.nombre_usuario.id_for_label }}" class="form-label text-white">Nombre de usuario</label>
+                    <input type="text" 
+                           name="{{ form.nombre_usuario.html_name }}" 
+                           id="{{ form.nombre_usuario.id_for_label }}"
+                           class="form-control"
+                           placeholder="Buscar por nombre de usuario"
+                           value="{{ form.nombre_usuario.value|default:'' }}">
+                </div>
+
+                <div class="col-md-6">
+                    <label for="{{ form.ciudad.id_for_label }}" class="form-label text-white">Ciudad</label>
+                    <input type="text" 
+                           name="{{ form.ciudad.html_name }}" 
+                           id="{{ form.ciudad.id_for_label }}"
+                           class="form-control"
+                           placeholder="Buscar por ciudad"
+                           value="{{ form.ciudad.value|default:'' }}">
+                </div>
+
+                <div class="col-md-3">
+                    <label for="{{ form.edad_min.id_for_label }}" class="form-label text-white">Edad mínima</label>
+                    <input type="number" 
+                           name="{{ form.edad_min.html_name }}" 
+                           id="{{ form.edad_min.id_for_label }}"
+                           class="form-control"
+                           value="{{ form.edad_min.value|default:'' }}">
+                </div>
+
+                <div class="col-md-3">
+                    <label for="{{ form.edad_max.id_for_label }}" class="form-label text-white">Edad máxima</label>
+                    <input type="number" 
+                           name="{{ form.edad_max.html_name }}" 
+                           id="{{ form.edad_max.id_for_label }}"
+                           class="form-control"
+                           value="{{ form.edad_max.value|default:'' }}">
+                </div>
+
+                <div class="col-md-6">
+                    <label for="{{ form.bio_contains.id_for_label }}" class="form-label text-white">Buscar en biografía</label>
+                    <input type="text" 
+                           name="{{ form.bio_contains.html_name }}" 
+                           id="{{ form.bio_contains.id_for_label }}"
+                           class="form-control"
+                           placeholder="Buscar en la biografía"
+                           value="{{ form.bio_contains.value|default:'' }}">
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-warning">
+                        Buscar
+                    </button>
+                    <a href="{% url 'busqueda_avanzada_usuarios' %}" class="btn btn-secondary">
+                        Limpiar filtros
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Filtros aplicados -->
+    {% if filtros_aplicados %}
+    <div class="alert alert-info mb-4">
+        <h5>Filtros aplicados:</h5>
+        <ul class="mb-0">
+            {% for filtro in filtros_aplicados %}
+                <li>{{ filtro }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <!-- Grid de usuarios -->
+    <div class="row">
+        {% for usuario in usuarios %}
+            {% if usuario != request.user %}
+            {% include 'usuario/tarjeta_usuarios.html' %}
+            {% endif %}
+        {% empty %}
+            <div class="col-12">
+                <div class="alert alert-warning">
+                    No se encontraron usuarios que coincidan con los criterios de búsqueda.
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+
+{% extends 'principal.html' %}
+
+
+    {% block contenido %}
+    <a href="{% url 'index' %}">volver al inicio</a>
+    <h1>Lista de Álbumes</h1>
+    <ul>
+        {% for album in albumes %}
+        {% include 'album/album.html' %}
+        {% empty %}
+        <li>No hay álbumes disponibles para este usuario.</li>
+        {% endfor %}
+    </ul>
+    {% endblock %}

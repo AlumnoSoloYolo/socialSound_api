@@ -1,0 +1,419 @@
+{% extends 'principal.html' %}
+{% load static %}
+{% block custom_css %}
+<link rel="stylesheet" href="{% static 'css/fondo_estrella.css' %}">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+    *, *::before, *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body, html {
+        overflow-x: hidden;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container-index {
+        position: absolute;
+        min-height: calc(100vh - 60px);
+        width: 100vw;
+        margin: 0;
+        padding: 70px;
+        display: column;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        background: #0a0a0a;
+        position: relative;
+    }
+
+
+    .welcome-title {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 7rem;
+        font-weight: 800;
+        background: linear-gradient(
+            to right, 
+            #4facfe 0%, 
+            #00f2fe 30%, 
+            #a6ffcb 70%, 
+            #12fff7 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        position: relative;
+        animation: cometEffect 1.2s ease-out forwards;
+        text-shadow: 
+            0 0 10px rgba(18, 255, 247, 0.5),
+            0 0 20px rgba(18, 255, 247, 0.3),
+            0 0 30px rgba(18, 255, 247, 0.2);
+        letter-spacing: 4px;
+        z-index: 1;
+        text-align: center;
+
+    }
+
+    @keyframes cometEffect {
+        0% {
+            transform: translateY(-100vh) scale(0.2);
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+    }
+    .text-center{
+        margin-bottom: 100px;
+    }
+    .welcome-title {
+        animation: cometEffect 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .slogan {
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: #fff;
+        text-align: center;
+        margin-top: 10px;
+        opacity: 0;
+        animation: fadeInUp 1s ease-out 1s forwards;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px); 
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Estilos específicos para las cards de CRUD */
+.container .card {
+    background: rgba(13, 12, 27, 0.85);
+    border: 1px solid rgba(82, 190, 255, 0.3);
+    box-shadow: 0 0 15px rgba(32, 152, 255, 0.2);
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+.container .card:hover {
+    border-color: rgba(82, 190, 255, 0.8);
+    box-shadow: 0 0 20px rgba(32, 152, 255, 0.4);
+}
+
+.container .card-header {
+    background: linear-gradient(45deg, #1a1b3b, #0d0d1f);
+    border-bottom: 1px solid rgba(82, 190, 255, 0.3);
+}
+
+.container .card-body {
+    background: transparent;
+    padding: 1rem;
+}
+
+/* Estilos para los botones de colapso */
+.container .btn-link {
+    color: #4facfe;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Orbitron', sans-serif;
+    text-decoration: none;
+    width: 100%;
+    text-align: left;
+    transition: all 0.3s ease;
+    background: transparent;
+}
+
+.container .btn-link:hover {
+    color: #12fff7;
+    text-shadow: 0 0 10px rgba(18, 255, 247, 0.5);
+}
+
+/* Estilos para las listas de los CRUD */
+.container .card .list-group {
+    background: transparent;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.container .card .list-group-item {
+    background: rgba(25, 25, 50, 0.9);
+    border: 1px solid rgba(82, 190, 255, 0.2);
+    margin: 5px 0;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.container .card .list-group-item:hover {
+    background: rgba(35, 35, 70, 0.9);
+    transform: translateX(10px);
+    border-color: rgba(82, 190, 255, 0.8);
+    box-shadow: -5px 0 15px rgba(32, 152, 255, 0.3);
+}
+
+.container .card .list-group-item a {
+    color: #a6ffcb;
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    display: block;
+    padding: 10px 15px;
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.container .card .list-group-item a:hover {
+    color: #12fff7;
+    text-shadow: 0 0 10px rgba(18, 255, 247, 0.5);
+}
+
+/* Animación para el colapso */
+.container .collapse {
+    transition: all 0.4s ease-out;
+}
+
+.container .collapse.show {
+    animation: glow 1.5s ease-out;
+}
+
+@keyframes glow {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilos para la flecha animada */
+.scroll-arrow {
+    width: 40px;
+    height: 40px;
+    margin: 40px auto 20px;
+    display: block;
+    border: 2px solid #4facfe;
+    border-radius: 50%;
+    position: relative;
+    animation: pulse 2s infinite;
+    cursor: pointer;
+}
+
+.scroll-arrow::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    border-right: 2px solid #4facfe;
+    border-bottom: 2px solid #4facfe;
+    transform: translate(-50%, -70%) rotate(45deg);
+}
+
+@keyframes pulse {
+    0% {
+        transform: translateY(0);
+        box-shadow: 0 0 0 0 rgba(79, 172, 254, 0.7);
+    }
+    50% {
+        transform: translateY(10px);
+        box-shadow: 0 0 0 10px rgba(79, 172, 254, 0);
+    }
+    100% {
+        transform: translateY(0);
+        box-shadow: 0 0 0 0 rgba(79, 172, 254, 0);
+    }
+}
+
+.scroll-arrow:hover {
+    border-color: #12fff7;
+    box-shadow: 0 0 15px rgba(18, 255, 247, 0.5);
+}
+
+.scroll-arrow:hover::after {
+    border-color: #12fff7;
+}
+
+/* Ajuste del texto para que se vea más futurista */
+.explore-text {
+    color: #4facfe;
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 20px 0;
+    text-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
+}
+
+.fecha-inicio{
+    color: white;
+}
+</style>
+{% endblock %}
+
+{% block contenido %}
+<div class="container-index">
+    <div class="stars"></div>
+    <div class="text-center mt-5">
+        <h1 class="welcome-title mt-5">Bienvenido a Cometa</h1>
+        <h3 class="slogan">Tu música por todo el universo</h3>
+    </div>
+    <div class="container">
+        <p class="fecha-inicio"> usuario: {{request.user}} <br> fecha de inicio de sesión: {{request.session.fecha_inicio}}
+        <div class="scroll-arrow"></div>
+        <h3 class="explore-text">Prueba aquí cada CRUD. <br> O explora a través de la barra de navegación superior</h3>
+        <hr>
+    
+        {% if user.is_authenticated %}
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapseUsuario" aria-expanded="false" aria-controls="collapseUsuario">
+                                CRUD Usuario
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseUsuario" class="collapse" aria-labelledby="headingUsuario">
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item"><a href="{% url 'registro_usuario' %}">Crear Usuario</a></li>
+                                <li class="list-group-item"><a href="{% url 'busqueda_avanzada_usuarios' %}">Buscar Usuarios</a></li>
+                                <li class="list-group-item"><a href="{% url 'actualizar_perfil' nombre_usuario=user.nombre_usuario %}">Editar Perfil</a></li>
+                                <li class="list-group-item"><a href="{% url 'perfil_usuario' nombre_usuario=user.nombre_usuario %}">Eliminar Usuario</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Repite el mismo patrón para las demás cards, cambiando solo collapse show por collapse -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapseCanciones" aria-expanded="false" aria-controls="collapseCanciones">
+                                CRUD Canciones
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseCanciones" class="collapse" aria-labelledby="headingCanciones">
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item"><a href="{% url 'perfil_usuario' nombre_usuario=user.nombre_usuario %}">Crear Canción</a></li>
+                                <li class="list-group-item"><a href="{% url 'busqueda_avanzada_canciones' %}">Buscar Canciones</a></li>
+                                <li class="list-group-item"><a href="{% url 'canciones_album' album_id=10 %}">Editar Canción</a></li>
+                                <li class="list-group-item"><a href="{% url 'canciones_album' album_id=10 %}">Eliminar Canción</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapseAlbumes" aria-expanded="false" aria-controls="collapseAlbumes">
+                                CRUD Álbumes
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseAlbumes" class="collapse" aria-labelledby="headingAlbumes">
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item"><a href="{% url 'crear_album' nombre_usuario=user.nombre_usuario %}">Crear Álbum</a></li>
+                                <li class="list-group-item"><a href="{% url 'busqueda_avanzada_albumes' %}">Buscar Álbumes</a></li>
+                                <li class="list-group-item"><a href="{% url 'perfil_usuario' nombre_usuario=user.nombre_usuario %}">Editar Álbum</a></li>
+                                <li class="list-group-item"><a href="{% url 'perfil_usuario' nombre_usuario=user.nombre_usuario %}">Eliminar Álbum</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapseMensajes" aria-expanded="false" aria-controls="collapseMensajes">
+                                CRUD Mensajes Privados
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseMensajes" class="collapse" aria-labelledby="headingMensajes">
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item"><a href="{% url 'chat' usuario_id=2 %}">Crear Mensaje</a></li>
+                                <li class="list-group-item"><a href="{% url 'lista_chats' %}">Ver Chats</a></li>
+                                <li class="list-group-item"><a href="{% url 'chat' usuario_id=2 %}">Editar Mensaje</a></li>
+                                <li class="list-group-item"><a href="{% url 'chat' usuario_id=2 %}">Eliminar Mensaje</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapseComentarios" aria-expanded="false" aria-controls="collapseComentarios">
+                                CRUD Comentarios
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseComentarios" class="collapse" aria-labelledby="headingComentarios">
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item"><a href="{% url 'crear_comentario' album_id=10 %}">Crear Comentario</a></li>
+                                <li class="list-group-item"><a href="{% url 'comentarios_album' album_id=10 %}">Buscar Comentarios</a></li>
+                                <li class="list-group-item"><a href="{% url 'comentarios_album' album_id=10 %}">Buscar Comentarios</a></li>
+                                <li class="list-group-item"><a href="{% url 'comentarios_album' album_id=10 %}">Eliminar Comentario</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapsePlaylist" aria-expanded="false" aria-controls="collapsePlaylist">
+                                CRUD Playlist
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapsePlaylist" class="collapse" aria-labelledby="headingPlaylist">
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item"><a href="{% url 'crear_playlist' %}">Crear Playlist</a></li>
+                                <li class="list-group-item"><a href="{% url 'busqueda_avanzada_playlists' %}">Buscar Playlists</a></li>
+                                <li class="list-group-item"><a href="{% url 'lista_playlist' nombre_usuario=request.user %}">Editar Playlist</a></li>
+                                <li class="list-group-item"><a href="{% url 'lista_playlist' nombre_usuario=request.user %}">Eliminar Playlist</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

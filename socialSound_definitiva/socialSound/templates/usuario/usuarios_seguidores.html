@@ -1,0 +1,98 @@
+{% extends 'principal.html' %}
+{% load static %}
+
+{% block contenido %}
+<div class="container-busqueda">
+    <div class="container py-5">
+        <div class="stars"></div>
+        
+        <!-- Contenedor principal -->
+        <div class="screen-container mb-4">
+            <div class="chat-window">
+                <div class="p-4">
+                    <!-- Encabezado -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        {% if usuario_perfil == request.user %}
+                            <h2 class="text-warning mb-0">Usuarios que te siguen</h2>
+                        {% else %}
+                            <h2 class="text-warning mb-0">Usuarios que siguen a {{ usuario_perfil.nombre_usuario }}</h2>
+                        {% endif %}
+                    </div>
+
+                    <!-- Lista de usuarios -->
+                    <div class="row g-4">
+                        {% for usuario in usuarios_seguidores %}
+                            <div class="col-ms-1 col-md-6 col-lg-12">
+                                {% include 'usuario/tarjeta_usuarios.html' with usuario=usuario %}
+                            </div>
+                        {% empty %}
+                            <div class="col-12">
+                                <div class="no-users-message p-4 text-center">
+                                    <i class="fa-solid fa-users mb-3 d-block" style="font-size: 2rem; color: #ffc107;"></i>
+                                    {% if usuario_perfil == request.user %}
+                                        <p class="text-white-50 mb-0">No tienes seguidores todavía.</p>
+                                    {% else %}
+                                        <p class="text-white-50 mb-0">{{ usuario_perfil.nombre_usuario }} no tiene seguidores todavía.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/fondo_estrella.css' %}">
+<style>
+    .container-busqueda {
+        min-height: calc(100vh - 60px);
+        background: #0a0a0a;
+        position: relative;
+        margin-top: -24px;
+        padding-top: 20px;
+    }
+
+    .no-users-message {
+        background: rgba(10, 10, 10, 0.2);
+        border-radius: 15px;
+        border: 1px solid rgba(255, 193, 7, 0.1);
+    }
+
+    .screen-container {
+        position: relative;
+        border-radius: 15px;
+        padding: 3px;
+        background: linear-gradient(45deg, rgba(0,0,0,0.5), rgba(255,255,255,0.1));
+    }
+
+    .screen-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 15px;
+        padding: 2px;
+        background: linear-gradient(45deg, #0ff, #f0f, #ff0);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        opacity: 0.3;
+        pointer-events: none;
+    }
+
+    .chat-window {
+        background: rgba(10, 10, 10, 0.2);
+        border-radius: 15px;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        overflow: hidden;
+        position: relative;
+    }
+</style>
+{% endblock %}
+{% endblock %}

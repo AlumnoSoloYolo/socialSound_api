@@ -1,0 +1,188 @@
+<!-- Añade esto al final de tu HTML, justo antes del cierre del body -->
+<footer class="cosmic-footer">
+    <div class="footer-stars"></div>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>Síguenos</h4>
+            <div class="social-links">
+                <a href="#" class="social-link">Instagram</a>
+                <a href="#" class="social-link">Twitter</a>
+                <a href="#" class="social-link">Facebook</a>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h4>Atención al Cliente</h4>
+            <nav class="footer-nav">
+                <a href="#">Centro de Ayuda</a>
+                <a href="#">Soporte Técnico</a>
+                <a href="#">FAQ</a>
+                <a href="#">Reportar un Problema</a>
+                <a href="#">Estado del Servicio</a>
+                <div class="support-info">
+                    <p class="support-time">24/7 Soporte</p>
+                    <p class="support-email">soporte@cometa.com</p>
+                    <p class="support-phone">+1 (800) 123-4567</p>
+                </div>
+            </nav>
+        </div>
+        <div class="footer-section">
+            <h4>Newsletter</h4>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Tu correo electrónico">
+                <button type="submit">Suscribirse</button>
+            </form>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Cometa. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+
+<style>
+   
+.cosmic-footer {
+    position: relative;
+    background: linear-gradient(to bottom, #0a0a0a, transparent);
+    color: #fff;
+    padding: 3rem 0 1rem;
+    overflow: hidden;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.footer-stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+    radial-gradient(2px 2px at 90px 40px, #ffffff, transparent),
+    radial-gradient(2px 2px at 50px 160px, #ffffff, transparent),
+    radial-gradient(2px 2px at 40px 70px, #ffffff, transparent),
+        radial-gradient(2px 2px at 20px 30px, #ffffff, transparent);
+       
+        
+       
+    background-size: 200px 200px;
+    animation: twinkle 4s linear infinite;
+    opacity: 0.3;
+}
+
+.footer-content {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 0 1rem;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-section h4 {
+    color: #4facfe;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+}
+
+.social-link {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.social-link:hover {
+    color: #12fff7;
+    text-shadow: 0 0 10px rgba(18, 255, 247, 0.5);
+}
+
+.footer-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.footer-nav a {
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-nav a:hover {
+    color: #12fff7;
+    transform: translateX(5px);
+}
+
+.newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.newsletter-form input {
+    padding: 0.8rem;
+    border: 1px solid #4facfe;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-radius: 4px;
+    outline: none;
+}
+
+.newsletter-form button {
+    padding: 0.8rem;
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.newsletter-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(79, 172, 254, 0.5);
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: black;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .social-links {
+        align-items: center;
+    }
+    
+    .footer-nav {
+        align-items: center;
+    }
+    
+    .newsletter-form {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+}
+</style>

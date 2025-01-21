@@ -1,0 +1,141 @@
+{% extends 'principal.html' %}
+
+{% load static %}
+{% block extra_css%}
+<link rel="stylesheet" href="{% static 'css/fondo_estrella.css' %}">
+<style>
+
+    audio::-webkit-media-controls-panel {
+        background-color: #212529;
+    }
+
+    .custom-audio-player {
+        background: #1a1a1a;
+        border: 1px solid white;
+        border-radius: 30px;
+        padding: 5px 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        max-width: 100%;
+    }
+    
+    /* Contenedor principal del audio */
+    audio::-webkit-media-controls-panel {
+        background: #1a1a1a !important;
+        border-radius: 20px;
+    }
+    
+    /* Botón de play */
+    audio::-webkit-media-controls-play-button {
+        background-color: #ffc107;
+        border-radius: 50%;
+        margin-right: 5px;
+    }
+    
+    /* Barra de progreso */
+    audio::-webkit-media-controls-timeline {
+        background-color: #333;
+        border-radius: 10px;
+        height: 3px;
+        margin: 0 10px;
+    }
+    
+    /* Tiempo actual y restante */
+    audio::-webkit-media-controls-current-time-display,
+    audio::-webkit-media-controls-time-remaining-display {
+        color: #ffc107;
+        font-family: monospace;
+        font-size: 12px;
+    }
+    
+    /* Botón de volumen */
+    audio::-webkit-media-controls-mute-button {
+        background-color: #ffc107;
+        border-radius: 50%;
+    }
+    
+    /* Barra de volumen */
+    audio::-webkit-media-controls-volume-slider {
+        background-color: #333;
+        border-radius: 10px;
+        height: 3px;
+    }
+    
+    /* Actualización del layout de la canción */
+    .song-item {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        align-items: center;
+        padding: 10px 15px;
+    }
+    
+    .song-info {
+        flex: 1;
+        min-width: 0;
+    }
+    
+    .audio-controls {
+        flex: 0 0 auto;
+    }
+    
+    .btn-details {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    @media (max-width: 576px) {
+        .song-item {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        
+        .song-info {
+          margin-bottom: 10px;
+        }
+        
+        .audio-controls {
+          width: 100%;
+        }
+        
+        .custom-audio-player {
+          margin-bottom: 10px;
+        }
+        .audio-controls {
+            display: flex;
+            align-items: center;
+          }
+          
+          .btn-details {
+            margin-right: 10px;
+          }
+      }
+    
+</style>
+{% endblock %}
+
+{% block contenido %}
+<div class="container-star">
+<div class="container mt-4">
+    <div class="stars"></div>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-white">Playlist: {{ playlist.nombre }}</h2>
+        <a href="{% url 'agregar_cancion_playlist' playlist_id=playlist.id %}" class="btn btn-warning">Agregar canción</a>
+    </div>
+
+    <div class="row">
+        {% for cancion in playlist.canciones.all %}
+      
+            {% include 'cancion/cancion-playlist.html' %}
+     
+        {% empty %}
+        <div class="col-12">
+            <p class="text-center">No se encontraron canciones con los criterios especificados.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</div>
+{% endblock %}

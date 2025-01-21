@@ -1,0 +1,69 @@
+{% extends 'principal.html' %}
+{% load static %}
+
+{% block custom_css %}
+<link rel="stylesheet" href="{% static 'css/fondo_estrella.css' %}">
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+{% endblock %}
+
+{% block contenido %}
+<div class="container-index container-star">
+    <div class="stars"></div>
+                <div class="login-card w-50">
+                <div class="login-header">
+                    <h2 class="mb-0">{{ title }}</h2>
+                </div>
+             
+                    <form method="POST" class="p-4" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="mb-4">
+                            <h4>Información de la canción</h4>
+                            <hr>
+                            {% for field in cancion_form %}
+                                <div class="mb-3">
+                                    <label for="{{ field.id_for_label }}" class="form-label">
+                                        {{ field.label }}
+                                    </label>
+                                    {{ field }}
+                                    {% if field.errors %}
+                                        <div class="alert alert-danger mt-2">
+                                            {{ field.errors }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="mb-4">
+                            <h4>Detalles de la canción</h4>
+                            <hr>
+                            {% for field in detalles_form %}
+                                <div class="mb-3">
+                                    <label for="{{ field.id_for_label }}" class="form-label">
+                                        {{ field.label }}
+                                    </label>
+                                    {{ field }}
+                                    {% if field.errors %}
+                                        <div class="alert alert-danger mt-2">
+                                            {{ field.errors }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-warning">
+                                Añadir canción
+                            </button>
+                            <a href="{% url 'canciones_album' album_id=album.id %}" class="btn btn-secondary">
+                                Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+          
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% load static %}
+<li>
+    {% if cancion_guardada.cancion.portada %}
+    <img src="{{ cancion_guardada.cancion.album.portada.url }}" alt="Portada de {{ cancion_guardada.cancion.titulo }}"
+        style="max-width: 200px; max-height: 200px;">
+    {% else %}
+    <img src="{% static 'images/failImage.jpg' %}" alt="Portada por defecto"
+        style="max-width: 200px; max-height: 200px;">
+    {% endif %}
+    <h3>{{ cancion_guardada.cancion.titulo }}</h3>
+    <p>De: {{ cancion_guardada.cancion.artista }}</p>
+    <p>Subido por: {{ cancion_guardada.cancion.usuario.nombre_usuario }}</p>
+    <p>Fecha de subida: {{ cancion_guardada.cancion.fecha_subida |date:'m-d-Y' }}</p>
+    <audio controls>
+        <source src="{{ cancion_guardada.cancion.archivo_audio.url }}" type="audio/wav">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+</li>

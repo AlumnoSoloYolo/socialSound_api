@@ -1,0 +1,157 @@
+/* Estilos base del navbar */
+.navbar {
+    background-color: #ffc107;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+
+.navbar-brand img {
+    height: 80px; 
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover img {
+    transform: scale(1.05);
+}
+
+
+.nav-link {
+    color: #000;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    margin: 0 0.2rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #000;
+}
+
+.nav-link i {
+    margin-left: 6px;
+    font-size: 1.5rem;
+}
+
+.nav-item {
+    position: relative;
+  
+    margin-right: 2rem;
+}
+
+.user-dropdown{
+
+    margin-right: 0;
+}
+
+/* Estilos del tooltip */
+.nav-tooltip {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.nav-tooltip::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 0 5px 5px 5px;
+    border-style: solid;
+    border-color: transparent transparent #000 transparent;
+}
+
+.nav-item:hover .nav-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Estilos del dropdown */
+.dropdown-menu {
+    background: #fff;
+    border: none;
+    border-radius: 8px;
+    margin-top: 0.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 5;
+}
+
+.dropdown-item {
+    color: #000;
+    padding: 0.7rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background: rgba(255, 193, 7, 0.2);
+    color: #000;
+}
+
+/* Estilos específicos para el dropdown de usuario y no-usuario */
+.user-dropdown .nav-link,
+.no-user-dropdown .nav-link {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    padding: 0.5rem 1.2rem;
+}
+
+.user-dropdown .nav-link:hover,
+.no-user-dropdown .nav-link:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* Asegurar que el dropdown de autenticación esté siempre a la derecha */
+.user-dropdown,
+.no-user-dropdown {
+    margin-left: auto;
+}
+
+/* Iconos en el navbar */
+.nav-icon {
+    width: 24px;
+    text-align: center;
+    margin-right: 8px;
+}
+
+/* Estilos responsive */
+@media (max-width: 991.98px) {
+    .user-dropdown,
+    .no-user-dropdown {
+        margin-left: 0;
+        margin-top: 1rem;
+    }
+    
+    .nav-tooltip {
+        display: none;
+    }
+    
+    .nav-link i {
+        margin-right: 1rem;
+    }
+
+    /* Mejora del contraste en móvil */
+    .navbar-collapse {
+        background: #ffc107;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-top: 0.5rem;
+    }
+}

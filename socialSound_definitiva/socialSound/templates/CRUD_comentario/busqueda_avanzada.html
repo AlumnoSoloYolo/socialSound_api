@@ -1,0 +1,47 @@
+<!-- templates/comentarios/includes/busqueda_avanzada.html -->
+<div class="card-body border-bottom">
+    <form method="get" class="row g-3">
+        <input type="hidden" name="buscar" value="1">
+        
+        <!-- Campo de búsqueda por contenido -->
+        <div class="col-md-6">
+            <label for="{{ form_busqueda.contenido.id_for_label }}" class="form-label">
+                {{ form_busqueda.contenido.label }}
+            </label>
+            {{ form_busqueda.contenido }}
+        </div>
+
+        <!-- Campo de búsqueda por usuario -->
+        <div class="col-md-6">
+            <label for="{{ form_busqueda.usuario.id_for_label }}" class="form-label">
+                {{ form_busqueda.usuario.label }}
+            </label>
+            {{ form_busqueda.usuario }}
+        </div>
+
+        <!-- Campo fecha desde -->
+        <div class="col-md-5">
+            <label for="{{ form_busqueda.fecha_desde.id_for_label }}" class="form-label">
+                {{ form_busqueda.fecha_desde.label }}
+            </label>
+            {{ form_busqueda.fecha_desde }}
+        </div>
+
+        <!-- Campo fecha hasta -->
+        <div class="col-md-5">
+            <label for="{{ form_busqueda.fecha_hasta.id_for_label }}" class="form-label">
+                {{ form_busqueda.fecha_hasta.label }}
+            </label>
+            {{ form_busqueda.fecha_hasta }}
+        </div>
+
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">
+                <i class="fas fa-search"></i> Buscar
+            </button>
+        </div>
+        <a href="{% url 'comentarios_album' album.id %}" class="btn btn-secondary">
+            Limpiar filtros
+        </a>
+    </form>
+</div>
