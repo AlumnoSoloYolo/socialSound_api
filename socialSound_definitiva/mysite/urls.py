@@ -25,6 +25,7 @@ urlpatterns = [
     path('', include("socialSound.urls")), 
     path('api/v1/', include("socialSound.api_urls")),
     path('__debug__/', include('debug_toolbar.urls')),
+    path('oauth2/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 ]
 
 if settings.DEBUG:
