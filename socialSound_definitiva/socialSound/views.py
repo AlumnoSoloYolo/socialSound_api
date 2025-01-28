@@ -164,7 +164,7 @@ def eliminar_usuario(request, nombre_usuario):
         pass
     return redirect('login_usuario')
 
-@login_required
+
 @login_required
 def busqueda_avanzada_usuarios(request):
     form = BusquedaAvanzadaUsuarioForm(request.GET or None)
@@ -348,8 +348,6 @@ def busqueda_avanzada_album(request):
         'albums': albums,
         'filtros_aplicados': filtros_aplicados
     })
-
-
 
 
 
