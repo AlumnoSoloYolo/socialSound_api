@@ -32,74 +32,7 @@
         position: relative;
     }
 
-
-    .welcome-title {
-        font-family: 'Orbitron', sans-serif;
-        font-size: 7rem;
-        font-weight: 800;
-        background: linear-gradient(
-            to right, 
-            #4facfe 0%, 
-            #00f2fe 30%, 
-            #a6ffcb 70%, 
-            #12fff7 100%
-        );
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        position: relative;
-        animation: cometEffect 1.2s ease-out forwards;
-        text-shadow: 
-            0 0 10px rgba(18, 255, 247, 0.5),
-            0 0 20px rgba(18, 255, 247, 0.3),
-            0 0 30px rgba(18, 255, 247, 0.2);
-        letter-spacing: 4px;
-        z-index: 1;
-        text-align: center;
-
-    }
-
-    @keyframes cometEffect {
-        0% {
-            transform: translateY(-100vh) scale(0.2);
-            opacity: 0;
-        }
-        50% {
-            opacity: 1;
-        }
-        100% {
-            transform: translateY(0) scale(1);
-            opacity: 1;
-        }
-    }
-    .text-center{
-        margin-bottom: 100px;
-    }
-    .welcome-title {
-        animation: cometEffect 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-    }
-
-    .slogan {
-        font-size: 1.5rem;
-        font-weight: 400;
-        color: #fff;
-        text-align: center;
-        margin-top: 10px;
-        opacity: 0;
-        animation: fadeInUp 1s ease-out 1s forwards;
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-    }
-
-    @keyframes fadeInUp {
-        0% {
-            opacity: 0;
-            transform: translateY(20px); 
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
+   
 
     /* Estilos específicos para las cards de CRUD */
 .container .card {
@@ -269,10 +202,6 @@
 {% block contenido %}
 <div class="container-index">
     <div class="stars"></div>
-    <div class="text-center mt-5">
-        <h1 class="welcome-title mt-5">Bienvenido a Cometa</h1>
-        <h3 class="slogan">Tu música por todo el universo</h3>
-    </div>
     <div class="container">
         <p class="fecha-inicio"> usuario: {{request.user}} <br> fecha de inicio de sesión: {{request.session.fecha_inicio}}
         <div class="scroll-arrow"></div>
@@ -302,7 +231,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Repite el mismo patrón para las demás cards, cambiando solo collapse show por collapse -->
+      
             <div class="col-md-4 mb-4">
                 <div class="card">
                     <div class="card-header">
