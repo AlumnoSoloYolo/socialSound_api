@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import handler400,handler404,handler403,handler500
-##from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,8 +27,7 @@ urlpatterns = [
     path('api/v1/', include("socialSound.api_urls")),
     path('__debug__/', include('debug_toolbar.urls')),
     path('oauth2/', include('oauth2_provider.urls', namespace='oauth2_provider')),
-   ## path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    ## path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
 ]
 
 if settings.DEBUG:
