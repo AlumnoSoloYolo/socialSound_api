@@ -46,15 +46,15 @@ LOGOUT_REDIRECT_URL = 'login_usuario'  # Página a la que se redirige después d
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = env('SECRET_KEY')
-SECRET_KEY ='1234'
+SECRET_KEY = env('SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = env("DEBUG")
-DEBUG = True
+DEBUG = env("DEBUG")
 
-# ALLOWED_HOSTS = [env('ALLOWED_HOST')]
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
+
+ALLOWED_HOSTS = [env('ALLOWED_HOST')]
+
 
 INTERNAL_IPS = ['0.0.0.0']
 
