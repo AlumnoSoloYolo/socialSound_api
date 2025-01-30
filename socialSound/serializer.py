@@ -2,7 +2,6 @@ from rest_framework import serializers
 from .models import *
 
 
-
 class UsuarioBasicoSerializer(serializers.ModelSerializer):
     rol_display = serializers.CharField(source='get_rol_display', read_only=True)
     date_joined = serializers.DateTimeField(format="%d-%m-%Y", read_only=True)
@@ -72,18 +71,17 @@ class DetallesCancionSerializer(serializers.ModelSerializer):
 
 class DetalleAlbumSerializer(serializers.ModelSerializer):
     numero_comentarios = serializers.SerializerMethodField()
-    numero_reposts = serializers.SerializerMethodField()
+ 
     
     class Meta:
         model = DetalleAlbum
         fields = ['productor', 'estudio_grabacion', 'numero_pistas', 
-                 'sello_discografico', 'numero_comentarios', 'numero_reposts']
+                 'sello_discografico', 'numero_comentarios']
     
     def get_numero_comentarios(self, obj):
         return obj.numero_comentarios
 
-    def get_numero_reposts(self, obj):
-        return obj.numero_reposts
+   
 
 class EstadisticasAlbumSerializer(serializers.ModelSerializer):
     class Meta:
@@ -96,13 +94,17 @@ class CancionSerializerMejorado(serializers.ModelSerializer):
     fecha_subida = serializers.DateTimeField(format="%d-%m-%Y %H:%M:%S", read_only=True)
     usuario = UsuarioSerializer(read_only=True)
     likes = serializers.PrimaryKeyRelatedField(source='like_set.all', many=True, read_only=True)
+    album_titulo = serializers.SerializerMethodField()
+    
+    def get_album_titulo(self, obj):
+        return obj.album.titulo if obj.album else None
     
     class Meta:
         model = Cancion
         fields = [
             'id', 'titulo', 'artista', 'archivo_audio', 'portada', 
             'fecha_subida', 'etiqueta', 'etiqueta_display', 'detalles',
-            'usuario', 'likes'
+            'usuario', 'likes', 'album_titulo'
         ]
 
 class AlbumSerializerMejorado(serializers.ModelSerializer):

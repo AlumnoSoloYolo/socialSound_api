@@ -1,16 +1,28 @@
 from .models import *
 from .serializer import *
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from .forms import *
 from django.db.models import Count, Prefetch
 
 
 @api_view(['GET'])
-def usuarios(request):
+def lista_playlists(request):
     try:
-        usuarios = Usuario.objects.prefetch_related('albumes', 'albumes__canciones').all()
-        serializer = UsuarioSerializer(usuarios, many=True)
+        playlists = Playlist.objects.select_related(
+            'usuario'
+        ).prefetch_related(
+            Prefetch(
+                'cancionplaylist_set',
+                queryset=CancionPlaylist.objects.select_related('cancion')
+            )
+        ).annotate(
+            total_canciones=Count('canciones', distinct=True)
+        ).order_by('-fecha_creacion')
+        
+        serializer = PlaylistSerializerMejorado(playlists, many=True)
         return Response(serializer.data)
     except Exception as e:
         return Response({'error': str(e)}, status=500)
@@ -57,3 +69,38 @@ def lista_usuarios_completa(request):
             {'error': str(e)}, 
             status=500
         )
+    
+
+@api_view(['GET'])
+def lista_canciones_completa(request):
+    try:
+        canciones = Cancion.objects.select_related(
+            'detalles',
+            'usuario',
+            'album'
+        ).prefetch_related('likes',).order_by('-fecha_subida')
+        
+        serializer = CancionSerializerMejorado(canciones, many=True)
+        return Response(serializer.data)
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+    
+
+
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def canciones_por_genero(request):
+    try:
+        canciones = Cancion.objects.select_related(
+            'detalles',
+            'usuario',
+        ).prefetch_related(
+            'likes'
+        ).order_by('etiqueta')
+
+        serializer = CancionSerializerMejorado(canciones, many=True)
+        return Response(serializer.data)
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+

@@ -24,6 +24,15 @@ import os
 env = environ.Env()
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
+
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1000),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1000),
+    'ROTATE_REFRESH_TOKENS': False,
+    'AUTH_HEADER_TYPES': ('JWT',),
+}
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -70,17 +79,22 @@ INSTALLED_APPS = [
     'django_bootstrap_icons',
     'rest_framework',
     'oauth2_provider',
+    'rest_framework.authtoken', 
 ]
 
 
 OAUTH2_PROVIDER = {
-    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Acceso a los grupos'}
+    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Acceso a los grupos'},
+
+    'ACCESS_TOKEN_EXPIRE_SECONDS': 31536000,  # 365 días (60*60*24*365)
+    'REFRESH_TOKEN_EXPIRE_SECONDS': 31536000,  # 365 días
 }
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-    ),
+        'rest_framework.authentication.TokenAuthentication',
+    ],
 
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',

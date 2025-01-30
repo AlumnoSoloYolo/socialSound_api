@@ -965,6 +965,78 @@
     }
 },
 {
+    "model": "auth.permission",
+    "pk": 101,
+    "fields": {
+        "name": "Can add Token",
+        "content_type": 26,
+        "codename": "add_token"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 102,
+    "fields": {
+        "name": "Can change Token",
+        "content_type": 26,
+        "codename": "change_token"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 103,
+    "fields": {
+        "name": "Can delete Token",
+        "content_type": 26,
+        "codename": "delete_token"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 104,
+    "fields": {
+        "name": "Can view Token",
+        "content_type": 26,
+        "codename": "view_token"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 105,
+    "fields": {
+        "name": "Can add token",
+        "content_type": 27,
+        "codename": "add_tokenproxy"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 106,
+    "fields": {
+        "name": "Can change token",
+        "content_type": 27,
+        "codename": "change_tokenproxy"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 107,
+    "fields": {
+        "name": "Can delete token",
+        "content_type": 27,
+        "codename": "delete_tokenproxy"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 108,
+    "fields": {
+        "name": "Can view token",
+        "content_type": 27,
+        "codename": "view_tokenproxy"
+    }
+},
+{
     "model": "auth.group",
     "pk": 1,
     "fields": {
@@ -1288,11 +1360,43 @@
     }
 },
 {
+    "model": "contenttypes.contenttype",
+    "pk": 26,
+    "fields": {
+        "app_label": "authtoken",
+        "model": "token"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 27,
+    "fields": {
+        "app_label": "authtoken",
+        "model": "tokenproxy"
+    }
+},
+{
     "model": "sessions.session",
     "pk": "2zimoh2h7477750v9e5n8ftay0z3btjp",
     "fields": {
         "session_data": ".eJxtjN1qAjEQRl-l5Fp08reavWt9BB8gzGbGbuhuAiYBQfrujaBgS2_Pd75zEx5bnX0rfPGRxCgGsXllE4YvTveh5BBxOeWWaPug22MrNa_v3f54eL_OM5a5PwEIAKUFO2hJZCyFw4QcFDvppLUHVGBY7Q1pqwwFJKUm6QanLaI52x5tS40r-pATX2NOParkDuROgbJvsB-161LNFRdf-LNFyhcuYtR_YEfmiXCZ2nqX5EacOczoY4oh5v_a3z-Bm13e:1ta8rH:QgK7XEUpymU98z_tagcUSGZGrNgltYBC6EOzCZEqYDk",
         "expire_date": "2025-02-04T07:39:35.947Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "a3lrn5tzodbmarg0m37gmpi1cxfl871a",
+    "fields": {
+        "session_data": ".eJxdjkFuwyAQRa8SsY6SMdim9i7JEXIANMAQo9ogGZAqVbl7sJJWbZb_zf9P880UljypkmhV3rKRcbb_yzSaTwrbIUXjcb7GEuzhRQ-XknJcTrV9fvX-jSdMU11q2UhtjRY9AXHoGy0GB1YK5zpNKGjorYNBUvtRYw0kW2o171EiGdykZc5-QWVioC8fw_bncITmyIF3Oy7GrqulHDPOKtGteBtXSmwUb7Ai-EE467LQkzgyEyofvPGxugX8ugE29_0Bwe5f2A:1tdHuI:VhN3v8exRNtIuZ80ccZOUOkIZEgqc5j5UBECBa7H1VQ",
+        "expire_date": "2025-02-12T23:55:42.043Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "cjvdxcrco107fwamyh0mz6hnmac4dauh",
+    "fields": {
+        "session_data": ".eJxdjFsOwiAURLdi-DbKoxbbP3UJLoBc4GKJLSQFEhPj3qVRE_VzzsycO1FQ8qBKwll5S3rCyfqbaTBXDEuRovEwnmMJdvOmm1NJOU6Huj6-dz_nAdJQn1oyqa3RokWKnLZMi85RK4VzO40gsGuto53EZl9jDSgbbDRvQQIaWKRlzH4CZWLAm4-hSgXdUrbllO9WTPRM1lGOGUaV8FK8jTMm0os_WBH9IBh1mfBFHJoBlA_e-Pjnbhb34wm9d1_Q:1tdUQT:Hy5ByjpiJITHuGCrYtcgpgnG3W1F8xU4UWQP16wD-hQ",
+        "expire_date": "2025-02-13T13:17:45.296Z"
     }
 },
 {
@@ -1305,6 +1409,22 @@
 },
 {
     "model": "sessions.session",
+    "pk": "f80b6f42l1mmougm7najromgxmfnlw00",
+    "fields": {
+        "session_data": ".eJxdjkEOwiAQRa9iWBulUIt0px7BA5ABBktsISmQmBjvLo2aqMv_5v2fuRMFJQ-qJJyVt6QnjKy_mQZzxbAcUjQexnMswW7edHMqKcfpUO3j2_spD5CG2tSiEdoazTukyGjXaC4dtYI7t9MIHGVnHZUC232NNaBosdWsAwFoYBktY_YTKBMD3nwMy59yS5sto2y3avY9b6uUY4ZRJbwUb-OMifT8D1ZEPwhGXSZ8EYdmAOWDNz7-bctl-_EEww9f6A:1tdCtP:aUxmXj-MqtEEOJ3ZDcOuzWgYfbrt4bsnkJ3CMlBjinU",
+        "expire_date": "2025-02-12T18:34:27.333Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "jx8vop8rk05nzndbb35v70tfc2gtjunb",
+    "fields": {
+        "session_data": ".eJxdjFtqwzAQRbcS9B2S0WMc239tl5AFiLFGqUVsCSIJCiF7jwwptPk999xzF5ZqmW3N_mYDi1F0Yv-XTeSuPm5DTi7Qck418uFFD181l7R-NPvz5f07z5Tn9gRgAJII2GnJbJBdP5F3yg9ykIg9KTBenQxrVIYdsVKTHLpBI5G5YIvWpYSVrEvR_4QUW1TDEeRRgcKdPI3QN6mkQovN_rsGTjefxajfYEPmF9Ey1XWT5F5cvJvJhhhcSG_tfms_noB_Xdk:1tdY23:iPGN4Dc8UtSncZ-po0QKXBpDJoik84LmWWC2tcBqQso",
+        "expire_date": "2025-02-13T17:08:47.659Z"
+    }
+},
+{
+    "model": "sessions.session",
     "pk": "lemdn4s0nqzb1lkixvllcy2w84echy3f",
     "fields": {
         "session_data": ".eJxdjMGOwiAURX_FsDb6eIVaupuZT_ADyCsPp8QWEoFkEuO_SxMXjttzzz13YamW2dbsbzawGEUv9u9sInf1cRtycoGWc6qRDy96-Km5pPWr2d8v7995pjy3JwADkNSg-04yK81umMg79EYaqfVACMrjSXGnUbEjRpyk6U2nidRFt2hdSljJuhT9X0ixRRGOII8IqHfyNIJpUkmFFpv9bw2cbj6LsfuA74iWqa6bJPfi4t1MNsTgQvpoD1v78QSAK13Y:1tZvHL:KhcZbAaHEaJM6vXY3BPsUAy5SAxQ534R_iwY8J5U1nE",
@@ -1312,11 +1432,27 @@
     }
 },
 {
+    "model": "sessions.session",
+    "pk": "snqewfrlljjxlhq249bqkvm3omytyda9",
+    "fields": {
+        "session_data": ".eJxdjt2OwiAQhV9lw_VGp1CL7Z36CD4AGWCwxBYSgcTE-O7S-BN3L88353yZG1NY8qhKoovylg2Ms99vptGcKSyHFI3H6RhLsKsXXR1KynHe1fb-1fszHjGNdallI7U1WnQExKFrtOgdWCmc22hCQX1nHfSS2m2NNZBsqdW8Q4lkcJGWKfsZlYmBrj6G5c9-Dc2aA9_8cDG021rKMeOkEp2Kt_FCiQ3iH6wI3ggnXWZ6EkdmROWDNz5Wt4CPG2Bx3x_CsF_c:1tdHne:e3ZWwzWpBw_jC4cQWxov4tJiCm4FJ4Kmv_I0Y9BIWkw",
+        "expire_date": "2025-02-12T23:48:50.384Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "tjvpu49wq5g95iayfpblihquvch2x45q",
+    "fields": {
+        "session_data": ".eJxdjtGOwiAQRX9lw_NGB6jF9k39BD-ADDBYYguJQGJi_PelWTdZfbxn7j2ZB9NYy6RrppsOjo1MsO__zKC9UlwPOdmA8znV6DYvujnVXNJyaO3jq_c2njBPbWkUV8ZZI3sCEtBzIwcPTknvd4ZQ0tA7D4Oibt9iC6Q66ozoUSFZXKV1LmFBbVOke0ixSSVsgW8FiN0X5yOsb5dUcNaZLjW4dKPMRvkBG4I_hLOpC_0ST3ZCHWKwIX24xep-_gC6WV_A:1tdSJq:laFUzgAiAuAZ9tXBVhr4twtgBxmWQsmyJHqiyiXi60I",
+        "expire_date": "2025-02-13T11:02:46.714Z"
+    }
+},
+{
     "model": "socialSound.usuario",
     "pk": 2,
     "fields": {
         "password": "pbkdf2_sha256$870000$ghhvgfsqCbit2dcS0usGbH$psZ3dvio2cVjFHjwr+FocCJtVpfKuPZyr8u1BqVpFMk=",
-        "last_login": "2025-01-19T17:44:28.323Z",
+        "last_login": "2025-01-30T13:17:43.721Z",
         "is_superuser": true,
         "nombre_usuario": "admin",
         "email": "admin@admin.com",
@@ -1360,7 +1496,7 @@
     "pk": 6,
     "fields": {
         "password": "pbkdf2_sha256$870000$jdPwXhVQQdwo89Fwh7PlQ2$yhaYDjhoKIvQ5o1/0z2DqX661sqdxyHMvLtA+Z7aDqU=",
-        "last_login": "2025-01-21T07:39:35.921Z",
+        "last_login": "2025-01-30T17:08:47.015Z",
         "is_superuser": false,
         "nombre_usuario": "DavidBowie",
         "email": "david@bowie.com",
@@ -1623,7 +1759,7 @@
         "usuario": 6,
         "fecha_subida": "2025-01-19",
         "portada": "album_portadas/61HokW2XJDL_a07ZBEH._UF10001000_QL80_.jpg",
-        "descripcion": "“Heroes”6​ es el duodécimo álbum del músico y compositor británico David Bowie, lanzado el 14 de octubre de 1977 por RCA Records. Es la segunda entrega de su 'Berlin Trilogy' junto a Brian Eno (siendo las otras Low y Lodger). “Heroes” desarrolla el sonido de Low en una dirección más positiva.7​ De los tres álbumes, es el que más se ajusta a la denominación de \"Berlín\", siendo el único que se grabó allí íntegramente. La pista que da nombre al álbum sigue siendo una de las más conocidas de Bowie, una historia de amor entre dos personas que se conocen en el muro de Berlín. El álbum es considerado por los críticos como uno de los mejores del artista, en parte gracias a la contribución del guitarrista de King Crimson, Robert Fripp, quién voló desde Estados Unidos y grabó sus partes en un día.",
+        "descripcion": "�Heroes� fue grabado en Hansa Tonstudio 2, tambi�n conocido como Hansa junto al Muro debido a su proximidad con el Muro de Berl�n. La m�sica y las letras del �lbum fueron influenciadas por las diferencias culturales y f�sicas entre el Este y el Oeste, la presencia de los guardias rusos que pod�an ver hacia el estudio, y la historia reciente de Berl�n, lo que contribuy� a crear una atm�sfera m�s oscura y claustrof�bica que la de <low>",
         "reposts": []
     }
 },
@@ -1636,7 +1772,7 @@
         "usuario": 7,
         "fecha_subida": "2025-01-19",
         "portada": "album_portadas/fugazi-fugazi-714740_6KNMjnE_mwyl1Tl.webp",
-        "descripcion": "Fugazi es el EP debut de la banda estadounidense de post-hardcore Fugazi, lanzado en noviembre de 1988 a través de Dischord Records.",
+        "descripcion": "Fugazi es el EP debut de la banda estadounidense de post-hardcore Fugazi, lanzado en noviembre de 1988 a trav�s de Dischord Records.",
         "reposts": []
     }
 },
@@ -1776,6 +1912,16 @@
     }
 },
 {
+    "model": "socialSound.comentario",
+    "pk": 7,
+    "fields": {
+        "contenido": "holaaaa",
+        "fecha_publicacion": "2025-01-29T23:49:14.235Z",
+        "album": 1,
+        "usuario": 2
+    }
+},
+{
     "model": "socialSound.mensajeprivado",
     "pk": 8,
     "fields": {
@@ -1784,6 +1930,204 @@
         "contenido": "Que bien verte por aqui Bowie",
         "fecha_envio": "2025-01-19T23:39:33.326Z",
         "leido": false
+    }
+},
+{
+    "model": "oauth2_provider.application",
+    "pk": 2,
+    "fields": {
+        "client_id": "mi_aplicacion",
+        "user": 2,
+        "redirect_uris": "",
+        "post_logout_redirect_uris": "",
+        "client_type": "confidential",
+        "authorization_grant_type": "password",
+        "client_secret": "pbkdf2_sha256$870000$f2cRS25YS8w0pkFCb5dcX2$0g2h9AwgCFeiDuH22Qb7GpzAgc2lR1ZANT56a9vY8UU=",
+        "hash_client_secret": true,
+        "name": "API",
+        "skip_authorization": false,
+        "created": "2025-01-30T11:04:46.907Z",
+        "updated": "2025-01-30T11:04:46.907Z",
+        "algorithm": "",
+        "allowed_origins": ""
+    }
+},
+{
+    "model": "oauth2_provider.application",
+    "pk": 3,
+    "fields": {
+        "client_id": "moderador",
+        "user": 2,
+        "redirect_uris": "",
+        "post_logout_redirect_uris": "",
+        "client_type": "confidential",
+        "authorization_grant_type": "password",
+        "client_secret": "pbkdf2_sha256$870000$63zrkrr9GLjm7ZoWzPaDKB$mBskrxdQi5XlMhp6qXwNVOczgJ6f5ssI9YBfyMMN3cI=",
+        "hash_client_secret": true,
+        "name": "moderador api",
+        "skip_authorization": false,
+        "created": "2025-01-30T13:19:17.866Z",
+        "updated": "2025-01-30T13:19:17.866Z",
+        "algorithm": "",
+        "allowed_origins": ""
+    }
+},
+{
+    "model": "oauth2_provider.accesstoken",
+    "pk": 2,
+    "fields": {
+        "user": 2,
+        "source_refresh_token": null,
+        "token": "tBtyVYja9UBHXnWzZgC7enkNC5k9Oc",
+        "token_checksum": "b194313e0c26bff0461853efe64892b6645fdd9f734baf8325dcaa12a7dfb55e",
+        "id_token": null,
+        "application": 2,
+        "expires": "2025-01-30T21:07:24.925Z",
+        "scope": "read write groups",
+        "created": "2025-01-30T11:07:24.926Z",
+        "updated": "2025-01-30T11:07:24.926Z"
+    }
+},
+{
+    "model": "oauth2_provider.accesstoken",
+    "pk": 3,
+    "fields": {
+        "user": 2,
+        "source_refresh_token": null,
+        "token": "4v5tAdVbAYqJ6docKQUBBtaFompcEq",
+        "token_checksum": "c3f00dbd05bd9b3a7e17f6f5758a1effbb1a330ed70e0f8342ab1c15b658ea88",
+        "id_token": null,
+        "application": 2,
+        "expires": "2026-01-30T12:30:49.106Z",
+        "scope": "read write groups",
+        "created": "2025-01-30T12:30:49.106Z",
+        "updated": "2025-01-30T12:30:49.106Z"
+    }
+},
+{
+    "model": "oauth2_provider.accesstoken",
+    "pk": 4,
+    "fields": {
+        "user": 2,
+        "source_refresh_token": null,
+        "token": "Gzp5Ceab9s5NssCdggbklF3M0K6iX6",
+        "token_checksum": "dae9f255b12332aa76fcc8ef9f18e056c3aa45f830670c46c08622900a6d853c",
+        "id_token": null,
+        "application": 2,
+        "expires": "2026-01-30T12:31:25.911Z",
+        "scope": "read write groups",
+        "created": "2025-01-30T12:31:25.912Z",
+        "updated": "2025-01-30T12:31:25.912Z"
+    }
+},
+{
+    "model": "oauth2_provider.accesstoken",
+    "pk": 5,
+    "fields": {
+        "user": 2,
+        "source_refresh_token": null,
+        "token": "Zk3sm3JkCLYIugEFQS1poFU6c6Buif",
+        "token_checksum": "449f5100977aef1e220516ba3d32068870d1ed93b35e13c199edf035b313adf5",
+        "id_token": null,
+        "application": 2,
+        "expires": "2026-01-30T13:06:34.348Z",
+        "scope": "read write groups",
+        "created": "2025-01-30T13:06:34.348Z",
+        "updated": "2025-01-30T13:06:34.348Z"
+    }
+},
+{
+    "model": "oauth2_provider.accesstoken",
+    "pk": 6,
+    "fields": {
+        "user": 2,
+        "source_refresh_token": null,
+        "token": "8yA8h9XsiGDpSwrMniJo5i9wvYR85q",
+        "token_checksum": "f89661190d1dda346c450b68ef4ada2a058985e78ad2c70b4be7c53b419e0e6c",
+        "id_token": null,
+        "application": 3,
+        "expires": "2026-01-30T13:20:25.191Z",
+        "scope": "read write groups",
+        "created": "2025-01-30T13:20:25.191Z",
+        "updated": "2025-01-30T13:20:25.191Z"
+    }
+},
+{
+    "model": "oauth2_provider.refreshtoken",
+    "pk": 2,
+    "fields": {
+        "user": 2,
+        "token": "UIXH6m28l85qDg2EquPqT64MzM4NLk",
+        "application": 2,
+        "access_token": 2,
+        "token_family": "3c536f43-a2f3-4fff-b12a-04cb9f6d3e76",
+        "created": "2025-01-30T11:07:26.433Z",
+        "updated": "2025-01-30T11:07:26.433Z",
+        "revoked": null
+    }
+},
+{
+    "model": "oauth2_provider.refreshtoken",
+    "pk": 3,
+    "fields": {
+        "user": 2,
+        "token": "IDhBX3CONqwHlQBwY8LY8ypY1wuKke",
+        "application": 2,
+        "access_token": 3,
+        "token_family": "b70bd146-13f8-4375-b126-226927e5e49d",
+        "created": "2025-01-30T12:30:49.110Z",
+        "updated": "2025-01-30T12:30:49.110Z",
+        "revoked": null
+    }
+},
+{
+    "model": "oauth2_provider.refreshtoken",
+    "pk": 4,
+    "fields": {
+        "user": 2,
+        "token": "zpKQ4YqXres9etP1hyyiZXkM54N8Hm",
+        "application": 2,
+        "access_token": 4,
+        "token_family": "eac298c9-26de-43c4-a2af-5da60d14746a",
+        "created": "2025-01-30T12:31:26.213Z",
+        "updated": "2025-01-30T12:31:26.213Z",
+        "revoked": null
+    }
+},
+{
+    "model": "oauth2_provider.refreshtoken",
+    "pk": 5,
+    "fields": {
+        "user": 2,
+        "token": "wwiaivy2zwSzQmQ433CQYI7EiGGDxT",
+        "application": 2,
+        "access_token": 5,
+        "token_family": "2d6fdebf-afa6-4636-9e56-208568287ae6",
+        "created": "2025-01-30T13:06:34.354Z",
+        "updated": "2025-01-30T13:06:34.354Z",
+        "revoked": null
+    }
+},
+{
+    "model": "oauth2_provider.refreshtoken",
+    "pk": 6,
+    "fields": {
+        "user": 2,
+        "token": "i32ZTblJwcXqXvNSfBS1kp5QmtMC9b",
+        "application": 3,
+        "access_token": 6,
+        "token_family": "237658a7-0cd3-45d6-b50c-9cead24d5c43",
+        "created": "2025-01-30T13:20:25.192Z",
+        "updated": "2025-01-30T13:20:25.192Z",
+        "revoked": null
+    }
+},
+{
+    "model": "authtoken.token",
+    "pk": "cb2fe1ec64b48cc5fc04cfc4d91857498d29b425",
+    "fields": {
+        "user": 2,
+        "created": "2025-01-30T16:08:25.940Z"
     }
 }
 ]
