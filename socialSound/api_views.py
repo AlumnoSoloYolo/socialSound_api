@@ -4,8 +4,10 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
 from .forms import *
-from django.db.models import Count, Prefetch
+from django.db.models import Count, Prefetch, Q
+from .forms import BusquedaUsuarioForm
 
 
 @api_view(['GET'])
@@ -37,10 +39,10 @@ def lista_albumes_usuario(request, nombre_usuario):
                               .select_related('usuario')\
                               .prefetch_related('canciones')
        
-        serializer = AlbumSerializerMejorado(albumes, many=True) 
+        serializer = AlbumSerializerMejorado(albumes, many=True, context={'request': request}) 
         return Response(serializer.data)
     except Usuario.DoesNotExist:
-        return Response({'error': 'Usuario no encontrado'}, status=404)
+        return Response({'error': 'Usuario no encontrado'}, status=404,)
     except Exception as e:
         return Response({'error': str(e)}, status=500)
 
@@ -80,7 +82,7 @@ def lista_canciones_completa(request):
             'album'
         ).prefetch_related('likes',).order_by('-fecha_subida')
         
-        serializer = CancionSerializerMejorado(canciones, many=True)
+        serializer = CancionSerializerMejorado(canciones, many=True, context={'request': request})
         return Response(serializer.data)
     except Exception as e:
         return Response({'error': str(e)}, status=500)
@@ -99,8 +101,32 @@ def canciones_por_genero(request):
             'likes'
         ).order_by('etiqueta')
 
-        serializer = CancionSerializerMejorado(canciones, many=True)
+        serializer = CancionSerializerMejorado(canciones, many=True, context={'request': request})
         return Response(serializer.data)
     except Exception as e:
         return Response({'error': str(e)}, status=500)
 
+
+
+## BUSQUEDAS API
+
+@api_view(['GET'])
+def usuario_buscar(request):
+    form = BusquedaUsuarioForm(request.query_params)
+    if form.is_valid():
+        texto = form.cleaned_data.get('textoBusqueda')
+
+        usuarios = Usuario.objects.annotate(
+            seguidores_count=Count('siguiendo'),
+            seguidos_count=Count('seguidores')
+        )
+
+        if texto:
+            usuarios = usuarios.filter(nombre_usuario__icontains=texto)
+              
+            
+     
+        serializer = UsuarioSerializer(usuarios, many=True, context={'request': request})
+        return Response(serializer.data)
+
+    return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)

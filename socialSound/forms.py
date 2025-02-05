@@ -287,7 +287,9 @@ class UsuarioUpdateForm(ModelForm):
             
         return cleaned_data
     
-
+    
+class BusquedaUsuarioForm(forms.Form):
+    textoBusqueda = forms.CharField(required=True)
 
 class BusquedaAvanzadaUsuarioForm(forms.Form):
     nombre_usuario = forms.CharField(

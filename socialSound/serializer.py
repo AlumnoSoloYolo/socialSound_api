@@ -47,6 +47,14 @@ class UsuarioSerializer(serializers.ModelSerializer):
     seguidores_count = serializers.IntegerField(read_only=True)
     seguidos_count = serializers.IntegerField(read_only=True)
     fecha_nac = serializers.DateField(format="%d-%m-%Y", read_only=True)
+    # foto_perfil_url = serializers.SerializerMethodField()
+
+    # def get_foto_perfil_url(self, obj):
+    #     if obj.portada:
+    #         request = self.context.get('request')
+    #         if request:
+    #             return request.build_absolute_uri(obj.foto_perfil.url)
+    #     return None
 
     class Meta:
         model = Usuario
@@ -95,14 +103,31 @@ class CancionSerializerMejorado(serializers.ModelSerializer):
     usuario = UsuarioSerializer(read_only=True)
     likes = serializers.PrimaryKeyRelatedField(source='like_set.all', many=True, read_only=True)
     album_titulo = serializers.SerializerMethodField()
+    portada_url = serializers.SerializerMethodField()
+    archivo_audio_url = serializers.SerializerMethodField()
+
     
     def get_album_titulo(self, obj):
         return obj.album.titulo if obj.album else None
     
+    def get_portada_url(self, obj):
+        if obj.portada:
+            request = self.context.get('request')
+            if request:
+                return request.build_absolute_uri(obj.portada.url)
+        return None
+    
+    def get_archivo_audio_url(self, obj):
+        if obj.archivo_audio:
+            request = self.context.get('request')
+            if request:
+                return request.build_absolute_uri(obj.archivo_audio.url)
+        return None
+    
     class Meta:
         model = Cancion
         fields = [
-            'id', 'titulo', 'artista', 'archivo_audio', 'portada', 
+            'id', 'titulo', 'artista', 'archivo_audio', 'archivo_audio_url', 'portada', 
             'fecha_subida', 'etiqueta', 'etiqueta_display', 'detalles',
             'usuario', 'likes', 'album_titulo'
         ]
@@ -113,6 +138,16 @@ class AlbumSerializerMejorado(serializers.ModelSerializer):
     estadisticasalbum = EstadisticasAlbumSerializer(read_only=True)
     fecha_subida = serializers.DateField(format="%d-%m-%Y", read_only=True)
     usuario = UsuarioSerializer(read_only=True)
+    # portada_url = serializers.SerializerMethodField()
+
+
+
+    # def get_portada_url(self, obj):
+    #     if obj.portada:
+    #         request = self.context.get('request')
+    #         if request:
+    #             return request.build_absolute_uri(obj.portada.url)
+    #     return None
     
     class Meta:
         model = Album
