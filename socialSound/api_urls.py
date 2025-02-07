@@ -8,7 +8,8 @@ urlpatterns = [
     path('canciones/lista_canciones_completa/', lista_canciones_completa, name="lista_canciones_completa"),
     path('canciones/generos/', canciones_por_genero, name='canciones_por_genero'),
 
-   path('usuarios/busqueda_simple/', usuario_buscar, name='busqueda_usuarios')
+    path('usuarios/busqueda_simple', usuario_buscar, name='busqueda_usuarios'),
+    path('usuarios/busqueda_avanzada/', usuario_busqueda_avanzada),
 
 
 ]

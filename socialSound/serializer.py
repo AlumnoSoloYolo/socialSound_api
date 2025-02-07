@@ -127,7 +127,7 @@ class CancionSerializerMejorado(serializers.ModelSerializer):
     class Meta:
         model = Cancion
         fields = [
-            'id', 'titulo', 'artista', 'archivo_audio', 'archivo_audio_url', 'portada', 
+            'id', 'titulo', 'artista', 'archivo_audio', 'archivo_audio_url', 'portada', 'portada_url',
             'fecha_subida', 'etiqueta', 'etiqueta_display', 'detalles',
             'usuario', 'likes', 'album_titulo'
         ]

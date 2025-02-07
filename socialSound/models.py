@@ -381,8 +381,3 @@ class Guardado(models.Model):
 
 
 
-
-
-
-
-

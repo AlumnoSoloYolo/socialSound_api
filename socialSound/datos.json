@@ -1,0 +1,370 @@
+[
+    {'id': 15, 'nombre': 'Lista para estudiar por la noche', 'descripcion': 'uh uh uh', 'fecha_creacion': '19-01-2025 19: 38: 15', 'usuario': {
+    'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowie.com', 'foto_perfil': '/media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ciudad
+    ': 'New York', 'rol': 1, 'rol_display': 'cliente', 'fecha_nac': '23-04-1950', 'seguidores': [
+                {'id': 4, 'seguidor': {'id': 4, 'nombre_usuar
+    io': 'moderador2', 'email': 'moderador2@socialsound.com', 'foto_perfil': '/media/fotos_perfil/imageee_Z09zq4T.jpg', 'ciudad': 'Sevilla', '
+    rol': 2, 'rol_display': 'moderador', 'date_joined': '19-01-2025'
+                    }, 'seguido': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bo
+    wie.com', 'foto_perfil': '/media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_jo
+    ined': '19-01-2025'
+                    }, 'fecha_inicio': '19-01-2025 18: 02: 05'
+                },
+                {'id': 5, 'seguidor': {'id': 7, 'nombre_usuario': 'IanFugazi', 'email': 'fug
+    azi@dischord.com', 'foto_perfil': '/media/fotos_perfil/pl_musicfugazi_f.webp', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', '
+    date_joined': '19-01-2025'
+                    }, 'seguido': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowie.com', 'foto_perfil': '/media/fotos
+    _perfil/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                    }, 'fecha_inicio': 
+    '19-01-2025 18: 22: 48'
+                },
+                {'id': 9, 'seguidor': {'id': 8, 'nombre_usuario': 'DavidLynch', 'email': 'David@Lynch.es', 'foto_perfil': '/media/
+    fotos_perfil/fb5d1198f17ce7abc565cc56a8d400b2_tgnJcs5.gif', 'ciudad': 'Sydney', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-
+    2025'
+                    }, 'seguido': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowie.com', 'foto_perfil': '/media/fotos_perfil/david-bowie_E
+    gqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                    }, 'fecha_inicio': '19-01-2025 23: 39: 08'
+                }
+            ], 'seguidos': [
+                {'id': 2, 'seguidor': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowie.com', 'foto_perfil': '/media/fotos_
+    perfil/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                    }, 'seguido': {'id': 2, 'nombre_usuario': 'admin', 'email': 'admin@admin.com', 'foto_perfil': '/media/fotos_perfil/default_profile.png', 'ciudad': '', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                    }, 'fecha_inicio': '19-01-2025 17: 44: 00'
+                },
+                {'id': 3, 'seguidor': {'id': 6, 'nombre
+    _usuario': 'DavidBowie', 'email': 'david@bowie.com', 'foto_perfil': '/media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York', '
+    rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                    }, 'seguido': {'id': 4, 'nombre_usuario': 'moderador2', 'email': 'moderador2
+    @socialsound.com', 'foto_perfil': '/media/fotos_perfil/imageee_Z09zq4T.jpg', 'ciudad': 'Sevilla', 'rol': 2, 'rol_display': 'moderador', 'd
+    ate_joined': '19-01-2025'
+                    }, 'fecha_inicio': '19-01-2025 17: 44: 02'
+                },
+                {'id': 6, 'seguidor': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email
+    ': 'david@bowie.com', 'foto_perfil': '/media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'client
+    e', 'date_joined': '19-01-2025'
+                    }, 'seguido': {'id': 7, 'nombre_usuario': 'IanFugazi', 'email': 'fugazi@dischord.com', 'foto_perfil': '/med
+    ia/fotos_perfil/pl_musicfugazi_f.webp', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                    }, 'fecha_ini
+    cio': '19-01-2025 18: 44: 03'
+                },
+                {'id': 14, 'seguidor': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowie.com', 'foto_perfil': 
+    '/media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                    }, 'se
+    guido': {'id': 8, 'nombre_usuario': 'DavidLynch', 'email': 'David@Lynch.es', 'foto_perfil': '/media/fotos_perfil/fb5d1198f17ce7abc565cc56a
+    8d400b2_tgnJcs5.gif', 'ciudad': 'Sydney', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                    }, 'fecha_inicio': '20-01-2025 17
+    : 09: 43'
+                }
+            ], 'cliente': {'id': 2, 'usuario': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowie.com', 'foto_perfil': '/media/fo
+    tos_perfil/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                }, 'genero_favor
+    ito': None, 'artista_favorito': None, 'acepta_terminos': False
+            }, 'moderador': None, 'bio': 'we are heroesss'
+        }, 'canciones': [
+            {'cancion': {
+    'id': 2, 'titulo': 'Waiting Room', 'artista': 'Fugazi', 'archivo_audio': '/media/canciones/DSVOL3_-_Loop_3.wav', 'archivo_audio_url': None
+    , 'portada': '/media/album_portadas/fugazi-fugazi-714740_6KNMjnE_mwyl1Tl.webp', 'portada_url': None, 'fecha_subida': '19-01-2025 18: 25: 34'
+    , 'etiqueta': 'punk', 'etiqueta_display': 'Punk', 'detalles': {'letra': 'If you were a teacher, I would fail your class\r\nTake it over an
+    d over \'til you noticed me\r\nIf you were a waiting room, I would never see a doctor\r\nI would sit there with my first-aid kit and bleed
+    \r\nI wanna be the power ballad that lifts you up and holds you down\r\nI wanna be the broken love song that feeds your misery\r\nAnd I ca
+    n wish all that I want, but it won\'t bring us together\r\nPlus, I know whatever happens to me, I know it\'s for the better\r\nAnd when br
+    oken bodies are washed ashore\r\nWho am I to ask for more, more, more?\r\nBut you\'re breathing in my open mouth\r\nYou\'re the gun in my 
+    lips that will blow my brains out\r\nI wanna make you drive all night just because I said,
+                        "Maybe you should come over"\r\nWanna make you 
+    fall in love as hard as my poor parents\' teenage daughter\r\nShe\'ll be the best you ever had if you let her\r\nI know it\'s for the bett
+    er\r\nKnow it\'s for the better\r\nKnow it\'s for the better\r\nKnow it\'s for the better\r\nKnow it\'s for the better\r\nKnow it\'s for t
+    he better\r\nKnow it\'s for the better\r\nKnow it\'s for the better\r\nKnow it\'s for the better\r\nKnow it\'s for the better\r\nKnow it\'
+    s for the better\r\nKnow it\'s for the better\r\nKnow it\'s for the better\r\nKnow it\'s for the better\r\nKnow it\'s for the better\r\nKn
+    ow it\'s for the better\r\nKnow it\'s for the better\r\nKnow it\'s for the better\r\nKnow it\'s for the better\r\nKnow it\'s for the bette
+    r\r\nKnow it\'s for the better\r\nKnow it\'s for the better\r\nKnow it\'s for the better\r\nKnow it\'s for the better', 'creditos': 'awfwq
+    g', 'duracion': '00: 00: 00', 'idioma': 'english', 'duracion_formateada': '00: 00'
+                    }, 'usuario': {'id': 7, 'nombre_usuario': 'IanFugazi', 'ema
+    il': 'fugazi@dischord.com', 'foto_perfil': '/media/fotos_perfil/pl_musicfugazi_f.webp', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cl
+    iente', 'fecha_nac': '23-06-1956', 'seguidores': [
+                            {'id': 6, 'seguidor': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowie.co
+    m', 'foto_perfil': '/media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined':
+     '19-01-2025'
+                                }, 'seguido': {'id': 7, 'nombre_usuario': 'IanFugazi', 'email': 'fugazi@dischord.com', 'foto_perfil': '/media/fotos_perfil/pl
+    _musicfugazi_f.webp', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                                }, 'fecha_inicio': '19-01-2025 
+    18: 44: 03'
+                            },
+                            {'id': 8, 'seguidor': {'id': 4, 'nombre_usuario': 'moderador2', 'email': 'moderador2@socialsound.com', 'foto_perfil': '/media/
+    fotos_perfil/imageee_Z09zq4T.jpg', 'ciudad': 'Sevilla', 'rol': 2, 'rol_display': 'moderador', 'date_joined': '19-01-2025'
+                                }, 'seguido': {'i
+    d': 7, 'nombre_usuario': 'IanFugazi', 'email': 'fugazi@dischord.com', 'foto_perfil': '/media/fotos_perfil/pl_musicfugazi_f.webp', 'ciudad'
+    : 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                                }, 'fecha_inicio': '19-01-2025 19: 46: 56'
+                            },
+                            {'id': 10, 'seguid
+    or': {'id': 8, 'nombre_usuario': 'DavidLynch', 'email': 'David@Lynch.es', 'foto_perfil': '/media/fotos_perfil/fb5d1198f17ce7abc565cc56a8d4
+    00b2_tgnJcs5.gif', 'ciudad': 'Sydney', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                                }, 'seguido': {'id': 7, 'nombre_usua
+    rio': 'IanFugazi', 'email': 'fugazi@dischord.com', 'foto_perfil': '/media/fotos_perfil/pl_musicfugazi_f.webp', 'ciudad': 'New York', 'rol'
+    : 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                                }, 'fecha_inicio': '19-01-2025 23: 39: 10'
+                            }
+                        ], 'seguidos': [
+                            {'id': 5, 'seguidor': {
+    'id': 7, 'nombre_usuario': 'IanFugazi', 'email': 'fugazi@dischord.com', 'foto_perfil': '/media/fotos_perfil/pl_musicfugazi_f.webp', 'ciuda
+    d': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                                }, 'seguido': {'id': 6, 'nombre_usuario': 'DavidBowie', 'em
+    ail': 'david@bowie.com', 'foto_perfil': '/media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cli
+    ente', 'date_joined': '19-01-2025'
+                                }, 'fecha_inicio': '19-01-2025 18: 22: 48'
+                            }
+                        ], 'cliente': {'id': 3, 'usuario': {'id': 7, 'nombre_usuario': 
+    'IanFugazi', 'email': 'fugazi@dischord.com', 'foto_perfil': '/media/fotos_perfil/pl_musicfugazi_f.webp', 'ciudad': 'New York', 'rol': 1, '
+    rol_display': 'cliente', 'date_joined': '19-01-2025'
+                            }, 'genero_favorito': None, 'artista_favorito': None, 'acepta_terminos': False
+                        }, 'mode
+    rador': None, 'bio': 'post-hardcore, PMA, vegan, Straight Edge'
+                    }, 'likes': [], 'album_titulo': 'Fugazi'
+                }, 'orden': 0, 'fecha_agregada': '1
+    9-01-2025 19: 38: 15'
+            },
+            {'cancion': {'id': 3, 'titulo': 'heroes', 'artista': 'David Bowie', 'archivo_audio': '/media/canciones/Capital_DK_Fu
+    ll_Loop_3_-_68_BPM_Bass.wav', 'archivo_audio_url': None, 'portada': '/media/cancion_portadas/61HokW2XJDL._UF10001000_QL80_.jpg', 'portada_
+    url': None, 'fecha_subida': '19-01-2025 19: 42: 41', 'etiqueta': 'pop', 'etiqueta_display': 'Pop', 'detalles': {'letra': "I, I will be king\
+    r\nAnd you, you will be queen\r\nThough nothing will drive them away\r\nWe can beat them, just for one day\r\nWe can be heroes, just for o
+    ne day\r\nAnd you, you can be mean\r\nAnd I, I'll drink all the time\r\n'Cause we're lovers, and that is a fact\r\nYes we're lovers, and t
+    hat is that\r\nThough nothing will keep us together\r\nWe could steal time just for one day\r\nWe can be heroes for ever and ever\r\nWhat 
+    d'you say?\r\nI, I wish you could swim\r\nLike the dolphins, like dolphins can swim\r\nThough nothing, nothing will keep us together\r\nWe
+     can beat them, for ever and ever\r\nOh we can be Heroes, just for one day\r\nI, I will be king\r\nAnd you, you will be queen\r\nThough no
+    thing will drive them away\r\nWe can be Heroes, just for one day\r\nWe can be us, just for one day\r\nI, I can remember (I remember)\r\nSt
+    anding, by the wall (by the wall)\r\nAnd the guns, shot above our heads (over our heads)\r\nAnd we kissed, as though nothing could fall (n
+    othing could fall)\r\nAnd the shame, was on the other side\r\nOh we can beat them, for ever and ever\r\nThen we could be Heroes, just for 
+    one day\r\nWe can be Heroes\r\nWe can be Heroes\r\nWe can be Heroes\r\nJust for one day\r\nWe can be Heroes\r\nWe're nothing, and nothing 
+    will help us\r\nMaybe we're lying, then you better not stay\r\nBut we could be safer, just for one day\r\nOh-oh-oh-ohh, oh-oh-oh-ohh, just
+     for one day", 'creditos': 'ian', 'duracion': '00:00:00', 'idioma': 'english', 'duracion_formateada': '00:00'}, 'usuario': {'id': 6, 'nomb
+    re_usuario': 'DavidBowie', 'email': 'david@bowie.com', 'foto_perfil': '/media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York',
+     'rol': 1, 'rol_display': 'cliente', 'fecha_nac': '23-04-1950', 'seguidores': [
+                            {'id': 4, 'seguidor': {'id': 4, 'nombre_usuario': 'moderado
+    r2', 'email': 'moderador2@socialsound.com', 'foto_perfil': '/media/fotos_perfil/imageee_Z09zq4T.jpg', 'ciudad': 'Sevilla', 'rol': 2, 'rol_
+    display': 'moderador', 'date_joined': '19-01-2025'
+                                }, 'seguido': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowie.com', 'fot
+    o_perfil': '/media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-
+    2025'
+                                }, 'fecha_inicio': '19-01-2025 18: 02: 05'
+                            },
+                            {'id': 5, 'seguidor': {'id': 7, 'nombre_usuario': 'IanFugazi', 'email': 'fugazi@dischord.c
+    om', 'foto_perfil': '/media/fotos_perfil/pl_musicfugazi_f.webp', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': 
+    '19-01-2025'
+                                }, 'seguido': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowie.com', 'foto_perfil': '/media/fotos_perfil/david-
+    bowie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                                }, 'fecha_inicio': '19-01-2025 18
+    : 22: 48'
+                            },
+                            {'id': 9, 'seguidor': {'id': 8, 'nombre_usuario': 'DavidLynch', 'email': 'David@Lynch.es', 'foto_perfil': '/media/fotos_perfil/f
+    b5d1198f17ce7abc565cc56a8d400b2_tgnJcs5.gif', 'ciudad': 'Sydney', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                                }, 'segui
+    do': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowie.com', 'foto_perfil': '/media/fotos_perfil/david-bowie_EgqAG1Z.gif', '
+    ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                                }, 'fecha_inicio': '19-01-2025 23: 39: 08'
+                            }
+                        ], 'seguidos'
+    : [
+                            {'id': 2, 'seguidor': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowie.com', 'foto_perfil': '/media/fotos_perfil/david-b
+    owie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                                }, 'seguido': {'id': 2, 'nombre_us
+    uario': 'admin', 'email': 'admin@admin.com', 'foto_perfil': '/media/fotos_perfil/default_profile.png', 'ciudad': '', 'rol': 1, 'rol_displa
+    y': 'cliente', 'date_joined': '19-01-2025'
+                                }, 'fecha_inicio': '19-01-2025 17: 44: 00'
+                            },
+                            {'id': 3, 'seguidor': {'id': 6, 'nombre_usuario': 'Da
+    vidBowie', 'email': 'david@bowie.com', 'foto_perfil': '/media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_
+    display': 'cliente', 'date_joined': '19-01-2025'
+                                }, 'seguido': {'id': 4, 'nombre_usuario': 'moderador2', 'email': 'moderador2@socialsound.c
+    om', 'foto_perfil': '/media/fotos_perfil/imageee_Z09zq4T.jpg', 'ciudad': 'Sevilla', 'rol': 2, 'rol_display': 'moderador', 'date_joined': '
+    19-01-2025'
+                                }, 'fecha_inicio': '19-01-2025 17: 44: 02'
+                            },
+                            {'id': 6, 'seguidor': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowi
+    e.com', 'foto_perfil': '/media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_join
+    ed': '19-01-2025'
+                                }, 'seguido': {'id': 7, 'nombre_usuario': 'IanFugazi', 'email': 'fugazi@dischord.com', 'foto_perfil': '/media/fotos_perfi
+    l/pl_musicfugazi_f.webp', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                                }, 'fecha_inicio': '19-01-2
+    025 18: 44: 03'
+                            },
+                            {'id': 14, 'seguidor': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowie.com', 'foto_perfil': '/media/fotos_
+    perfil/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                                }, 'seguido': {'id': 8, 'nombre_usuario': 'DavidLynch', 'email': 'David@Lynch.es', 'foto_perfil': '/media/fotos_perfil/fb5d1198f17ce7abc565cc56a8d400b2_tgnJcs
+    5.gif', 'ciudad': 'Sydney', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                                }, 'fecha_inicio': '20-01-2025 17: 09: 43'
+                            }
+                        ], 'cl
+    iente': {'id': 2, 'usuario': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowie.com', 'foto_perfil': '/media/fotos_perfil/dav
+    id-bowie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                            }, 'genero_favorito': None, 'a
+    rtista_favorito': None, 'acepta_terminos': False
+                        }, 'moderador': None, 'bio': 'we are heroesss'
+                    }, 'likes': [], 'album_titulo': 'Heroes'
+                }, '
+    orden': 0, 'fecha_agregada': '19-01-2025 19: 43: 34'
+            }
+        ], 'publica': True, 'total_canciones': 2
+    }
+]                                             
+    [
+    06/Feb/2025 17: 56: 41
+] "GET /playlists/ HTTP/1.1"200 20758                                                                               
+    [
+    {'id': 1, 'titulo': 'Heroes', 'artista': 'David Bowie', 'usuario': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowie.com', 
+    'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente
+    ', 'fecha_nac': '23-04-1950', 'seguidores': [
+                {'id': 4, 'seguidor': {'id': 4, 'nombre_usuario': 'moderador2', 'email': 'moderador2@socialso
+    und.com', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/imageee_Z09zq4T.jpg', 'ciudad': 'Sevilla', 'rol': 2, 'rol_display': 'mo
+    derador', 'date_joined': '19-01-2025'
+                    }, 'seguido': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowie.com', 'foto_perfil': 'h
+    ttp: //127.0.0.1:8000/media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined':
+     '19-01-2025'
+                    }, 'fecha_inicio': '19-01-2025 18: 02: 05'
+                },
+                {'id': 5, 'seguidor': {'id': 7, 'nombre_usuario': 'IanFugazi', 'email': 'fugazi@di
+    schord.com', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/pl_musicfugazi_f.webp', 'ciudad': 'New York', 'rol': 1, 'rol_display
+    ': 'cliente', 'date_joined': '19-01-2025'
+                    }, 'seguido': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowie.com', 'foto_perfil'
+    : 'http: //127.0.0.1:8000/media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_join
+    ed': '19-01-2025'
+                    }, 'fecha_inicio': '19-01-2025 18: 22: 48'
+                },
+                {'id': 9, 'seguidor': {'id': 8, 'nombre_usuario': 'DavidLynch', 'email': 'Davi
+    d@Lynch.es', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/fb5d1198f17ce7abc565cc56a8d400b2_tgnJcs5.gif', 'ciudad': 'Sydney', '
+    rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                    }, 'seguido': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowi
+    e.com', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 
+    'cliente', 'date_joined': '19-01-2025'
+                    }, 'fecha_inicio': '19-01-2025 23: 39: 08'
+                }
+            ], 'seguidos': [
+                {'id': 2, 'seguidor': {'id': 6, 'nombre_usu
+    ario': 'DavidBowie', 'email': 'david@bowie.com', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ciuda
+    d': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                    }, 'seguido': {'id': 2, 'nombre_usuario': 'admin', 'email':
+     'admin@admin.com', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/default_profile.png', 'ciudad': '', 'rol': 1, 'rol_display': 
+    'cliente', 'date_joined': '19-01-2025'
+                    }, 'fecha_inicio': '19-01-2025 17: 44: 00'
+                },
+                {'id': 3, 'seguidor': {'id': 6, 'nombre_usuario': 'DavidB
+    owie', 'email': 'david@bowie.com', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York'
+                        , 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                    }, 'seguido': {'id': 4, 'nombre_usuario': 'moderador2', 'email': 'moderad
+    or2@socialsound.com', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/imageee_Z09zq4T.jpg', 'ciudad': 'Sevilla', 'rol': 2, 'rol_d
+    isplay': 'moderador', 'date_joined': '19-01-2025'
+                    }, 'fecha_inicio': '19-01-2025 17: 44: 02'
+                },
+                {'id': 6, 'seguidor': {'id': 6, 'nombre_usuari
+    o': 'DavidBowie', 'email': 'david@bowie.com', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ciudad':
+     'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                    }, 'seguido': {'id': 7, 'nombre_usuario': 'IanFugazi', 'email'
+    : 'fugazi@dischord.com', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/pl_musicfugazi_f.webp', 'ciudad': 'New York', 'rol': 1, 
+    'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                    }, 'fecha_inicio': '19-01-2025 18: 44: 03'
+                },
+                {'id': 14, 'seguidor': {'id': 6, 'nombre_u
+    suario': 'DavidBowie', 'email': 'david@bowie.com', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ciu
+    dad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                    }, 'seguido': {'id': 8, 'nombre_usuario': 'DavidLynch', '
+    email': 'David@Lynch.es', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/fb5d1198f17ce7abc565cc56a8d400b2_tgnJcs5.gif', 'ciudad'
+                        : 'Sydney', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                    }, 'fecha_inicio': '20-01-2025 17: 09: 43'
+                }
+            ], 'cliente': {'id': 2, 'usuario': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowie.com', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfi
+    l/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                }, 'genero_favorito': Non
+    e, 'artista_favorito': None, 'acepta_terminos': False
+            }, 'moderador': None, 'bio': 'we are heroesss'
+        }, 'fecha_subida': '19-01-2025', 'porta
+    da': 'http: //127.0.0.1:8000/media/album_portadas/61HokW2XJDL_a07ZBEH._UF10001000_QL80_.jpg', 'descripcion': 'heroes fue grabado en Berlin 
+    junto a Brian Eno en un proceso de desintoxicacion de heroina', 'canciones': [
+            {'id': 3, 'titulo': 'heroes', 'artista': 'David Bowie', 'arc
+    hivo_audio': 'http: //127.0.0.1:8000/media/canciones/Capital_DK_Full_Loop_3_-_68_BPM_Bass.wav', 'archivo_audio_url': 'http://127.0.0.1:8000
+    /media/canciones/Capital_DK_Full_Loop_3_-_68_BPM_Bass.wav', 'portada': 'http: //127.0.0.1:8000/media/cancion_portadas/61HokW2XJDL._UF100010
+                00_QL80_.jpg', 'portada_url': 'http: //127.0.0.1:8000/media/cancion_portadas/61HokW2XJDL._UF10001000_QL80_.jpg', 'fecha_subida': '19-01-202
+                5 19: 42: 41', 'etiqueta': 'pop', 'etiqueta_display': 'Pop', 'detalles': {'letra': "I, I will be king\r\nAnd you, you will be queen\r\nThoug
+    h nothing will drive them away\r\nWe can beat them, just for one day\r\nWe can be heroes, just for one day\r\nAnd you, you can be mean\r\n
+    And I, I'll drink all the time\r\n'Cause we're lovers, and that is a fact\r\nYes we're lovers, and that is that\r\nThough nothing will kee
+    p us together\r\nWe could steal time just for one day\r\nWe can be heroes for ever and ever\r\nWhat d'you say?\r\nI, I wish you could swim
+    \r\nLike the dolphins, like dolphins can swim\r\nThough nothing, nothing will keep us together\r\nWe can beat them, for ever and ever\r\nO
+    h we can be Heroes, just for one day\r\nI, I will be king\r\nAnd you, you will be queen\r\nThough nothing will drive them away\r\nWe can b
+    e Heroes, just for one day\r\nWe can be us, just for one day\r\nI, I can remember (I remember)\r\nStanding, by the wall (by the wall)\r\nA
+    nd the guns, shot above our heads (over our heads)\r\nAnd we kissed, as though nothing could fall (nothing could fall)\r\nAnd the shame, w
+    as on the other side\r\nOh we can beat them, for ever and ever\r\nThen we could be Heroes, just for one day\r\nWe can be Heroes\r\nWe can 
+    be Heroes\r\nWe can be Heroes\r\nJust for one day\r\nWe can be Heroes\r\nWe're nothing, and nothing will help us\r\nMaybe we're lying, the
+    n you better not stay\r\nBut we could be safer, just for one day\r\nOh-oh-oh-ohh, oh-oh-oh-ohh, just for one day", 'creditos': 'ian', 'dur
+    acion': '00: 00: 00', 'idioma': 'english', 'duracion_formateada': '00: 00'
+                }, 'usuario': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'd
+    avid@bowie.com', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_d
+    isplay': 'cliente', 'fecha_nac': '23-04-1950', 'seguidores': [
+                        {'id': 4, 'seguidor': {'id': 4, 'nombre_usuario': 'moderador2', 'email': 'mo
+    derador2@socialsound.com', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/imageee_Z09zq4T.jpg', 'ciudad': 'Sevilla', 'rol': 2, '
+    rol_display': 'moderador', 'date_joined': '19-01-2025'
+                            }, 'seguido': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowie.com', 
+    'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente
+    ', 'date_joined': '19-01-2025'
+                            }, 'fecha_inicio': '19-01-2025 18: 02: 05'
+                        },
+                        {'id': 5, 'seguidor': {'id': 7, 'nombre_usuario': 'IanFugazi', 'e
+    mail': 'fugazi@dischord.com', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/pl_musicfugazi_f.webp', 'ciudad': 'New York', 'rol'
+                                : 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                            }, 'seguido': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowie.co
+    m', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cli
+    ente', 'date_joined': '19-01-2025'
+                            }, 'fecha_inicio': '19-01-2025 18: 22: 48'
+                        },
+                        {'id': 9, 'seguidor': {'id': 8, 'nombre_usuario': 'DavidLynch
+    ', 'email': 'David@Lynch.es', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/fb5d1198f17ce7abc565cc56a8d400b2_tgnJcs5.gif', 'ciu
+    dad': 'Sydney', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                            }, 'seguido': {'id': 6, 'nombre_usuario': 'DavidBowie', 'em
+    ail': 'david@bowie.com', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1
+                                , 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                            }, 'fecha_inicio': '19-01-2025 23: 39: 08'
+                        }
+                    ], 'seguidos': [
+                        {'id': 2, 'seguidor': {'id
+    ': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowie.com', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/david-bowie_Egq
+    AG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                            }, 'seguido': {'id': 2, 'nombre_usuario': 
+    'admin', 'email': 'admin@admin.com', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/default_profile.png', 'ciudad': '', 'rol': 1
+                                , 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                            }, 'fecha_inicio': '19-01-2025 17: 44: 00'
+                        },
+                        {'id': 3, 'seguidor': {'id': 6, 'nombre_
+    usuario': 'DavidBowie', 'email': 'david@bowie.com', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ci
+    udad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                            }, 'seguido': {'id': 4, 'nombre_usuario': 'moderador2', 
+    'email': 'moderador2@socialsound.com', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/imageee_Z09zq4T.jpg', 'ciudad': 'Sevilla',
+     'rol': 2, 'rol_display': 'moderador', 'date_joined': '19-01-2025'
+                            }, 'fecha_inicio': '19-01-2025 17: 44: 02'
+                        },
+                        {'id': 6, 'seguidor': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowie.com', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/david-bowie_EgqAG1
+    Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                            }, 'seguido': {'id': 7, 'nombre_usuario': 'Ia
+    nFugazi', 'email': 'fugazi@dischord.com', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/pl_musicfugazi_f.webp', 'ciudad': 'New 
+    York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                            }, 'fecha_inicio': '19-01-2025 18: 44: 03'
+                        },
+                        {'id': 14, 'seguidor': {'
+    id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowie.com', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/david-bowie_E
+    gqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                            }, 'seguido': {'id': 8, 'nombre_usuario'
+    : 'DavidLynch', 'email': 'David@Lynch.es', 'foto_perfil': 'http: //127.0.0.1:8000/media/fotos_perfil/fb5d1198f17ce7abc565cc56a8d400b2_tgnJc
+    s5.gif', 'ciudad': 'Sydney', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                            }, 'fecha_inicio': '20-01-2025 17: 09: 43'
+                        }
+                    ], 'c
+    liente': {'id': 2, 'usuario': {'id': 6, 'nombre_usuario': 'DavidBowie', 'email': 'david@bowie.com', 'foto_perfil': 'http: //127.0.0.1:8000/
+    media/fotos_perfil/david-bowie_EgqAG1Z.gif', 'ciudad': 'New York', 'rol': 1, 'rol_display': 'cliente', 'date_joined': '19-01-2025'
+                        }, 'gene
+    ro_favorito': None, 'artista_favorito': None, 'acepta_terminos': False
+                    }, 'moderador': None, 'bio': 'we are heroesss'
+                }, 'likes': [], 'album
+    _titulo': 'Heroes'
+            }
+        ], 'detalle_album': {'productor': 'David Bowie, Tony Visconti', 'estudio_grabacion': 'RCA studios', 'numero_pistas': 1,
+     'sello_discografico': 'RCA', 'numero_comentarios': 1
+        }, 'estadisticasalbum': {'reproducciones': 0, 'likes': 0, 'comentarios': 0
+        }
+    }
+]

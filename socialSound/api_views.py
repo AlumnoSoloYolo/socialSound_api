@@ -115,7 +115,6 @@ def usuario_buscar(request):
     form = BusquedaUsuarioForm(request.query_params)
     if form.is_valid():
         texto = form.cleaned_data.get('textoBusqueda')
-
         usuarios = Usuario.objects.annotate(
             seguidores_count=Count('siguiendo'),
             seguidos_count=Count('seguidores')
@@ -126,7 +125,49 @@ def usuario_buscar(request):
               
             
      
-        serializer = UsuarioSerializer(usuarios, many=True, context={'request': request})
+        serializer = UsuarioSerializer(usuarios, many=True)
+        print(f'{serializer.data}')
         return Response(serializer.data)
 
     return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+@api_view(['GET'])
+def usuario_busqueda_avanzada(request):
+    if len(request.GET) > 0:
+        formulario = BusquedaAvanzadaUsuarioForm(request.query_params)
+        if formulario.is_valid():
+            usuarios = Usuario.objects.all()
+            
+            nombre_usuario = formulario.cleaned_data.get('nombre_usuario')
+            ciudad = formulario.cleaned_data.get('ciudad')
+            edad_min = formulario.cleaned_data.get('edad_min')
+            edad_max = formulario.cleaned_data.get('edad_max')
+            bio_contains = formulario.cleaned_data.get('bio_contains')
+
+            if nombre_usuario:
+                usuarios = usuarios.filter(nombre_usuario__icontains=nombre_usuario)
+            
+            if ciudad:
+                usuarios = usuarios.filter(ciudad__icontains=ciudad)
+            
+            if edad_min:
+                fecha_max = date.today().replace(year=date.today().year - edad_min)
+                usuarios = usuarios.filter(fecha_nac__lte=fecha_max)
+            
+            if edad_max:
+                fecha_min = date.today().replace(year=date.today().year - edad_max)
+                usuarios = usuarios.filter(fecha_nac__gte=fecha_min)
+            
+            if bio_contains:
+                usuarios = usuarios.filter(bio__icontains=bio_contains)
+
+            serializer = UsuarioSerializer(usuarios, many=True)
+            return Response(serializer.data)
+            
+        return Response(formulario.errors, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        formulario = BusquedaAvanzadaUsuarioForm(None)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
