@@ -115,13 +115,22 @@ def usuario_buscar(request):
     form = BusquedaUsuarioForm(request.query_params)
     if form.is_valid():
         texto = form.cleaned_data.get('textoBusqueda')
-        usuarios = Usuario.objects.annotate(
-            seguidores_count=Count('siguiendo'),
-            seguidos_count=Count('seguidores')
-        )
+        usuarios = Usuario.objects.prefetch_related(
+                'siguiendo',
+                'siguiendo__seguidor',
+                'seguidores',
+                'seguidores__seguido',
+                'cliente',
+                'moderador',
+                'albumes'
+            ).annotate(
+                seguidores_count=Count('siguiendo', distinct=True),
+                seguidos_count=Count('seguidores', distinct=True),
+                publicaciones_count=Count('albumes')
+            ).order_by('-date_joined')
 
         if texto:
-            usuarios = usuarios.filter(nombre_usuario__icontains=texto)
+                usuarios = usuarios.filter(nombre_usuario__icontains=texto)
               
             
      
@@ -137,10 +146,23 @@ def usuario_buscar(request):
 @api_view(['GET'])
 def usuario_busqueda_avanzada(request):
     if len(request.GET) > 0:
-        formulario = BusquedaAvanzadaUsuarioForm(request.query_params)
+        formulario = BusquedaAvanzadaUsuarioForm_noValidaciones(request.query_params)
         if formulario.is_valid():
-            usuarios = Usuario.objects.all()
-            
+            usuarios = Usuario.objects.prefetch_related(
+            'siguiendo',
+            'siguiendo__seguidor',
+            'seguidores',
+            'seguidores__seguido',
+            'cliente',
+            'moderador', 
+            'albumes'
+        ).annotate(
+            seguidores_count=Count('siguiendo', distinct=True),
+            seguidos_count=Count('seguidores', distinct=True),
+            publicaciones_count=Count('albumes', distinct=True)
+        ).order_by('-date_joined')
+        
+                        
             nombre_usuario = formulario.cleaned_data.get('nombre_usuario')
             ciudad = formulario.cleaned_data.get('ciudad')
             edad_min = formulario.cleaned_data.get('edad_min')
@@ -171,3 +193,112 @@ def usuario_busqueda_avanzada(request):
     else:
         formulario = BusquedaAvanzadaUsuarioForm(None)
         return Response(status=status.HTTP_400_BAD_REQUEST)
+    
+
+@api_view(['GET'])
+def album_busqueda_avanzada(request):
+    if len(request.GET) > 0:
+        formulario = BusquedaAvanzadaAlbumForm(request.query_params)
+        if formulario.is_valid():
+            albumes = Album.objects.select_related('usuario').prefetch_related(
+                'canciones',
+                'reposts',
+                'comentario_set'
+            ).annotate(
+                num_canciones=Count('canciones', distinct=True),
+                num_comentarios=Count('comentario', distinct=True)
+            )
+            
+            titulo = formulario.cleaned_data.get('titulo')
+            artista = formulario.cleaned_data.get('artista')
+            fecha_desde = formulario.cleaned_data.get('fecha_desde')
+            fecha_hasta = formulario.cleaned_data.get('fecha_hasta')
+
+            if titulo:
+                albumes = albumes.filter(titulo__icontains=titulo)
+            if artista:
+                albumes = albumes.filter(artista__icontains=artista)
+            if fecha_desde:
+                albumes = albumes.filter(fecha_subida__gte=fecha_desde)
+            if fecha_hasta:
+                albumes = albumes.filter(fecha_subida__lte=fecha_hasta)
+
+            serializer = AlbumSerializerMejorado(albumes, many=True)
+            return Response(serializer.data)
+            
+        return Response(formulario.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def cancion_busqueda_avanzada(request):
+    if len(request.GET) > 0:
+        formulario = BusquedaAvanzadaCancionForm(request.query_params)
+        if formulario.is_valid():
+            canciones = Cancion.objects.select_related(
+                'usuario',
+                'album',
+                'detalles'
+            ).prefetch_related('likes')
+            
+            titulo = formulario.cleaned_data.get('titulo')
+            artista = formulario.cleaned_data.get('artista')
+            etiqueta = formulario.cleaned_data.get('etiqueta')
+            fecha_desde = formulario.cleaned_data.get('fecha_desde')
+            fecha_hasta = formulario.cleaned_data.get('fecha_hasta')
+            album = formulario.cleaned_data.get('album')
+
+            if titulo:
+                canciones = canciones.filter(titulo__icontains=titulo)
+            if artista:
+                canciones = canciones.filter(artista__icontains=artista)
+            if etiqueta:
+                canciones = canciones.filter(etiqueta=etiqueta)
+            if fecha_desde:
+                canciones = canciones.filter(fecha_subida__gte=fecha_desde)
+            if fecha_hasta:
+                canciones = canciones.filter(fecha_subida__lte=fecha_hasta)
+            if album:
+                canciones = canciones.filter(album__titulo__icontains=album)
+
+            serializer = CancionSerializerMejorado(canciones, many=True)
+            return Response(serializer.data)
+            
+        return Response(formulario.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['GET'])
+def playlist_busqueda_avanzada(request):
+    if len(request.GET) > 0:
+        formulario = BusquedaAvanzadaPlaylistForm(request.query_params)
+        if formulario.is_valid():
+            playlists = Playlist.objects.select_related('usuario').prefetch_related(
+                'canciones',
+                'cancionplaylist_set',
+                'cancionplaylist_set__cancion'
+            )
+            
+            nombre = formulario.cleaned_data.get('nombre')
+            usuario = formulario.cleaned_data.get('usuario')
+            fecha_desde = formulario.cleaned_data.get('fecha_desde')
+            fecha_hasta = formulario.cleaned_data.get('fecha_hasta')
+            publica = formulario.cleaned_data.get('publica')
+
+            if nombre:
+                playlists = playlists.filter(nombre__icontains=nombre)
+            if usuario:
+                playlists = playlists.filter(usuario__nombre_usuario__icontains=usuario)
+            if fecha_desde:
+                playlists = playlists.filter(fecha_creacion__gte=fecha_desde)
+            if fecha_hasta:
+                playlists = playlists.filter(fecha_creacion__lte=fecha_hasta)
+            if publica:
+                playlists = playlists.filter(publica=publica == 'True')
+
+            serializer = PlaylistSerializerMejorado(playlists, many=True)
+            return Response(serializer.data)
+            
+        return Response(formulario.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(status=status.HTTP_400_BAD_REQUEST)

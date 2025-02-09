@@ -10,6 +10,9 @@ urlpatterns = [
 
     path('usuarios/busqueda_simple', usuario_buscar, name='busqueda_usuarios'),
     path('usuarios/busqueda_avanzada/', usuario_busqueda_avanzada),
+    path('albumes/busqueda_avanzada/', album_busqueda_avanzada),
+    path('canciones/busqueda_avanzada/', cancion_busqueda_avanzada),
+    path('playlists/busqueda_avanzada/', playlist_busqueda_avanzada),
 
 
 ]
