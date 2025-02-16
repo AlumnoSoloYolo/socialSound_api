@@ -204,3 +204,43 @@ class MensajePrivadoSerializerMejorado(serializers.ModelSerializer):
         model = MensajePrivado
         fields = ['id', 'emisor', 'receptor', 'contenido', 'fecha_envio', 'leido']
 
+
+import base64
+from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import InMemoryUploadedFile
+
+class UsuarioSerializerCreate(serializers.ModelSerializer):
+    foto_perfil = serializers.CharField(required=False, allow_blank=True)  # Cambiado a CharField para recibir el base64
+    
+    class Meta:
+        model = Usuario
+        fields = ['nombre_usuario', 'email', 'password', 
+                 'bio', 'foto_perfil']
+    
+    def create(self, validated_data):
+        foto_base64 = validated_data.pop('foto_perfil', None)  # Extraemos la foto en base64
+
+        print("Guardando foto:", foto_base64[:100] if foto_base64 else None)
+        
+        usuario = Usuario.objects.create_user(
+            nombre_usuario=validated_data["nombre_usuario"],
+            email=validated_data["email"],
+            password=validated_data["password"],
+            bio=validated_data.get("bio", "")
+        )
+        
+        if foto_base64:
+            try:
+                # Decodificar la imagen base64
+                formato, imgstr = foto_base64.split(';base64,') if ';base64,' in foto_base64 else ('', foto_base64)
+                ext = formato.split('/')[-1] if formato else 'jpg'
+                datos = ContentFile(base64.b64decode(imgstr))
+                
+                # Guardar la imagen
+                file_name = f"{usuario.nombre_usuario}_profile.{ext}"
+                usuario.foto_perfil.save(file_name, datos, save=True)
+            except Exception as e:
+                print(f"Error al procesar la foto: {e}")
+        
+        return usuario
+

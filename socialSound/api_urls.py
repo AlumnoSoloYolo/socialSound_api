@@ -14,5 +14,7 @@ urlpatterns = [
     path('canciones/busqueda_avanzada/', cancion_busqueda_avanzada),
     path('playlists/busqueda_avanzada/', playlist_busqueda_avanzada),
 
+    path('usuarios/crear', usuario_create),
+
 
 ]

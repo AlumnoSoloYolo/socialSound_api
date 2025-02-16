@@ -302,3 +302,22 @@ def playlist_busqueda_avanzada(request):
             
         return Response(formulario.errors, status=status.HTTP_400_BAD_REQUEST)
     return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['POST'])
+def usuario_create(request): 
+    print(request.data)
+    usuarioCreateSerializer = UsuarioSerializerCreate(data=request.data)
+    if usuarioCreateSerializer.is_valid():
+        try:
+            usuarioCreateSerializer.save()
+            return Response("Usuario CREADO")
+        except serializers.ValidationError as error:
+            return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            print(repr(error))
+            return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        print("Errores del serializer:", usuarioCreateSerializer.errors)
+        return Response(usuarioCreateSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
