@@ -3,6 +3,7 @@ from .api_views import *
 
 urlpatterns = [
     path('playlists/', lista_playlists, name="lista_playlists"),
+     path('albumes/', lista_albumes, name='lista_albumes_completa'),
     path('<str:nombre_usuario>/albumes/', lista_albumes_usuario, name='lista_albumes'),
     path('usuarios/lista_usuarios_completa/', lista_usuarios_completa, name="lista_usuarios_completa"),
     path('canciones/lista_canciones_completa/', lista_canciones_completa, name="lista_canciones_completa"),
@@ -15,6 +16,29 @@ urlpatterns = [
     path('playlists/busqueda_avanzada/', playlist_busqueda_avanzada),
 
     path('usuarios/crear', usuario_create),
+    path('usuarios/<int:id>', usuario_detail),
+    path('usuarios/<int:id>/actualizar', usuario_update),
+    path('usuarios/actualizar/nombre/<int:usuario_id>', usuario_actualizar_nombre, name='usuario_actualizar_nombre'),
+    path('usuarios/eliminar/<int:usuario_id>', usuario_eliminar),
+    path('albumes/', album_list, name='album-list'),
+    path('albumes/<int:album_id>/detalles/', detalle_album_create, name='crear_detalle_album'),
+    path('usuarios/', usuario_list, name="lista-usuarios"),
+    path('albumes/crear/', album_crear, name='album-crear'),
+    path('albumes/<int:id>/', album_detail),  
+    path('albumes/<int:id>/editar/', album_update),  
+    path('albumes/actualizar/titulo/<int:id>/', album_patch_titulo),
+    path('albumes/<int:id>/eliminar/', album_delete),
+    path('playlists/crear/', playlist_create),
+    path('canciones/', obtener_canciones, name='lista_canciones'),
+    path('playlists/<int:id>/', playlist_detail, name='playlist_detail'),
+    path('playlists/<int:id>/editar/', playlist_update, name='playlist_update'),
+
+
+
+
+    path('albumes/detalles/<int:id>/', detalle_album_detail),  
+    path('albumes/detalles/<int:id>/editar/', detalle_album_update),
+
 
 
 ]

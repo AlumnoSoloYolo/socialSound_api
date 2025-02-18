@@ -48,6 +48,21 @@ def lista_albumes_usuario(request, nombre_usuario):
 
 
 @api_view(['GET'])
+def lista_albumes(request):
+    try:
+     
+        albumes = Album.objects.all()\
+                               .order_by('fecha_subida')\
+                               .select_related('usuario', 'detalle_album', 'estadisticasalbum')\
+                               .prefetch_related('canciones', 'canciones__detalles')
+        
+   
+        serializer = AlbumSerializerMejorado(albumes, many=True, context={'request': request})
+        return Response(serializer.data)
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+
+@api_view(['GET'])
 def lista_usuarios_completa(request):
     try:
         usuarios = Usuario.objects.prefetch_related(
@@ -321,3 +336,285 @@ def usuario_create(request):
     else:
         print("Errores del serializer:", usuarioCreateSerializer.errors)
         return Response(usuarioCreateSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+
+
+@api_view(['GET'])
+def usuario_detail(request, id):
+    print(f"Backend: GET usuario {id}")
+    try:
+        usuario = Usuario.objects.get(id=id)
+        serializer = UsuarioSerializer(usuario)
+        return Response(serializer.data)
+    except Usuario.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['PUT'])
+def usuario_update(request, id): 
+    print(f"Backend: Iniciando PUT usuario {id}")
+    print("Datos recibidos:", request.data)
+    try:
+        usuario = Usuario.objects.get(id=id)
+        print("Usuario encontrado:", usuario.nombre_usuario)
+    except Usuario.DoesNotExist:
+        print("Usuario no encontrado")
+        return Response(status=status.HTTP_404_NOT_FOUND)
+        
+    usuarioSerializer = UsuarioSerializerUpdate(data=request.data, instance=usuario)
+    if usuarioSerializer.is_valid():
+        print("Datos válidos. Guardando cambios...")
+        try:
+            usuarioSerializer.save()
+            print("Usuario actualizado correctamente")
+            return Response("Usuario ACTUALIZADO")
+        except Exception as e:
+            print("Error al guardar:", str(e))
+            return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
+    print("Errores de validación:", usuarioSerializer.errors)
+    return Response(usuarioSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PATCH'])
+def usuario_actualizar_nombre(request, usuario_id):
+    usuario = Usuario.objects.get(id=usuario_id)
+    serializer = UsuarioSerializerActualizarNombre(data=request.data, instance=usuario)
+    if serializer.is_valid():
+        try:
+            serializer.save()
+            return Response("Usuario EDITADO")
+        except Exception as error:
+            print(repr(error))
+            return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+@api_view(['DELETE'])
+def usuario_eliminar(request, usuario_id):
+    usuario = Usuario.objects.get(id=usuario_id)
+    try:
+        usuario.delete()
+        return Response("Usuario ELIMINADO")
+    except Exception as error:
+        return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+
+@api_view(['GET'])
+def album_list(request):
+    albumes = Album.objects.all()
+    serializer = AlbumSerializer(albumes, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def usuario_list(request):
+    usuarios = Usuario.objects.all()
+    serializer = UsuarioSerializer(usuarios, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def album_crear(request):
+    print("Datos recibidos en el backend:", request.data)
+    serializer = AlbumSerializerCrear(data=request.data)
+    print("Serializer:", serializer)
+    
+    if serializer.is_valid():
+        print("Datos validados:", serializer.validated_data)
+        try:
+            album = serializer.save()
+            return Response("Album CREADO", status=status.HTTP_201_CREATED)
+        except Exception as e:
+            print("Error al guardar:", str(e))
+            return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
+    else:
+        print("Errores de validación:", serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+@api_view(['GET'])
+def album_detail(request, id):
+    print(f"GET album {id}")
+    try:
+        album = Album.objects.get(id=id)
+        serializer = AlbumSerializerCrear(album)
+        return Response(serializer.data)
+    except Album.DoesNotExist:
+        return Response(
+            {"error": "Album no encontrado"}, 
+            status=status.HTTP_404_NOT_FOUND
+        )
+
+@api_view(['PUT'])
+def album_update(request, id): 
+    print(f"PUT album {id}")
+    print("Datos recibidos:", request.data)
+    try:
+        album = Album.objects.get(id=id)
+        print("Album encontrado:", album.titulo)
+    except Album.DoesNotExist:
+        print("Album no encontrado")
+        return Response(status=status.HTTP_404_NOT_FOUND)
+        
+    serializer = AlbumSerializerCrear(album, data=request.data)
+    if serializer.is_valid():
+        try:
+            serializer.save()
+            print("Album actualizado correctamente")
+            return Response("Album ACTUALIZADO")
+        except Exception as error:
+            print("Error al guardar:", str(error))
+            return Response(str(error), status=status.HTTP_400_BAD_REQUEST)
+    print("Errores de validación:", serializer.errors)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PATCH'])
+def album_patch_titulo(request, id): 
+    print(f"PATCH titulo álbum {id}")
+    print("Datos recibidos:", request.data)
+    try:
+        album = Album.objects.get(id=id)
+        print("Album encontrado:", album.titulo)
+    except Album.DoesNotExist:
+        print("Album no encontrado")
+        return Response(status=status.HTTP_404_NOT_FOUND)
+        
+    serializer = AlbumSerializerTitulo(album, data=request.data, partial=True)
+    if serializer.is_valid():
+        try:
+            serializer.save()
+            print("Título actualizado correctamente")
+            return Response("Título del álbum ACTUALIZADO")
+        except Exception as error:
+            print("Error al guardar:", str(error))
+            return Response(str(error), status=status.HTTP_400_BAD_REQUEST)
+    print("Errores de validación:", serializer.errors)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE'])
+def album_delete(request, id):
+    try:
+        album = Album.objects.get(id=id)
+        album.delete()
+        return Response("Album eliminado correctamente")
+    except Album.DoesNotExist:
+        return Response(
+            {"error": "Album no encontrado"}, 
+            status=status.HTTP_404_NOT_FOUND
+        )
+    
+
+@api_view(['GET'])
+def obtener_canciones(request):
+    canciones = Cancion.objects.all()
+    serializer = CancionSerializerMejorado(canciones, many=True)
+    return Response(serializer.data)
+    
+
+@api_view(['POST'])
+def playlist_create(request):
+    print("Datos recibidos:", request.data)
+    serializer = PlaylistSerializerCreate(data=request.data)
+    if serializer.is_valid():
+        try:
+            serializer.save()
+            return Response("Playlist CREADA")
+        except serializers.ValidationError as error:
+            return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            print(repr(error))
+            return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def playlist_detail(request, id):
+    print(f"GET playlist {id}")
+    try:
+        playlist = Playlist.objects.get(id=id)
+        serializer = PlaylistSerializerMejorado(playlist) 
+        return Response(serializer.data)
+    except Playlist.DoesNotExist:
+        return Response(
+            {"error": "Playlist no encontrada"},
+            status=status.HTTP_404_NOT_FOUND
+        )
+
+
+
+@api_view(['PUT'])
+def playlist_update(request, id):
+    try:
+        playlist = Playlist.objects.get(id=id) 
+    except Playlist.DoesNotExist:
+        return Response({"error": "Playlist no encontrada"}, status=status.HTTP_404_NOT_FOUND)
+
+  
+    data = request.data.copy()
+    data.pop("usuario", None)  
+
+    serializer = PlaylistSerializerUpdate(playlist, data=data, partial=True)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"message": "Playlist actualizada correctamente"})
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@api_view(['POST'])
+def detalle_album_create(request, album_id):
+
+    data = request.data.copy()
+    data['album'] = album_id
+
+    serializer = DetalleAlbumSerializerCreate(data=data)
+    if serializer.is_valid():
+        try:
+            serializer.save()
+            return Response("Detalle de álbum CREADO")
+        except serializers.ValidationError as error:
+            return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            print(repr(error))
+            return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['GET'])
+def detalle_album_detail(request, id):
+        detalle = DetalleAlbum.objects.get(album_id=id)
+        print("Detalle encontrado, serializando...")
+        serializer = DetalleAlbumSerializer(detalle)
+        return Response(serializer.data)
+  
+     
+
+@api_view(['PUT'])
+def detalle_album_update(request, id):
+    try:
+        detalle = DetalleAlbum.objects.get(id=id)
+    except DetalleAlbum.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = DetalleAlbumSerializerCreate(detalle, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response("Detalle de álbum ACTUALIZADO")
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+

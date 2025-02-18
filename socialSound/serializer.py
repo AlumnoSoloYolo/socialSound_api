@@ -65,6 +65,11 @@ class UsuarioSerializer(serializers.ModelSerializer):
             'seguidos_count', 'cliente', 'moderador', 'bio'
         ]
 
+class AlbumSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Album
+        fields = ['id', 'titulo']
+
 
 
 class DetallesCancionSerializer(serializers.ModelSerializer):
@@ -138,16 +143,6 @@ class AlbumSerializerMejorado(serializers.ModelSerializer):
     estadisticasalbum = EstadisticasAlbumSerializer(read_only=True)
     fecha_subida = serializers.DateField(format="%d-%m-%Y", read_only=True)
     usuario = UsuarioSerializer(read_only=True)
-    # portada_url = serializers.SerializerMethodField()
-
-
-
-    # def get_portada_url(self, obj):
-    #     if obj.portada:
-    #         request = self.context.get('request')
-    #         if request:
-    #             return request.build_absolute_uri(obj.portada.url)
-    #     return None
     
     class Meta:
         model = Album
@@ -210,7 +205,7 @@ from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 class UsuarioSerializerCreate(serializers.ModelSerializer):
-    foto_perfil = serializers.CharField(required=False, allow_blank=True)  # Cambiado a CharField para recibir el base64
+    foto_perfil = serializers.CharField(required=False, allow_blank=True)  
     
     class Meta:
         model = Usuario
@@ -243,4 +238,207 @@ class UsuarioSerializerCreate(serializers.ModelSerializer):
                 print(f"Error al procesar la foto: {e}")
         
         return usuario
+    
+
+class UsuarioSerializerUpdate(serializers.ModelSerializer):
+    foto_perfil = serializers.CharField(required=False, allow_blank=True)  # Cambiamos a CharField para el base64
+
+    class Meta:
+        model = Usuario
+        fields = ['nombre_usuario', 'email', 'bio', 'foto_perfil']  # Quitamos password
+        
+    def update(self, instance, validated_data):
+        # Actualizamos los campos básicos
+        instance.nombre_usuario = validated_data.get('nombre_usuario', instance.nombre_usuario)
+        instance.email = validated_data.get('email', instance.email)
+        instance.bio = validated_data.get('bio', instance.bio)
+        
+        # Manejamos la foto en base64 si se proporciona
+        foto_base64 = validated_data.get('foto_perfil')
+        if foto_base64:
+            try:
+                formato, imgstr = foto_base64.split(';base64,')
+                ext = formato.split('/')[-1]
+                datos = ContentFile(base64.b64decode(imgstr))
+                file_name = f"fotos_perfil/{instance.nombre_usuario}_profile.{ext}"
+                instance.foto_perfil.save(file_name, datos, save=True)
+            except Exception as e:
+                print(f"Error al procesar la foto: {e}")
+        
+        instance.save()
+        return instance
+    
+
+class UsuarioSerializerActualizarNombre(serializers.ModelSerializer):
+    class Meta:
+        model = Usuario
+        fields = ['nombre_usuario']
+    
+    def validate_nombre_usuario(self, nombre_usuario):
+        usuario = Usuario.objects.filter(nombre_usuario=nombre_usuario).first()
+        if usuario is not None and usuario.id != self.instance.id:
+            raise serializers.ValidationError('Ya existe un usuario con ese nombre')
+        return nombre_usuario
+    
+
+class AlbumSerializerCrear(serializers.ModelSerializer):
+    portada = serializers.CharField(required=False, allow_blank=True)  # Cambiado a CharField para aceptar base64
+    usuario = serializers.PrimaryKeyRelatedField(queryset=Usuario.objects.all())
+
+    class Meta:
+        model = Album
+        fields = ['titulo', 'artista', 'usuario', 'portada', 'descripcion']
+
+    def create(self, validated_data):
+        portada_base64 = validated_data.pop('portada', None)
+        
+        # Crear el álbum sin la portada primero
+        album = Album.objects.create(**validated_data)
+
+        # Si hay portada en base64, procesarla
+        if portada_base64:
+            try:
+                # Separar el header del contenido base64
+                formato, imgstr = portada_base64.split(';base64,')
+                ext = formato.split('/')[-1]
+                
+                # Decodificar el base64
+                datos = ContentFile(base64.b64decode(imgstr))
+                
+                # Guardar la imagen
+                nombre_archivo = f"album_portada_{album.id}.{ext}"
+                album.portada.save(nombre_archivo, datos, save=True)
+            except Exception as e:
+                print(f"Error al procesar la portada: {e}")
+
+        return album
+    
+    def update(self, instance, validated_data):
+        # Actualizar campos básicos
+        instance.titulo = validated_data.get('titulo', instance.titulo)
+        instance.artista = validated_data.get('artista', instance.artista)
+        instance.descripcion = validated_data.get('descripcion', instance.descripcion)
+
+        # Procesar la portada si se proporciona una nueva
+        portada_base64 = validated_data.get('portada')
+        if portada_base64:
+            try:
+                formato, imgstr = portada_base64.split(';base64,')
+                ext = formato.split('/')[-1]
+                datos = ContentFile(base64.b64decode(imgstr))
+                nombre_archivo = f"album_portada_{instance.id}.{ext}"
+                instance.portada.save(nombre_archivo, datos, save=True)
+            except Exception as e:
+                print(f"Error al procesar la portada: {e}")
+
+        instance.save()
+        return instance
+
+
+
+class DetalleAlbumSerializerCreate(serializers.ModelSerializer):
+    class Meta:
+        model = DetalleAlbum
+        fields = ['productor', 'estudio_grabacion', 'numero_pistas', 'sello_discografico', 'album']
+
+    def validate_numero_pistas(self, value):
+        if value <= 0:
+            raise serializers.ValidationError("El número de pistas debe ser mayor que 0")
+        return value
+
+    def validate_productor(self, value):
+        if len(value) < 3:
+            raise serializers.ValidationError("El nombre del productor debe tener al menos 3 caracteres")
+        return value
+
+    def create(self, validated_data):
+        return DetalleAlbum.objects.create(**validated_data)
+
+
+
+class AlbumSerializerTitulo(serializers.ModelSerializer):
+    class Meta:
+        model = Album
+        fields = ['titulo']
+
+    def validate_titulo(self, value):
+        if len(value) < 3:
+            raise serializers.ValidationError("El título debe tener al menos 3 caracteres")
+        return value
+    
+
+class PlaylistSerializerCreate(serializers.ModelSerializer):
+    canciones = serializers.PrimaryKeyRelatedField(
+        many=True,
+        queryset=Cancion.objects.all()
+    )
+
+    class Meta:
+        model = Playlist
+        fields = ['nombre', 'descripcion', 'usuario', 'canciones', 'publica']
+
+    def validate_nombre(self, value):
+        if len(value) < 3:
+            raise serializers.ValidationError("El nombre debe tener al menos 3 caracteres")
+        return value
+
+    def validate_descripcion(self, value):
+        if len(value) < 10:
+            raise serializers.ValidationError("La descripción debe tener al menos 10 caracteres")
+        return value
+
+    def validate_canciones(self, value):
+        if len(value) < 1:
+            raise serializers.ValidationError("Debe seleccionar al menos una canción")
+        return value
+
+    def create(self, validated_data):
+        canciones = validated_data.pop('canciones')
+        playlist = Playlist.objects.create(**validated_data)
+        for cancion in canciones:
+            CancionPlaylist.objects.create(
+                playlist=playlist,
+                cancion=cancion,
+                orden=list(canciones).index(cancion)
+            )
+        return playlist
+    
+class PlaylistSerializerUpdate(serializers.ModelSerializer):
+    canciones = serializers.PrimaryKeyRelatedField(
+        many=True,
+        queryset=Cancion.objects.all()
+    )
+
+    class Meta:
+        model = Playlist
+        fields = ['nombre', 'descripcion', 'canciones', 'publica']
+
+    def validate_nombre(self, value):
+        if len(value) < 3:
+            raise serializers.ValidationError("El nombre debe tener al menos 3 caracteres")
+        return value
+
+    def validate_descripcion(self, value):
+        if len(value) < 10:
+            raise serializers.ValidationError("La descripción debe tener al menos 10 caracteres")
+        return value
+
+    def validate_canciones(self, value):
+        if len(value) < 1:
+            raise serializers.ValidationError("Debe seleccionar al menos una canción")
+        return value
+
+    def update(self, instance, validated_data):
+        instance.nombre = validated_data.get('nombre', instance.nombre)
+        instance.descripcion = validated_data.get('descripcion', instance.descripcion)
+        instance.publica = validated_data.get('publica', instance.publica)
+        
+        # Actualizar canciones
+        canciones = validated_data.get('canciones', None)
+        if canciones is not None:
+            instance.canciones.clear()
+            instance.canciones.add(*canciones)
+
+        instance.save()
+        return instance
 
