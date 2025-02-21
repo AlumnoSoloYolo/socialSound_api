@@ -205,18 +205,16 @@ from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 class UsuarioSerializerCreate(serializers.ModelSerializer):
-    foto_perfil = serializers.CharField(required=False, allow_blank=True)  
+    foto_perfil = serializers.CharField(required=False, allow_blank=True)
     
     class Meta:
         model = Usuario
-        fields = ['nombre_usuario', 'email', 'password', 
-                 'bio', 'foto_perfil']
+        fields = ['nombre_usuario', 'email', 'password', 'bio', 'foto_perfil']
     
     def create(self, validated_data):
-        foto_base64 = validated_data.pop('foto_perfil', None)  # Extraemos la foto en base64
-
-        print("Guardando foto:", foto_base64[:100] if foto_base64 else None)
+        foto_base64 = validated_data.pop('foto_perfil', None)
         
+  
         usuario = Usuario.objects.create_user(
             nombre_usuario=validated_data["nombre_usuario"],
             email=validated_data["email"],
@@ -224,28 +222,31 @@ class UsuarioSerializerCreate(serializers.ModelSerializer):
             bio=validated_data.get("bio", "")
         )
         
+   
         if foto_base64:
             try:
-                # Decodificar la imagen base64
-                formato, imgstr = foto_base64.split(';base64,') if ';base64,' in foto_base64 else ('', foto_base64)
-                ext = formato.split('/')[-1] if formato else 'jpg'
+              
+                formato, imgstr = foto_base64.split(';base64,')
+                ext = formato.split('/')[-1]
+                
+              
                 datos = ContentFile(base64.b64decode(imgstr))
                 
-                # Guardar la imagen
-                file_name = f"{usuario.nombre_usuario}_profile.{ext}"
-                usuario.foto_perfil.save(file_name, datos, save=True)
+               
+                nombre_archivo = f"user_profile_{usuario.id}.{ext}"
+                usuario.foto_perfil.save(nombre_archivo, datos, save=True)
             except Exception as e:
-                print(f"Error al procesar la foto: {e}")
+                print(f"Error procesando foto de perfil: {e}")
         
         return usuario
     
 
 class UsuarioSerializerUpdate(serializers.ModelSerializer):
-    foto_perfil = serializers.CharField(required=False, allow_blank=True)  # Cambiamos a CharField para el base64
+    foto_perfil = serializers.CharField(required=False, allow_blank=True)  
 
     class Meta:
         model = Usuario
-        fields = ['nombre_usuario', 'email', 'bio', 'foto_perfil']  # Quitamos password
+        fields = ['nombre_usuario', 'email', 'bio', 'foto_perfil']  
         
     def update(self, instance, validated_data):
         # Actualizamos los campos básicos
@@ -253,7 +254,7 @@ class UsuarioSerializerUpdate(serializers.ModelSerializer):
         instance.email = validated_data.get('email', instance.email)
         instance.bio = validated_data.get('bio', instance.bio)
         
-        # Manejamos la foto en base64 si se proporciona
+       
         foto_base64 = validated_data.get('foto_perfil')
         if foto_base64:
             try:
@@ -282,7 +283,7 @@ class UsuarioSerializerActualizarNombre(serializers.ModelSerializer):
     
 
 class AlbumSerializerCrear(serializers.ModelSerializer):
-    portada = serializers.CharField(required=False, allow_blank=True)  # Cambiado a CharField para aceptar base64
+    portada = serializers.CharField(required=False, allow_blank=True) 
     usuario = serializers.PrimaryKeyRelatedField(queryset=Usuario.objects.all())
 
     class Meta:
@@ -292,20 +293,19 @@ class AlbumSerializerCrear(serializers.ModelSerializer):
     def create(self, validated_data):
         portada_base64 = validated_data.pop('portada', None)
         
-        # Crear el álbum sin la portada primero
+
         album = Album.objects.create(**validated_data)
 
-        # Si hay portada en base64, procesarla
+      
         if portada_base64:
             try:
-                # Separar el header del contenido base64
                 formato, imgstr = portada_base64.split(';base64,')
                 ext = formato.split('/')[-1]
                 
-                # Decodificar el base64
+             
                 datos = ContentFile(base64.b64decode(imgstr))
                 
-                # Guardar la imagen
+            
                 nombre_archivo = f"album_portada_{album.id}.{ext}"
                 album.portada.save(nombre_archivo, datos, save=True)
             except Exception as e:
@@ -314,12 +314,12 @@ class AlbumSerializerCrear(serializers.ModelSerializer):
         return album
     
     def update(self, instance, validated_data):
-        # Actualizar campos básicos
+     
         instance.titulo = validated_data.get('titulo', instance.titulo)
         instance.artista = validated_data.get('artista', instance.artista)
         instance.descripcion = validated_data.get('descripcion', instance.descripcion)
 
-        # Procesar la portada si se proporciona una nueva
+       
         portada_base64 = validated_data.get('portada')
         if portada_base64:
             try:
