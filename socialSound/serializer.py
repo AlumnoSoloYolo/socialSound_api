@@ -441,4 +441,104 @@ class PlaylistSerializerUpdate(serializers.ModelSerializer):
 
         instance.save()
         return instance
+    
 
+        
+class PlaylistSerializerCanciones(serializers.ModelSerializer):
+    canciones = serializers.PrimaryKeyRelatedField(
+        many=True,
+        queryset=Cancion.objects.all()
+    )
+
+    class Meta:
+        model = Playlist
+        fields = ['canciones']
+
+    def validate_canciones(self, value):
+        if len(value) < 1:
+            raise serializers.ValidationError("Debe seleccionar al menos una canción")
+        return value
+
+    def update(self, instance, validated_data):
+        if 'canciones' in validated_data:
+          
+            # instance.canciones.clear()
+ 
+            canciones = validated_data['canciones']
+            for index, cancion in enumerate(canciones):
+                CancionPlaylist.objects.create(
+                    playlist=instance,
+                    cancion=cancion,
+                    orden=index
+                )
+        return instance
+    
+
+
+class LikeSerializerCreate(serializers.ModelSerializer):
+    class Meta:
+        model = Like
+        fields = ['usuario', 'cancion']
+
+    def validate(self, data):
+     
+        if Like.objects.filter(
+            usuario=data['usuario'],
+            cancion=data['cancion']
+        ).exists():
+            raise serializers.ValidationError(
+                "Este usuario ya dio like a esta canción"
+            )
+        return data
+
+
+
+
+
+
+
+
+
+
+
+
+class CancionPlaylistSerializerMejorado(serializers.ModelSerializer):
+    canciones = serializers.ListField(
+        child=serializers.IntegerField(),
+        write_only=True
+    )
+
+    class Meta:
+        model = CancionPlaylist
+        fields = ['playlist', 'canciones']
+
+    def validate(self, data):
+        playlist = data['playlist']
+        canciones = data['canciones']
+
+        # Validar que no haya duplicados
+        for cancion_id in canciones:
+            if CancionPlaylist.objects.filter(
+                playlist=playlist,
+                cancion_id=cancion_id
+            ).exists():
+                raise serializers.ValidationError(
+                    f"La canción {cancion_id} ya está en la playlist"
+                )
+        return data
+
+    def create(self, validated_data):
+        playlist = validated_data['playlist']
+        canciones = validated_data.pop('canciones')
+        
+        # Crear las relaciones con orden automático
+        cancion_playlists = []
+        for index, cancion_id in enumerate(canciones):
+            cancion_playlist = CancionPlaylist.objects.create(
+                playlist=playlist,
+                cancion_id=cancion_id,
+                orden=index
+            )
+            cancion_playlists.append(cancion_playlist)
+        
+        return cancion_playlists[0] if cancion_playlists else None

@@ -1,5 +1,10 @@
 from django.urls import path
 from .api_views import *
+from rest_framework.routers import DefaultRouter
+from .api_views import UsuarioViewSet
+
+router = DefaultRouter()
+router.register(r'usuarios', UsuarioViewSet, basename='usuario')
 
 urlpatterns = [
     path('playlists/', lista_playlists, name="lista_playlists"),
@@ -32,6 +37,11 @@ urlpatterns = [
     path('canciones/', obtener_canciones, name='lista_canciones'),
     path('playlists/<int:id>/', playlist_detail, name='playlist_detail'),
     path('playlists/<int:id>/editar/', playlist_update, name='playlist_update'),
+    path('playlists/<int:id>/actualizar/canciones/', playlist_patch_canciones),
+    path('playlists/<int:id>/eliminar/', playlist_delete),
+    path('cancion-playlist/crear/', cancion_playlist_create),
+    path('likes/crear/', like_create),
+    path('likes/eliminar/', like_delete),
 
 
 
