@@ -205,16 +205,17 @@ from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 class UsuarioSerializerCreate(serializers.ModelSerializer):
-    foto_perfil = serializers.CharField(required=False, allow_blank=True)
+    foto_perfil = serializers.CharField(required=False, allow_blank=True, default='')
     
     class Meta:
         model = Usuario
         fields = ['nombre_usuario', 'email', 'password', 'bio', 'foto_perfil']
     
     def create(self, validated_data):
-        foto_base64 = validated_data.pop('foto_perfil', None)
+   
+        foto_base64 = validated_data.pop('foto_perfil', '') or ''
         
-  
+       
         usuario = Usuario.objects.create_user(
             nombre_usuario=validated_data["nombre_usuario"],
             email=validated_data["email"],
@@ -222,21 +223,24 @@ class UsuarioSerializerCreate(serializers.ModelSerializer):
             bio=validated_data.get("bio", "")
         )
         
-   
-        if foto_base64:
+    
+        if foto_base64 and foto_base64.strip() and ';base64,' in foto_base64:
             try:
-              
                 formato, imgstr = foto_base64.split(';base64,')
                 ext = formato.split('/')[-1]
-                
-              
                 datos = ContentFile(base64.b64decode(imgstr))
+                nombre_archivo = f"fotos_perfil/user_{usuario.id}.{ext}"
                 
-               
-                nombre_archivo = f"user_profile_{usuario.id}.{ext}"
+         
+                import os
+                directorio = os.path.join('media', 'fotos_perfil')
+                if not os.path.exists(directorio):
+                    os.makedirs(directorio)
+                
                 usuario.foto_perfil.save(nombre_archivo, datos, save=True)
             except Exception as e:
                 print(f"Error procesando foto de perfil: {e}")
+             
         
         return usuario
     
