@@ -546,3 +546,28 @@ class CancionPlaylistSerializerMejorado(serializers.ModelSerializer):
             cancion_playlists.append(cancion_playlist)
         
         return cancion_playlists[0] if cancion_playlists else None
+
+
+class UsuarioSerializerRegistro(serializers.Serializer):
+    username = serializers.CharField()
+    password1 = serializers.CharField()
+    password2 = serializers.CharField()
+    email = serializers.EmailField()
+    rol = serializers.IntegerField()
+    
+    def validate_username(self, username):
+        usuario = Usuario.objects.filter(nombre_usuario=username).first()
+        if usuario is not None:
+            raise serializers.ValidationError('Ya existe un usuario con ese nombre')
+        return username
+    
+    def validate_email(self, email):
+        usuario = Usuario.objects.filter(email=email).first()
+        if usuario is not None:
+            raise serializers.ValidationError('Ya existe un usuario con ese email')
+        return email
+
+class UsuarioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usuario
+        fields = ['id', 'nombre_usuario', 'email', 'rol']

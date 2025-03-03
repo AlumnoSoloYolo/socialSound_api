@@ -42,12 +42,11 @@ urlpatterns = [
     path('cancion-playlist/crear/', cancion_playlist_create),
     path('likes/crear/', like_create),
     path('likes/eliminar/', like_delete),
-
-
-
-
     path('albumes/detalles/<int:id>/', detalle_album_detail),  
     path('albumes/detalles/<int:id>/editar/', detalle_album_update),
+
+    path('registrar/usuario/', registrar_usuario.as_view()),
+    path('usuario/token/<str:token>', obtener_usuario_token),
 
 
 

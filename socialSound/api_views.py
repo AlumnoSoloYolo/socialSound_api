@@ -4,11 +4,13 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import status
+from rest_framework import status, generics
 from .forms import *
 from django.db.models import Count, Prefetch
 from .forms import BusquedaUsuarioForm
 from django.core.exceptions import ObjectDoesNotExist
+from rest_framework.permissions import AllowAny
+from django.contrib.auth.models import Group
 
 
 @api_view(['GET'])
@@ -872,3 +874,63 @@ class UsuarioViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
         return Response({'mensaje': 'Email disponible'})
+    
+class registrar_usuario(generics.CreateAPIView):
+    serializer_class = UsuarioSerializerRegistro
+    permission_classes = [AllowAny]
+    
+    def create(self, request, *args, **kwargs):
+        serializer = UsuarioSerializerRegistro(data=request.data)
+        if serializer.is_valid():
+            try:
+                rol = request.data.get("rol")
+                
+                # Crear el usuario
+                user = Usuario.objects.create_user(
+                    nombre_usuario=serializer.data.get("username"),
+                    email=serializer.data.get("email"),
+                    password=serializer.data.get("password1"),
+                    rol=rol,
+                )
+                
+                # Asignar rol y crear perfil correspondiente
+                if int(rol) == Usuario.CLIENTE:
+                    grupo = Group.objects.get_or_create(name='Clientes')[0]
+                    grupo.user_set.add(user)
+                    cliente = Cliente.objects.create(usuario=user)
+                    cliente.save()
+                    
+                elif int(rol) == Usuario.MODERADOR:
+                    grupo = Group.objects.get_or_create(name='Moderadores')[0]
+                    grupo.user_set.add(user)
+                    moderador = Moderador.objects.create(usuario=user)
+                    moderador.save()
+                
+                # Serializar usuario para la respuesta
+                usuario_serializado = UsuarioSerializer(user)
+                return Response(usuario_serializado.data)
+                
+            except Exception as error:
+                return Response({"error": str(error)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+from oauth2_provider.models import AccessToken     
+
+@api_view(['GET'])
+def obtener_usuario_token(request, token):
+    try:
+       
+        modelo_token = AccessToken.objects.get(token=token)
+        
+        
+        usuario = Usuario.objects.get(id=modelo_token.user.id)
+        
+        serializer = UsuarioSerializer(usuario)
+        return Response(serializer.data)
+    except AccessToken.DoesNotExist:
+        return Response({"error": "Token no válido"}, status=400)
+    except Usuario.DoesNotExist:
+        return Response({"error": "Usuario no encontrado"}, status=404)
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)
