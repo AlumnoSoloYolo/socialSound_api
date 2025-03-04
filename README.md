@@ -829,5 +829,105 @@ Consideraciones:
      
      
 
+# API SocialSound - Documentación de Permisos
 
+## Introducción
 
+Esta API proporciona endpoints para la gestión de usuarios, álbumes, canciones y playlists en la aplicación SocialSound. Todos los endpoints requieren autenticación mediante token OAuth2 y verifican que el usuario tenga los permisos adecuados para realizar cada operación.
+
+## Roles de Usuario
+
+La aplicación cuenta con dos roles principales:
+
+### Cliente
+- Puede crear, editar y eliminar sus propios recursos (álbumes, canciones, playlists)
+- Puede ver todos los recursos públicos
+- Puede dar like/unlike a canciones
+- Puede agregar/eliminar canciones a/de sus playlists
+- No puede editar o eliminar recursos de otros usuarios
+
+### Moderador
+- Puede hacer todo lo que puede hacer un Cliente
+- Puede ver, editar y eliminar recursos de cualquier usuario
+- Puede gestionar usuarios (editar, eliminar)
+- Puede gestionar comentarios de cualquier usuario
+
+## Endpoints y Permisos Requeridos
+
+### Álbumes
+
+- **GET /api/v1/albumes/**: Requiere permiso `Socialsound.view_album` (Clientes, Moderadores)
+- **GET /api/v1/albumes/<id>/**: Requiere permiso `Socialsound.view_album` (Clientes, Moderadores)
+- **POST /api/v1/albumes/crear/**: Requiere permiso `Socialsound.add_album` (Clientes, Moderadores)
+- **PUT /api/v1/albumes/<id>/editar/**: Requiere permiso `Socialsound.change_album` (Propietario, Moderadores)
+- **DELETE /api/v1/albumes/<id>/eliminar/**: Requiere permiso `Socialsound.delete_album` (Propietario, Moderadores)
+- **PATCH /api/v1/albumes/actualizar/titulo/<id>/**: Requiere permiso `Socialsound.change_album` (Propietario, Moderadores)
+- **GET /api/v1/albumes/detalles/<id>/**: Requiere permiso `Socialsound.view_album` (Clientes, Moderadores)
+- **POST /api/v1/albumes/<id>/detalles/**: Requiere permiso `Socialsound.add_album` (Propietario, Moderadores)
+- **PUT /api/v1/albumes/detalles/<id>/editar/**: Requiere permiso `Socialsound.change_album` (Propietario, Moderadores)
+
+### Canciones
+
+- **GET /api/v1/canciones/**: Requiere permiso `Socialsound.view_cancion` (Clientes, Moderadores)
+- **GET /api/v1/canciones/lista_canciones_completa/**: Requiere permiso `Socialsound.view_cancion` (Clientes, Moderadores)
+- **GET /api/v1/canciones/generos/**: Requiere permiso `Socialsound.view_cancion` (Clientes, Moderadores)
+- **GET /api/v1/canciones/busqueda_avanzada/**: Requiere permiso `Socialsound.view_cancion` (Clientes, Moderadores)
+- **POST /api/v1/canciones/crear/**: Requiere permiso `Socialsound.add_cancion` (Clientes, Moderadores)
+- **PUT /api/v1/canciones/<id>/editar/**: Requiere permiso `Socialsound.change_cancion` (Propietario, Moderadores)
+- **DELETE /api/v1/canciones/<id>/eliminar/**: Requiere permiso `Socialsound.delete_cancion` (Propietario, Moderadores)
+
+### Playlists
+
+- **GET /api/v1/playlists/**: Requiere permiso `Socialsound.view_playlist` (Clientes pueden ver propias y públicas, Moderadores pueden ver todas)
+- **GET /api/v1/playlists/<id>/**: Requiere permiso `Socialsound.view_playlist` (Propietario si es privada, Todos si es pública, Moderadores siempre)
+- **GET /api/v1/playlists/busqueda_avanzada/**: Requiere permiso `Socialsound.view_playlist` (Clientes, Moderadores)
+- **POST /api/v1/playlists/crear/**: Requiere permiso `Socialsound.add_playlist` (Clientes, Moderadores)
+- **PUT /api/v1/playlists/<id>/editar/**: Requiere permiso `Socialsound.change_playlist` (Propietario, Moderadores)
+- **PATCH /api/v1/playlists/<id>/actualizar/canciones/**: Requiere permiso `Socialsound.change_playlist` (Propietario, Moderadores)
+- **DELETE /api/v1/playlists/<id>/eliminar/**: Requiere permiso `Socialsound.delete_playlist` (Propietario, Moderadores)
+- **POST /api/v1/cancion-playlist/crear/**: Requiere permiso `Socialsound.add_cancion_playlist` (Clientes, Moderadores)
+
+### Usuarios
+
+- **GET /api/v1/usuarios/**: Requiere permiso `Socialsound.view_usuario` (Clientes, Moderadores)
+- **GET /api/v1/usuarios/<id>/**: Requiere permiso `Socialsound.view_usuario` (Clientes, Moderadores)
+- **POST /api/v1/usuarios/crear**: Ninguno (registro público)
+- **PUT /api/v1/usuarios/<id>/actualizar**: Requiere permiso `Socialsound.change_usuario` (Propietario, Moderadores)
+- **DELETE /api/v1/usuarios/eliminar/<id>**: Requiere permiso `Socialsound.delete_usuario` (Propietario, Moderadores)
+- **GET /api/v1/usuarios/busqueda_simple**: Requiere permiso `Socialsound.view_usuario` (Clientes, Moderadores)
+- **GET /api/v1/usuarios/busqueda_avanzada/**: Requiere permiso `Socialsound.view_usuario` (Clientes, Moderadores)
+
+### Likes
+
+- **POST /api/v1/likes/crear/**: Requiere permiso `Socialsound.add_like` (Clientes)
+- **DELETE /api/v1/likes/eliminar/**: Requiere permiso `Socialsound.delete_like` (Propietario, Moderadores)
+- **GET /api/v1/likes/validar/<usuario_id>/<cancion_id>**: Requiere permiso `Socialsound.view_like` (Clientes, Moderadores)
+
+### Comentarios
+
+- **GET /api/v1/comentarios/album/<album_id>/**: Requiere permiso `Socialsound.view_comentario` (Clientes, Moderadores)
+- **POST /api/v1/comentarios/crear/**: Requiere permiso `Socialsound.add_comentario` (Clientes, Moderadores)
+- **PUT /api/v1/comentarios/<id>/editar/**: Requiere permiso `Socialsound.change_comentario` (Propietario, Moderadores)
+- **DELETE /api/v1/comentarios/<id>/eliminar/**: Requiere permiso `Socialsound.delete_comentario` (Propietario, Moderadores)
+
+## Reglas de Acceso Adicionales
+
+1. **Propietario**: Un usuario puede editar y eliminar solo los recursos que ha creado, a menos que tenga permisos de moderador.
+
+2. **Playlists Privadas**: Solo el propietario y los moderadores pueden ver las playlists marcadas como privadas.
+
+3. **Permisos Especiales para Moderadores**:
+   - `Socialsound.view_any_playlist`: Permite a los moderadores ver todas las playlists, incluso las privadas
+   - `Socialsound.change_any_album`: Permite a los moderadores editar cualquier álbum
+   - `Socialsound.delete_any_album`: Permite a los moderadores eliminar cualquier álbum
+
+## Manejo de Errores de Permisos
+
+Cuando un usuario intenta acceder a un recurso para el que no tiene permiso, la API devuelve:
+- Código de estado: 403 (Forbidden) (por consola)
+- Respuesta JSON con un mensaje de error explicativo
+  ```json
+  { "error": "No tienes permiso para realizar esta acción" }
+  
+  ```
+- en el template redirecciona a error 500

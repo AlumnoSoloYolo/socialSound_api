@@ -48,6 +48,12 @@ urlpatterns = [
     path('registrar/usuario/', registrar_usuario.as_view()),
     path('usuario/token/<str:token>', obtener_usuario_token),
 
+    path('likes/like/', like_cancion, name='api_like_cancion'),
+    path('likes/unlike/', unlike_cancion, name='api_unlike_cancion'),
+
+    path('usuarios/seguir/', seguir_usuario_api, name='api_seguir_usuario'),
+    path('usuarios/dejar-seguir/', dejar_seguir_usuario_api, name='api_dejar_seguir_usuario'),
+
 
 
 ]

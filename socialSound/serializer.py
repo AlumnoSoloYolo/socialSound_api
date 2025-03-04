@@ -496,13 +496,20 @@ class LikeSerializerCreate(serializers.ModelSerializer):
         return data
 
 
-
-
-
-
-
-
-
+class LikeSessionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Like
+        fields = ['cancion']
+        
+    def validate(self, data):
+        usuario = self.context['request'].user
+        cancion = data['cancion']
+        
+        # Verificar si ya existe el like
+        if Like.objects.filter(usuario=usuario, cancion=cancion).exists():
+            raise serializers.ValidationError("Ya has dado like a esta canción")
+        
+        return data
 
 
 
@@ -567,7 +574,13 @@ class UsuarioSerializerRegistro(serializers.Serializer):
             raise serializers.ValidationError('Ya existe un usuario con ese email')
         return email
 
-class UsuarioSerializer(serializers.ModelSerializer):
+# class UsuarioSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Usuario
+#         fields = ['id', 'nombre_usuario', 'email', 'rol']
+
+
+class SeguidorSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Usuario
-        fields = ['id', 'nombre_usuario', 'email', 'rol']
+        model = Seguidores
+        fields = ['seguido']
