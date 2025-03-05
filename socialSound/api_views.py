@@ -1561,3 +1561,13 @@ def dejar_seguir_usuario_api(request):
         )
     except Exception as e:
         return manejar_error_api(e, "dejar_seguir_usuario")
+    
+
+## prueba de CORS
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def prueba_cors(request):
+    return Response({
+        "message": "CORS configurado correctamente",
+        "status": "success"
+    })
