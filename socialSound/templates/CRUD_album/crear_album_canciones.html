@@ -2,163 +2,292 @@
 {% load album_tags %}
 {% load static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/fondo_estrella.css' %}">
+<style>
+.container-star {
+    margin-top: -48px;
+    padding: 35px;
+}
+
+
+
+/* Estilos neón y retro */
+.screen-container {
+    position: relative;
+    border-radius: 15px;
+    padding: 3px;
+    background: linear-gradient(45deg, rgba(0,0,0,0.5), rgba(255,255,255,0.1));
+    margin-bottom: 2rem;
+}
+
+.screen-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 15px;
+    padding: 2px;
+    background: linear-gradient(45deg, #0ff, #f0f, #ff0);
+    -webkit-mask: linear-gradient(white 0 0) content-box, linear-gradient(white 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.chat-window {
+    background: rgba(10, 10, 10, 0.2);
+    border-radius: 15px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    overflow: hidden;
+    position: relative;
+}
+
+.chat-window::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.1) 0px,
+        rgba(0, 0, 0, 0.1) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+.form-label {
+    color: white;
+    margin-top: 10px;
+}
+
+.form-control, .form-select {
+    background-color: rgba(30, 30, 30, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    border-radius: 8px;
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: rgba(40, 40, 40, 0.7);
+    border-color: rgba(255, 193, 7, 0.5);
+    box-shadow: 0 0 8px rgba(255, 193, 7, 0.2);
+    color: white;
+}
+
+.retro-btn {
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.retro-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
+}
+
+.btn-warning.retro-btn {
+    background: #ffc107;
+    color: #000;
+}
+
+.song-form {
+    background: rgba(30, 30, 30, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+}
+
+.song-form h5, .card-header h4, h3, h4 {
+    color: #ffc107;
+}
+
+.section-title {
+    color: #ffc107;
+    border-bottom: 1px solid rgba(255, 193, 7, 0.3);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+label{
+    color: white;
+}
+</style>
+{% endblock %}
+
 {% block contenido %}
-<div class="container my-4">
-    
-    
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card shadow">
-                <div class="card-header bg-dark text-white">
-                    <h3 class="mb-0">{{ title }}</h3>
-                </div>
-                
-                <div class="card-body">
-                    <form method="POST" enctype="multipart/form-data" id="albumForm">
-                        {% csrf_token %}
+<div class="container-star">
+    <div class="stars"></div>
+    <div class="container my-4">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="screen-container">
+                    <div class="chat-window">
+                        <div class="card-header p-4">
+                            <h3 class="mb-0 text-warning">{{ title }}</h3>
+                        </div>
                         
-                        <!-- Album Information -->
-                        <div class="mb-4">
-                            <h4 class="border-bottom pb-2">Información del Álbum</h4>
-                            {% if album_form.errors %}
-                                <div class="alert alert-danger">
-                                    {{ album_form.errors }}
-                                </div>
-                            {% endif %}
-                            <div class="row">
-                                <div class="col-md-6">
-                                    {{ album_form.titulo.label_tag }}
-                                    {{ album_form.titulo }}
-                                    {{ album_form.artista.label_tag }}
-                                    {{ album_form.artista }}
-                                </div>
-                                <div class="col-md-6">
-                                    {{ album_form.portada.label_tag }}
-                                    {{ album_form.portada }}
-                                    {{ album_form.descripcion.label_tag }}
-                                    {{ album_form.descripcion }}
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Album Details -->
-                        <div class="mb-4">
-                            <h4 class="border-bottom pb-2">Detalles del Álbum</h4>
-                            {% if detalle_album_form.errors %}
-                                <div class="alert alert-danger">
-                                    {{ detalle_album_form.errors }}
-                                </div>
-                            {% endif %}
-                            <div class="row">
-                                <div class="col-md-6">
-                                    {{ detalle_album_form.productor.label_tag }}
-                                    {{ detalle_album_form.productor }}
-                                    {{ detalle_album_form.estudio_grabacion.label_tag }}
-                                    {{ detalle_album_form.estudio_grabacion }}
-                                </div>
-                                <div class="col-md-6">
-                                    {{ detalle_album_form.numero_pistas.label_tag }}
-                                    {{ detalle_album_form.sello_discografico.label_tag }}
-                                    {{ detalle_album_form.sello_discografico }}
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Songs Section -->
-                        <div class="card mb-4">
-                            <div class="card-header bg-light d-flex justify-content-between align-items-center">
-                                <h4 class="mb-0">Canciones</h4>
-                                <button type="button" class="btn btn-primary btn-sm" id="addSong">
-                                    <i class="fas fa-plus"></i> Añadir Canción
-                                </button>
-                            </div>
-                            
-                            <div class="card-body" id="songsContainer">
-                                {{ cancion_formset.management_form }}
-                                {{ detalles_cancion_formset.management_form }}
-
-                                {% if cancion_formset.non_form_errors %}
-                                    <div class="alert alert-danger">
-                                        {{ cancion_formset.non_form_errors }}
+                        <div class="card-body p-4">
+                            <form method="POST" enctype="multipart/form-data" id="albumForm">
+                                {% csrf_token %}
+                                
+                                <!-- Album Information -->
+                                <div class="mb-4">
+                                    <h4 class="section-title">Información del Álbum</h4>
+                                    {% if album_form.errors %}
+                                        <div class="alert alert-danger">
+                                            {{ album_form.errors }}
+                                        </div>
+                                    {% endif %}
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            {{ album_form.titulo.label_tag }}
+                                            {{ album_form.titulo }}
+                                            {{ album_form.artista.label_tag }}
+                                            {{ album_form.artista }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ album_form.portada.label_tag }}
+                                            {{ album_form.portada }}
+                                            {{ album_form.descripcion.label_tag }}
+                                            {{ album_form.descripcion }}
+                                        </div>
                                     </div>
-                                {% endif %}
+                                </div>
 
-                                <div id="songForms">
-                                    {% for cancion_form in cancion_formset.forms %}
-                                    <div class="song-form border rounded p-3 mb-3">
-                                        {% if cancion_form.errors %}
-                                            <div class="alert alert-danger">
-                                                {{ cancion_form.errors }}
-                                            </div>
-                                        {% endif %}
-                                        <div class="d-flex justify-content-between align-items-center mb-3">
-                                            <h5>Canción {{ forloop.counter }}</h5>
-                                            {% if not forloop.first %}
-                                            <button type="button" class="btn btn-danger btn-sm remove-song">
-                                                <i class="fas fa-trash"></i> Eliminar
+                                <!-- Album Details -->
+                                <div class="mb-4">
+                                    <h4 class="section-title">Detalles del Álbum</h4>
+                                    {% if detalle_album_form.errors %}
+                                        <div class="alert alert-danger">
+                                            {{ detalle_album_form.errors }}
+                                        </div>
+                                    {% endif %}
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            {{ detalle_album_form.productor.label_tag }}
+                                            {{ detalle_album_form.productor }}
+                                            {{ detalle_album_form.estudio_grabacion.label_tag }}
+                                            {{ detalle_album_form.estudio_grabacion }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ detalle_album_form.numero_pistas.label_tag }}
+                                            {{ detalle_album_form.numero_pistas }}
+                                            {{ detalle_album_form.sello_discografico.label_tag }}
+                                            {{ detalle_album_form.sello_discografico }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Songs Section -->
+                                <div class="screen-container mb-4">
+                                    <div class="chat-window">
+                                        <div class="card-header bg-transparent d-flex justify-content-between align-items-center p-3">
+                                            <h4 class="mb-0 text-warning">Canciones</h4>
+                                            <button type="button" class="btn btn-warning retro-btn btn-sm" id="addSong">
+                                                <i class="fas fa-plus"></i> Añadir Canción
                                             </button>
+                                        </div>
+                                        
+                                        <div class="card-body p-4" id="songsContainer">
+                                            {{ cancion_formset.management_form }}
+                                            {{ detalles_cancion_formset.management_form }}
+
+                                            {% if cancion_formset.non_form_errors %}
+                                                <div class="alert alert-danger">
+                                                    {{ cancion_formset.non_form_errors }}
+                                                </div>
                                             {% endif %}
-                                        </div>
 
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="mb-3">
-                                                    {{ cancion_form.titulo.label_tag }}
-                                                    {{ cancion_form.titulo }}
-                                                </div>
-                                                <div class="mb-3">
-                                                    {{ cancion_form.artista.label_tag }}
-                                                    {{ cancion_form.artista }}
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="mb-3">
-                                                    {{ cancion_form.archivo_audio.label_tag }}
-                                                    {{ cancion_form.archivo_audio }}
-                                                </div>
-                                                <div class="mb-3">
-                                                    {{ cancion_form.etiqueta.label_tag }}
-                                                    {{ cancion_form.etiqueta }}
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Song Details -->
-                                        <div class="mt-3">
-                                            <h6 class="border-bottom pb-2">Detalles de la Canción</h6>
-                                            {% with detalles_form=detalles_cancion_formset.forms|get_item:forloop.counter0 %}
-                                                {% if detalles_form.errors %}
-                                                    <div class="alert alert-danger">
-                                                        {{ detalles_form.errors }}
+                                            <div id="songForms">
+                                                {% for cancion_form in cancion_formset.forms %}
+                                                <div class="song-form p-3 mb-3">
+                                                    {% if cancion_form.errors %}
+                                                        <div class="alert alert-danger">
+                                                            {{ cancion_form.errors }}
+                                                        </div>
+                                                    {% endif %}
+                                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                                        <h5 class="text-warning">Canción {{ forloop.counter }}</h5>
+                                                        {% if not forloop.first %}
+                                                        <button type="button" class="btn btn-danger btn-sm remove-song retro-btn">
+                                                            <i class="fas fa-trash"></i> Eliminar
+                                                        </button>
+                                                        {% endif %}
                                                     </div>
-                                                {% endif %}
-                                                <div class="mb-3">
-                                                    {{ detalles_form.letra.label_tag }}
-                                                    {{ detalles_form.letra }}
+
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="mb-3">
+                                                                {{ cancion_form.titulo.label_tag }}
+                                                                {{ cancion_form.titulo }}
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                {{ cancion_form.artista.label_tag }}
+                                                                {{ cancion_form.artista }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="mb-3">
+                                                                {{ cancion_form.archivo_audio.label_tag }}
+                                                                {{ cancion_form.archivo_audio }}
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                {{ cancion_form.etiqueta.label_tag }}
+                                                                {{ cancion_form.etiqueta }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Song Details -->
+                                                    <div class="mt-3">
+                                                        <h6 class="text-light border-bottom pb-2">Detalles de la Canción</h6>
+                                                        {% with detalles_form=detalles_cancion_formset.forms|get_item:forloop.counter0 %}
+                                                            {% if detalles_form.errors %}
+                                                                <div class="alert alert-danger">
+                                                                    {{ detalles_form.errors }}
+                                                                </div>
+                                                            {% endif %}
+                                                            <div class="mb-3">
+                                                                {{ detalles_form.letra.label_tag }}
+                                                                {{ detalles_form.letra }}
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                {{ detalles_form.creditos.label_tag }}
+                                                                {{ detalles_form.creditos }}
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                {{ detalles_form.idioma.label_tag }}
+                                                                {{ detalles_form.idioma }}
+                                                            </div>
+                                                        {% endwith %}
+                                                    </div>
                                                 </div>
-                                                <div class="mb-3">
-                                                    {{ detalles_form.creditos.label_tag }}
-                                                    {{ detalles_form.creditos }}
-                                                </div>
-                                                <div class="mb-3">
-                                                    {{ detalles_form.idioma.label_tag }}
-                                                    {{ detalles_form.idioma }}
-                                                </div>
-                                            {% endwith %}
+                                                {% endfor %}
+                                            </div>
                                         </div>
                                     </div>
-                                    {% endfor %}
                                 </div>
-                            </div>
-                        </div>
 
-                        <!-- Submit Button -->
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary btn-lg">
-                                <i class="fas fa-save"></i> Crear Álbum
-                            </button>
+                                <!-- Submit Button -->
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-warning retro-btn btn-lg">
+                                        <i class="fas fa-save"></i> Crear Álbum
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -187,7 +316,7 @@ document.getElementById('addSong').addEventListener('click', function() {
     const headerDiv = template.querySelector('.d-flex');
     if (!headerDiv.querySelector('.remove-song')) {
         headerDiv.innerHTML += `
-            <button type="button" class="btn btn-danger btn-sm remove-song">
+            <button type="button" class="btn btn-danger btn-sm remove-song retro-btn">
                 <i class="fas fa-trash"></i> Eliminar
             </button>
         `;

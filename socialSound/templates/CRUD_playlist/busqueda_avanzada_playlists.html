@@ -55,15 +55,18 @@
             </div>
         {% endif %}
 
-        <div class="row">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
             {% for playlist in playlists %}
-            {% include 'playlist/playlist.html' %} 
+                <div class="col">
+                    {% include 'playlist/playlist.html' %} 
+                </div>
             {% empty %}
                 <div class="col-12">
                     <p class="text-center text-white">No se encontraron playlists con los criterios especificados.</p>
                 </div>
             {% endfor %}
         </div>
+        
     </div>
 </div>
 </div>

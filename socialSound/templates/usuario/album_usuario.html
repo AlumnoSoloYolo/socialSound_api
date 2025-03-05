@@ -1,96 +1,91 @@
 {% load static %}
 
-<div class="container">
-    <div class="row">
-        {% for album in albums %}
-        <div class="col-12 mb-4">
-            <div class="screen-container">
-                <div class="chat-window">
-                    <div class="album-content">
-                        <div class="row g-0 flex-column flex-lg-row align-items-center">
-                            <!-- Imagen del álbum -->
-                            <div class="col-lg-3">
-                                <div class="album-image-container">
-                                    {% if album.portada %}
-                                        <img src="{{ album.portada.url }}" 
-                                             class="album-image"
-                                             alt="Portada de {{ album.titulo }}">
-                                    {% else %}
-                                        <img src="{% static 'cancion_portadas/image.png' %}" 
-                                             class="album-image"
-                                             alt="Portada por defecto">
+<div class="col-12 mb-4">
+    <div class="screen-container">
+        <div class="chat-window">
+            <div class="album-content">
+                <div class="row g-0 flex-column flex-lg-row align-items-center">
+                    <!-- Imagen del álbum -->
+                    <div class="col-lg-3">
+                        <div class="album-image-container">
+                            {% if album.portada %}
+                                <img src="{{ album.portada.url }}" 
+                                     class="album-image"
+                                     alt="Portada de {{ album.titulo }}">
+                            {% else %}
+                                <img src="{% static 'cancion_portadas/image.png' %}" 
+                                     class="album-image"
+                                     alt="Portada por defecto">
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <!-- Contenido del álbum -->
+                    <div class="col-lg-9">
+                        <div class="card-body p-4">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h5 class="text-warning fw-bold mb-3">{{ album.titulo }}</h5>
+                                    <p class="text-white mb-2"><strong>Artista:</strong> {{ album.artista|upper }}</p>
+                                    {% if album.descripcion %}
+                                        <p class="text-white-50 small mb-3">{{ album.descripcion|truncatechars:200 }}</p>
                                     {% endif %}
+                                    <p class="text-white-50 small mb-3">
+                                        <i class="bi bi-calendar"></i> {{ album.fecha_subida|date:"d/m/Y"}}
+                                    </p>
                                 </div>
-                            </div>
-                            
-                            <!-- Contenido del álbum -->
-                            <div class="col-lg-9">
-                                <div class="card-body p-4">
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <h5 class="text-warning fw-bold mb-3">{{ album.titulo }}</h5>
-                                            <p class="text-white mb-2"><strong>Artista:</strong> {{ album.artista|upper }}</p>
-                                            {% if album.descripcion %}
-                                                <p class="text-white-50 small mb-3">{{ album.descripcion|truncatechars:200 }}</p>
-                                            {% endif %}
-                                            <p class="text-white-50 small mb-3">
-                                                <i class="bi bi-calendar"></i> {{ album.fecha_subida|date:"d/m/Y"}}
-                                            </p>
+                                <div class="col-md-4">
+                                    <div class="d-grid gap-2">
+                                        <a href="{% url 'detalle_album' album.id %}" class="btn btn-warning retro-btn w-100">
+                                            <i class="bi bi-info-circle me-1"></i> Ver detalles
+                                        </a>
+                                        <div class="d-grid w-100">
+                                            <a href="{% url 'canciones_album' album.id %}" class="btn btn-outline-light retro-btn w-100">
+                                                <i class="bi bi-music-note-list me-1"></i> Canciones
+                                            </a>
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="d-grid gap-2">
-                                                <a href="{% url 'detalle_album' album.id %}" class="btn btn-warning retro-btn w-100">
-                                                    <i class="bi bi-info-circle me-1"></i> Ver detalles
-                                                </a>
-                                                <div class="d-grid w-100">
-                                                    <a href="{% url 'canciones_album' album.id %}" class="btn btn-outline-light retro-btn w-100">
-                                                        <i class="bi bi-music-note-list me-1"></i> Canciones
-                                                    </a>
+                                        <div class="d-grid w-100">
+                                            <a href="{% url 'comentarios_album' album.id %}" class="btn btn-outline-light retro-btn w-100">
+                                                <i class="bi bi-chat me-1"></i> Comentarios
+                                            </a>
+                                        </div>
+                                        
+                                        {% if request.user.is_authenticated and request.user == usuario or request.user.is_authenticated and request.user.rol == 2 %}
+                                            <div class="d-grid w-100">
+                                                <div class="dropdown w-100">
+                                                    <button class="btn btn-outline-light dropdown-toggle retro-btn w-100" 
+                                                            type="button" 
+                                                            data-bs-toggle="dropdown">
+                                                        <i class="fa-solid fa-gear me-1"></i> Opciones
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-dark w-100">
+                                                        <li>
+                                                            <a class="dropdown-item" href="{% url 'editar_album' request.user.nombre_usuario album.id %}">
+                                                                <i class="fa-solid fa-wrench me-2"></i> Editar Álbum
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" href="{% url 'agregar_cancion_album' album_id=album.id %}">
+                                                                <i class="fas fa-plus me-2"></i> Añadir canción
+                                                            </a>
+                                                        </li>
+                                                        <li><hr class="dropdown-divider"></li>
+                                                        <li>
+                                                            <form id="deleteForm-{{ album.id }}" 
+                                                                  action="{% url 'eliminar_album' album.id %}" 
+                                                                  method="post">
+                                                                {% csrf_token %}
+                                                                <button type="submit" 
+                                                                        class="dropdown-item text-danger"
+                                                                        onclick="return confirm('¿Estás seguro que deseas eliminar este álbum?');">
+                                                                    <i class="fa-solid fa-trash me-2"></i> Eliminar
+                                                                </button>
+                                                            </form>
+                                                        </li>
+                                                    </ul>
                                                 </div>
-                                                <div class="d-grid w-100">
-                                                    <a href="{% url 'comentarios_album' album.id %}" class="btn btn-outline-light retro-btn w-100">
-                                                        <i class="bi bi-chat me-1"></i> Comentarios
-                                                    </a>
-                                                </div>
-                                                
-                                                {% if request.user.is_authenticated and request.user == usuario or request.user.is_authenticated and request.user.rol == 2 %}
-                                                    <div class="d-grid w-100">
-                                                        <div class="dropdown w-100">
-                                                            <button class="btn btn-outline-light dropdown-toggle retro-btn w-100" 
-                                                                    type="button" 
-                                                                    data-bs-toggle="dropdown">
-                                                                <i class="fa-solid fa-gear me-1"></i> Opciones
-                                                            </button>
-                                                            <ul class="dropdown-menu dropdown-menu-dark w-100">
-                                                                <li>
-                                                                    <a class="dropdown-item" href="{% url 'editar_album' request.user.nombre_usuario album.id %}">
-                                                                        <i class="fa-solid fa-wrench me-2"></i> Editar Álbum
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="{% url 'agregar_cancion_album' album_id=album.id %}">
-                                                                        <i class="fas fa-plus me-2"></i> Añadir canción
-                                                                    </a>
-                                                                </li>
-                                                                <li><hr class="dropdown-divider"></li>
-                                                                <li>
-                                                                    <form id="deleteForm-{{ album.id }}" 
-                                                                          action="{% url 'eliminar_album' album.id %}" 
-                                                                          method="post">
-                                                                        {% csrf_token %}
-                                                                        <button type="submit" 
-                                                                                class="dropdown-item text-danger"
-                                                                                onclick="return confirm('¿Estás seguro que deseas eliminar este álbum?');">
-                                                                            <i class="fa-solid fa-trash me-2"></i> Eliminar
-                                                                        </button>
-                                                                    </form>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                {% endif %}
                                             </div>
-                                        </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -99,7 +94,6 @@
                 </div>
             </div>
         </div>
-        {% endfor %}
     </div>
 </div>
 
@@ -234,8 +228,6 @@
 .dropdown-divider {
     border-color: rgba(255, 255, 255, 0.1);
 }
-
-
 
 .album-content {
     position: relative;
